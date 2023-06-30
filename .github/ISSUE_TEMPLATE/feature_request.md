@@ -1,17 +1,12 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: 開発
+about: 新規機能の開発
 title: ''
 labels: ''
 assignees: ''
 
 ---
-
-**Issue**
-
-- resolve 
-
-**目的**
+**タスクの目的**
 
 **工数**
 
