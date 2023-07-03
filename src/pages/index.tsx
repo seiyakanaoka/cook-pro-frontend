@@ -1,18 +1,8 @@
 import type { NextPage } from 'next';
+import React from 'react';
 
 const Home: NextPage = () => {
-  const test = [1, 2, 3, 4, 5];
-
-  return (
-    <div>
-      home
-      <div>
-        {test.map((aaa) => (
-          <div>{aaa}</div>
-        ))}
-      </div>
-    </div>
-  );
+  return <div>home</div>;
 };
 
 export default Home;
