@@ -1,13 +1,11 @@
 ---
 name: feature
 about: 新規に機能開発をする
-title: ''
-labels: ''
+title: '[FEAT]'
+labels: 'enhancement'
 assignees: ''
-
 ---
 
-**タスクの目的**
+## タスク内容
 
-
-**工数**
+## 工数

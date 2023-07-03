@@ -1,13 +1,11 @@
 ---
 name: bug fix
 about: バグを修正する
-title: ''
-labels: ''
+title: '[BUG FIX]'
+labels: 'bug'
 assignees: ''
-
 ---
 
-**バグ内容**
+## バグ内容
 
-
-**工数**
+## 工数
