@@ -12,8 +12,7 @@
     "fix": "yarn format && yarn lint",
     "lintcss": "stylelint '**/*.{css,scss,sass}'",
     "lintcss:fix": "stylelint --fix '**/*.{css,scss,sass}'",
-    "test": "jest --watch",
-    "test:ci": "jest"
+    "test": "jest"
   },
   "dependencies": {
     "next": "13.4.7",
