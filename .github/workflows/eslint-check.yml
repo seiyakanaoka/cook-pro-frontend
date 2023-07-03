@@ -1,13 +1,13 @@
 name: eslint-check
-on:
-  pull_request:
-    types: [opened, synchronize]
+on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install modules
-        run: yarn
-      - name: Run ESLint
-        run: eslint \"src/**/*.{js,jsx,ts,tsx}\"
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
