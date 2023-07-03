@@ -9,7 +9,9 @@
     "lintjs": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lintjs:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
-    "fix": "yarn format && yarn lint"
+    "fix": "yarn format && yarn lint",
+    "lintcss": "stylelint '**/*.{css,scss,sass}'",
+    "lintcss:fix": "stylelint --fix '**/*.{css,scss,sass}'"
   },
   "dependencies": {
     "next": "13.4.7",
@@ -30,14 +32,15 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "postcss": "8",
     "prettier": "^2.8.4",
     "prettier-stylelint-formatter": "^0.5.1-beta.2",
+    "sass": "^1.58.0",
     "stylelint": "^15.3.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-recess-order": "^4.0.0",
     "stylelint-config-standard": "^31.0.0",
     "stylelint-config-standard-scss": "^7.0.1",
-    "sass": "^1.58.0",
     "typescript": "5.1.6"
   },
   "volta": {
