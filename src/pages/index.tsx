@@ -1,14 +1,18 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
 
 const Home: NextPage = () => {
-  const [isOpen] = useState();
+  const test = [1, 2, 3, 4, 5];
 
-  useEffect(() => {
-    console.log(isOpen);
-  }, []);
-
-  return <div>home</div>;
+  return (
+    <div>
+      home
+      <div>
+        {test.map((aaa) => (
+          <div>{aaa}</div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Home;
