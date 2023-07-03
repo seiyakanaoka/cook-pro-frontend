@@ -9,7 +9,6 @@
   ],
   "exclude": [
     // node_modulesのファイルは除外
-    "node_modules",
-    "jest.config.js"
+    "node_modules"
   ]
 }
