@@ -15,7 +15,7 @@
     "lintcss": "stylelint '**/*.{css,scss,sass}'",
     "lintcss:fix": "stylelint --fix '**/*.{css,scss,sass}'",
     "test": "jest",
-    "gen": "plop"
+    "generate": "plop"
   },
   "dependencies": {
     "axios": "^1.4.0",
