@@ -1,15 +1,12 @@
-import { NodePlopAPI } from 'plop';
-
-export default function (plop: NodePlopAPI) {
-  // create your generators here
-  plop.setGenerator('basics', {
+module.exports = function (plop) {
+  plop.setGenerator('component', {
     description: 'generate react component',
     prompts: [
       {
         type: 'input',
         name: 'path',
         message:
-          '以下のコンポーネントのディレクトリパスを入力してください\nsrc/components/以下で入力してください',
+          'ディレクトリを入力してください（指定しない場合はEnterでスキップ）\nsrc/components/',
       },
       {
         type: 'input',
@@ -24,19 +21,19 @@ export default function (plop: NodePlopAPI) {
       },
     ],
     actions: (data) => {
-      const path = `../src/components/{{path}}/{{name}}`;
+      const path = `./src/components/{{path}}/{{name}}/`;
 
       const component =
         data?.type === 'Server Component'
           ? {
               type: 'add',
-              path: path + `index.tsx`,
-              templateFile: 'component/ServerComponent.tsx.hbs',
+              path: path + `{{name}}.tsx`,
+              templateFile: 'plop-templates/component/ServerComponent.tsx.hbs',
             }
           : {
               type: 'add',
-              path: path + `index.tsx`,
-              templateFile: 'component/ClientComponent.tsx.hbs',
+              path: path + `{{name}}.tsx`,
+              templateFile: 'plop-templates/component/ClientComponent.tsx.hbs',
             };
 
       const actions = [
@@ -44,20 +41,20 @@ export default function (plop: NodePlopAPI) {
         {
           type: 'add',
           path: path + `index.ts`,
-          templateFile: 'component/index.ts.hbs',
+          templateFile: 'plop-templates/component/index.tsx.hbs',
         },
         {
           type: 'add',
           path: path + `index.module.scss`,
-          templateFile: 'component/style.ts.hbs',
+          templateFile: 'plop-templates/component/style.module.scss.hbs',
         },
         {
           type: 'add',
           path: path + `{{name}}.test.ts`,
-          templateFile: 'BaseComponent/test.ts.hbs',
+          templateFile: 'plop-templates/component/test.ts.hbs',
         },
       ];
       return actions;
     },
   });
-}
+};
