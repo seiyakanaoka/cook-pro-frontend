@@ -18,6 +18,11 @@ const customJestConfig = {
   },
   // ↓1行を変更しています: React Testing Libraryはまだ利用しないのでコメントアウト
   testEnvironment: 'jest-environment-jsdom',
+  testMatch: [
+    '**/src/components/**/?(*.)+(test).ts',
+    '**/src/functions/**/?(*.)+(test).ts',
+    '**/src/hooks/**/?(*.)+(test).ts',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
