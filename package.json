@@ -11,7 +11,8 @@
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "fix": "yarn format && yarn lint",
     "lintcss": "stylelint '**/*.{css,scss,sass}'",
-    "lintcss:fix": "stylelint --fix '**/*.{css,scss,sass}'"
+    "lintcss:fix": "stylelint --fix '**/*.{css,scss,sass}'",
+    "test": "jest"
   },
   "dependencies": {
     "next": "13.4.7",
@@ -20,6 +21,8 @@
     "reset.css": "^2.0.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -32,6 +35,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "postcss": "8",
     "prettier": "^2.8.4",
     "prettier-stylelint-formatter": "^0.5.1-beta.2",
