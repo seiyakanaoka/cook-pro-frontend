@@ -1,4 +1,4 @@
-name: prettier-check
+name: unit-test-check
 on: pull_request
 jobs:
   build:
@@ -11,5 +11,5 @@ jobs:
           node-version: 18.2.x
       - name: yarn install
         run: yarn install
-      - name: Run Prettier
-        run: yarn format
+      - name: Run Unit Test
+        run: yarn test

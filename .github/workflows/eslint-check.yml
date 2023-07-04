@@ -8,7 +8,7 @@ jobs:
       - name: Use Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 18.2.x
       - name: yarn install
         run: yarn install
       - name: Run ESLint
