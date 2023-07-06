@@ -1,3 +1,5 @@
+@import '../../../assets/styles/resources';
+
 .button-component {
   width: 100%;
   padding: 12px 0;
@@ -9,39 +11,39 @@
   border-radius: 4px;
 
   &.-primary {
-    color: #fff;
-    background-color: #1a1a1a;
+    color: $color-white;
+    background-color: $color-black;
   }
 
   &.-primary:hover,
   &.-primary:active {
-    background-color: #333;
+    background-color: $color-primary-black;
   }
 
   &.-primary:disabled,
   &.-primary:disabled:hover,
   &.-primary:disabled:active {
     cursor: auto;
-    background-color: #777;
+    background-color: $color-primary-gray;
   }
 
   &.-secondary {
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #333;
+    color: $color-primary-black;
+    background-color: $color-white;
+    border: 1px solid $color-primary-black;
   }
 
   &.-secondary:hover,
   &.-secondary:active {
-    background-color: #f2f2f2;
+    background-color: $color-secondary-white;
   }
 
   &.-secondary:disabled,
   &.-secondary:disabled:hover,
   &.-secondary:disabled:active {
-    color: #999;
+    color: $color-secondary-gray-2;
     cursor: auto;
-    background-color: #ccc6;
-    border: 1px solid #ccc6;
+    background-color: $color-secondary-gray-3;
+    border: 1px solid $color-secondary-gray-3;
   }
 }
