@@ -19,7 +19,7 @@ const customJestConfig = {
   // ↓1行を変更しています: React Testing Libraryはまだ利用しないのでコメントアウト
   testEnvironment: 'jest-environment-jsdom',
   testMatch: [
-    '**/src/components/**/?(*.)+(test).ts',
+    '**/src/components/**/?(*.)+(test).tsx',
     '**/src/functions/**/?(*.)+(test).ts',
     '**/src/hooks/**/?(*.)+(test).ts',
   ],
