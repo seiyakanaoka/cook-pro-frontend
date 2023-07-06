@@ -1,5 +1,6 @@
 'use client';
 
+import { clsx } from 'clsx';
 import { FC } from 'react';
 
 import style from './index.module.scss';
@@ -11,7 +12,7 @@ type Props = {
 
 export const Button: FC<Props> = ({ text, type }: Props) => {
   return (
-    <button className={`${style['button-component']} ${style[`-${type}`]}`}>
+    <button className={clsx(style['button-component'], style[`-${type}`])}>
       {text}
     </button>
   );
