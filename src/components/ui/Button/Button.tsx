@@ -3,7 +3,7 @@
 import { clsx } from 'clsx';
 import { FC } from 'react';
 
-import { ButtonColor, ButtonType } from '@/constants/button';
+import { BUTTON_TYPE, ButtonColor, ButtonType } from '@/constants/button';
 
 import style from './index.module.scss';
 
@@ -17,7 +17,7 @@ type Props = {
 export const Button: FC<Props> = ({
   text,
   color,
-  type = 'button',
+  type = BUTTON_TYPE.button,
   isDisabled,
 }: Props) => {
   return (
