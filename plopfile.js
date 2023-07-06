@@ -50,8 +50,8 @@ module.exports = function (plop) {
         },
         {
           type: 'add',
-          path: path + `{{name}}.test.ts`,
-          templateFile: 'plop-templates/component/test.ts.hbs',
+          path: path + `{{name}}.test.tsx`,
+          templateFile: 'plop-templates/component/test.tsx.hbs',
         },
       ];
       return actions;
