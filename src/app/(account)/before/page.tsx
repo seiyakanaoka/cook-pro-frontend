@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-const SignupLoginBeforePage: NextPage = () => {
+const SignUpLoginBeforePage: NextPage = () => {
   return (
     <div>
       <div></div>
@@ -8,4 +8,4 @@ const SignupLoginBeforePage: NextPage = () => {
   );
 };
 
-export default SignupLoginBeforePage;
+export default SignUpLoginBeforePage;
