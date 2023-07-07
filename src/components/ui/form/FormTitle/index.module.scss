@@ -1,0 +1,13 @@
+@import '../../../../assets/styles/resources';
+
+.form-title-component {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+
+  > .icon {
+    width: 12px;
+    height: 12px;
+    color: $color-required-red;
+  }
+}
