@@ -2,6 +2,8 @@
 
 import { FC } from 'react';
 
+import RequiredIcon from '@/assets/icons/required.svg';
+
 import style from './index.module.scss';
 
 type Props = {
@@ -9,11 +11,15 @@ type Props = {
   isRequired?: boolean;
 };
 
-export const FormTitle: FC<Props> = ({ title, isRequired }: Props) => {
+export const FormTitle: FC<Props> = ({ title, isRequired = true }: Props) => {
   return (
     <div className={style['form-title-component']}>
       {title}
-      <div className={style['icon']}></div>
+      {isRequired && (
+        <div className={style['icon']}>
+          <RequiredIcon />
+        </div>
+      )}
     </div>
   );
 };

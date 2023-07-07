@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div>
       home
-      <FormTitle title="テスト" />
+      <FormTitle title="テスト" isRequired />
     </div>
   );
 };
