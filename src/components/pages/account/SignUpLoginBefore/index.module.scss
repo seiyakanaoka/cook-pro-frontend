@@ -29,7 +29,7 @@
     width: 100%;
 
     > .copyright {
-      font-size: 12px;
+      font-size: $font-size-12;
     }
   }
 }
@@ -48,7 +48,7 @@
     width: 100%;
 
     > .text {
-      font-size: 12px;
+      font-size: $font-size-12;
       color: $color-line-gray;
       white-space: nowrap;
     }
