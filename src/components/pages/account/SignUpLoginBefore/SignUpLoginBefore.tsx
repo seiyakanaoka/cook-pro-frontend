@@ -5,6 +5,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/ui/Logo';
+import { BUTTON_COLOR } from '@/constants/button';
 
 import style from './index.module.scss';
 
@@ -28,7 +29,11 @@ export const SignUpLoginBefore: FC = () => {
       </div>
       <div className={style['bottom']}>
         <div className={style['account-actions']}>
-          <Button text="ログイン" color="primary" onClick={navigateToLogin} />
+          <Button
+            text="ログイン"
+            color={BUTTON_COLOR.primary}
+            onClick={navigateToLogin}
+          />
           <div className={style['guide']}>
             <div className={style['line']} />
             <p className={style['text']}>または</p>
@@ -36,7 +41,7 @@ export const SignUpLoginBefore: FC = () => {
           </div>
           <Button
             text="新規登録"
-            color="secondary"
+            color={BUTTON_COLOR.secondary}
             onClick={navigateToSignUp}
           />
         </div>
