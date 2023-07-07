@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
+import { CopyRight } from '@/components/ui/CopyRight';
 import { Logo } from '@/components/ui/Logo';
 import { BUTTON_COLOR } from '@/constants/button';
 
@@ -45,7 +46,7 @@ export const SignUpLoginBefore: FC = () => {
             onClick={navigateToSignUp}
           />
         </div>
-        <p className={style['copyright']}>©️ Cook Pro 2023</p>
+        <CopyRight />
       </div>
     </div>
   );
