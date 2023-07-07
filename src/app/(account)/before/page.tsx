@@ -1,11 +1,9 @@
 import { NextPage } from 'next';
 
+import { SignUpLoginBefore } from '@/components/pages/account/SignUpLoginBefore';
+
 const SignUpLoginBeforePage: NextPage = () => {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
+  return <SignUpLoginBefore />;
 };
 
 export default SignUpLoginBeforePage;
