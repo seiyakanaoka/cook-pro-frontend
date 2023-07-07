@@ -24,7 +24,8 @@
     "next": "13.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "reset.css": "^2.0.2"
+    "reset.css": "^2.0.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
