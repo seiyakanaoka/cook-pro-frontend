@@ -4,10 +4,8 @@ import { FC } from 'react';
 
 import style from './index.module.scss';
 
-type Props = {}
+type Props = {};
 
 export const SignUp: FC<Props> = ({}: Props) => {
-  return (
-    <div className={style['default']}></div>
-  );
+  return <div className={style['sign-up']}></div>;
 };

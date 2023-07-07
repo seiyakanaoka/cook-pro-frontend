@@ -1,12 +1,10 @@
 import { NextPage } from 'next';
 import React from 'react';
 
+import { SignUp } from '@/components/pages/account/SignUp';
+
 const SignUpPage: NextPage = () => {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
+  return <SignUp />;
 };
 
 export default SignUpPage;
