@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 
-import LogoIcon from '@/assets/icons/logo.svg';
+import LogoIcon from '@/assets/icons/cook-pro.svg';
 
 import style from './index.module.scss';
 
