@@ -15,6 +15,7 @@ const customJestConfig = {
   moduleNameMapper: {
     // aliasを定義 （tsconfig.jsonのcompilerOptions>pathsの定義に合わせる）
     '^@/(.*)$': '<rootDir>/$1',
+    '^.+\\.(svg)$': '<rootDir>/src/__mocks__/svg.js',
   },
   // ↓1行を変更しています: React Testing Libraryはまだ利用しないのでコメントアウト
   testEnvironment: 'jest-environment-jsdom',
