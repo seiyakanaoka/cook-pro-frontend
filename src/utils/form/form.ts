@@ -26,9 +26,9 @@ export const getErrorMessage = (
     return errorMessage;
   } catch (err) {
     const errorMessage: ErrorMessage = {
-      required: validate?.required?.message ?? 'invalid input',
-      minLength: validate?.maxLength?.message ?? 'invalid input',
-      maxLength: validate?.minLength?.message ?? 'invalid input',
+      required: validate?.required?.message,
+      maxLength: validate?.maxLength?.message,
+      minLength: validate?.minLength?.message,
     };
     return errorMessage;
   }
