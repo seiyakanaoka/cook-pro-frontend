@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-import { ErrorMessage, FieldErrors, FieldValueValidate } from '@/types/form';
+import {
+  FieldValues,
+  ErrorMessage,
+  FieldErrors,
+  FieldValueValidate,
+} from '@/types/form';
 
 export const getErrorMessage = (
   validate: FieldValueValidate | undefined,
@@ -34,8 +39,8 @@ export const getErrorMessage = (
   }
 };
 
-export const getErrorValues = (
-  fieldErrors: FieldErrors | undefined
+export const getErrorValues = <T extends FieldValues>(
+  fieldErrors: FieldErrors<T> | undefined
 ): ErrorMessage[] => {
   if (typeof fieldErrors === 'undefined') return [];
   return Object.values(fieldErrors).filter(
