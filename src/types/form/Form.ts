@@ -8,11 +8,13 @@ export type ErrorMessage = {
   maxLength?: Message | undefined;
 };
 
-export type FieldValue = {
+export type FieldErrors = { [x: string]: ErrorMessage };
+
+export type FieldValues = {
   [x: string]: string;
 };
 
-export type FieldValueKey<T extends FieldValue> = keyof T;
+export type FieldValueKey<T extends FieldValues> = keyof T;
 
 export type FieldValueValidate = {
   required?: { value: boolean; message?: Message };
@@ -22,7 +24,7 @@ export type FieldValueValidate = {
 };
 
 export type FieldState = {
-  errors: { [x: string]: ErrorMessage } | undefined;
+  errors: FieldErrors | undefined;
   isValid: boolean;
 };
 

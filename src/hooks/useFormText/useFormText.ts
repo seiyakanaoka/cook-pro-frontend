@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 
 import {
-  FieldValue,
+  FieldValues,
   FieldValueKey,
   FieldValueValidate,
   FieldState,
   UseFormTextArgs,
 } from '@/types/form';
-import { getErrorMessage } from '@/utils/form';
+import { getErrorMessage, getErrorValues } from '@/utils/form';
 
 type UseFormText<T> = {
   fieldValue: T;
@@ -20,11 +20,11 @@ type UseFormText<T> = {
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-export const useFormText = <T extends FieldValue>({
+export const useFormText = <T extends FieldValues>({
   mode = 'onChange',
   defaultValues,
 }: UseFormTextArgs<T>): UseFormText<T> => {
-  const [fieldValue, setFieldValue] = useState<FieldValue>(defaultValues);
+  const [fieldValue, setFieldValue] = useState<FieldValues>(defaultValues);
 
   const [fieldState, setFieldState] = useState<FieldState>({
     errors: undefined,
@@ -43,7 +43,6 @@ export const useFormText = <T extends FieldValue>({
       setFieldState({
         ...fieldState,
         errors: { [key]: result },
-        isValid: false,
       });
     }
 
@@ -55,17 +54,9 @@ export const useFormText = <T extends FieldValue>({
   (() => {
     const { errors, isValid } = fieldState;
 
-    const errorValues = (() => {
-      if (typeof errors === 'undefined') return 0;
-      const errorValues = Object.values(errors).filter(
-        (values) =>
-          typeof values.maxLength !== 'undefined' ||
-          typeof values.minLength !== 'undefined' ||
-          typeof values.required !== 'undefined'
-      );
-      return errorValues.length;
-    })();
-    const isNewValid = errorValues > 0;
+    const errorValues = getErrorValues(errors);
+
+    const isNewValid = errorValues.length > 0;
 
     if (isValid === isNewValid) {
       return isValid;
