@@ -3,6 +3,7 @@
 import { FC, ChangeEventHandler, useState } from 'react';
 
 import { FormText } from '@/components/ui/form/FormText';
+import { useFormText } from '@/hooks/useFormText';
 
 import style from './index.module.scss';
 
@@ -10,6 +11,8 @@ type Props = {};
 
 export const SignUp: FC<Props> = ({}: Props) => {
   const [lastName, setLastName] = useState<string>('');
+
+  useFormText<{ text: string }>();
 
   const handleChangeLastName: ChangeEventHandler<HTMLInputElement> = (e) => {
     setLastName(e.currentTarget.value);
