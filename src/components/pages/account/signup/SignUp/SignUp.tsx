@@ -25,16 +25,23 @@ type SignUpFormValues = {
 export const SignUp: FC<Props> = ({}: Props) => {
   const { push, back } = useRouter();
 
-  const { fieldValue, onChange, onSubmit } = useFormText<SignUpFormValues>({
-    lastName: '',
-    firstName: '',
-    lastNameKana: '',
-    firstNameKana: '',
-    email: '',
-    emailConfirm: '',
-    password: '',
-    passwordConfirm: '',
-    telephone: '',
+  const {
+    fieldValue,
+    fieldState: { isValid },
+    onChange,
+    onSubmit,
+  } = useFormText<SignUpFormValues>({
+    defaultValues: {
+      lastName: '',
+      firstName: '',
+      lastNameKana: '',
+      firstNameKana: '',
+      email: '',
+      emailConfirm: '',
+      password: '',
+      passwordConfirm: '',
+      telephone: '',
+    },
   });
 
   const navigateToSignUpConfirm = () => {
@@ -49,7 +56,9 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="姓"
             value={fieldValue.lastName}
-            onChange={(e) => onChange('lastName', e)}
+            onChange={(e) =>
+              onChange('lastName', e, { maxLength: { value: 5 } })
+            }
           />
           <FormText
             title="名"
@@ -96,7 +105,12 @@ export const SignUp: FC<Props> = ({}: Props) => {
         />
       </div>
       <div className={style['actions']}>
-        <Button text="進む" color="primary" onClick={navigateToSignUpConfirm} />
+        <Button
+          text="進む"
+          color="primary"
+          onClick={navigateToSignUpConfirm}
+          isDisabled={!isValid}
+        />
         <Button text="キャンセル" color="secondary" onClick={back} />
       </div>
     </form>
