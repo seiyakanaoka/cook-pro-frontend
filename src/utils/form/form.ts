@@ -1,34 +1,35 @@
 import { z } from 'zod';
 
-import { FieldValueValidate } from '@/types/form';
+import { ErrorMessage, FieldValueValidate } from '@/types/form';
 
-export const formValidator = (
+export const getErrorMessage = (
   validate: FieldValueValidate | undefined,
   input: string
 ) => {
-  if (typeof validate === 'undefined') {
-    return;
-  }
-  if (!!validate.required) {
-    try {
-      const required = z.string().min(1);
-      required.parse(input);
-    } catch (err: any) {
-      return validate.required.message ?? 'invalid input';
-    }
-  } else if (typeof validate.maxLength !== 'undefined') {
-    try {
-      const maxLength = z.string().max(validate.maxLength.value);
-      maxLength.parse(input);
-    } catch (err: any) {
-      return validate.maxLength.message ?? 'invalid input';
-    }
-  } else if (typeof validate.minLength !== 'undefined') {
-    try {
-      const minLength = z.string().min(validate.minLength.value);
-      minLength.parse(input);
-    } catch (err: any) {
-      return validate.minLength.message ?? 'invalid input';
-    }
+  try {
+    const required = z.string().min(1);
+    required.parse(input);
+
+    const maxLength = z
+      .string()
+      .max(validate?.maxLength?.value ?? Number.MAX_SAFE_INTEGER);
+    maxLength.parse(input);
+
+    const minLength = z.string().min(validate?.minLength?.value ?? 0);
+    minLength.parse(input);
+
+    const errorMessage: ErrorMessage = {
+      required: undefined,
+      minLength: undefined,
+      maxLength: undefined,
+    };
+    return errorMessage;
+  } catch (err) {
+    const errorMessage: ErrorMessage = {
+      required: validate?.required?.message ?? 'invalid input',
+      minLength: validate?.maxLength?.message ?? 'invalid input',
+      maxLength: validate?.minLength?.message ?? 'invalid input',
+    };
+    return errorMessage;
   }
 };

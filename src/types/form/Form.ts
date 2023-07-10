@@ -2,6 +2,12 @@ export type Mode = 'onChange' | 'onBlur' | 'onSubmit';
 
 export type Message = string;
 
+export type ErrorMessage = {
+  required?: Message | undefined;
+  minLength?: Message | undefined;
+  maxLength?: Message | undefined;
+};
+
 export type FieldValue = {
   [x: string]: string;
 };
@@ -15,8 +21,8 @@ export type FieldValueValidate = {
   validate?: { value: () => void; message?: Message };
 };
 
-export type FieldState<T> = {
-  errors: T | undefined;
+export type FieldState = {
+  errors: { [x: string]: ErrorMessage } | undefined;
   isValid: boolean;
 };
 
