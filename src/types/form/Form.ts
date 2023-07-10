@@ -9,6 +9,7 @@ export type FieldValue = {
 export type FieldValueKey<T extends FieldValue> = keyof T;
 
 export type FieldValueValidate = {
+  required?: { value: boolean; message?: Message };
   maxLength?: { value: number; message?: Message };
   minLength?: { value: number; message?: Message };
   validate?: { value: () => void; message?: Message };

@@ -48,6 +48,8 @@ export const SignUp: FC<Props> = ({}: Props) => {
     push('/signup/confirm');
   };
 
+  console.log('render');
+
   return (
     <form className={style['sign-up']} onSubmit={onSubmit}>
       <h1 className={style['title']}>新規登録</h1>
@@ -57,7 +59,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
             title="姓"
             value={fieldValue.lastName}
             onChange={(e) =>
-              onChange('lastName', e, { maxLength: { value: 5 } })
+              onChange('lastName', e, { required: { value: true } })
             }
           />
           <FormText
