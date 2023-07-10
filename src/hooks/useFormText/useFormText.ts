@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useState } from 'react';
 
 type FieldValue = {
-  [x: string]: any;
+  [x: string]: string;
 };
 
 type FieldValueKey<T extends FieldValue> = keyof T;
@@ -9,10 +9,11 @@ type FieldValueKey<T extends FieldValue> = keyof T;
 type UseFormText<T> = {
   fieldValue: T;
   onChange: (key: keyof T, value: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
 export const useFormText = <T extends FieldValue>(
-  defaultValues?: T
+  defaultValues: T
 ): UseFormText<T> => {
   const [fieldValue, setFieldValue] = useState<FieldValue>(defaultValues ?? {});
 
@@ -24,6 +25,11 @@ export const useFormText = <T extends FieldValue>(
     setFieldValue(newValue);
   };
 
+  const onSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
+    evt.preventDefault();
+    return fieldValue;
+  };
+
   // TODO: 型アサーションがやめれるか時間があれば考える
-  return { fieldValue: fieldValue as T, onChange };
+  return { fieldValue: fieldValue as T, onChange, onSubmit };
 };

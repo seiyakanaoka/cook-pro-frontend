@@ -22,10 +22,20 @@ type SignUpFormValues = {
 };
 
 export const SignUp: FC<Props> = ({}: Props) => {
-  const { fieldValue, onChange } = useFormText<SignUpFormValues>();
+  const { fieldValue, onChange, onSubmit } = useFormText<SignUpFormValues>({
+    lastName: '',
+    firstName: '',
+    lastNameKana: '',
+    firstNameKana: '',
+    email: '',
+    emailConfirm: '',
+    password: '',
+    passwordConfirm: '',
+    telephone: '',
+  });
 
   return (
-    <div className={style['sign-up']}>
+    <form className={style['sign-up']} onSubmit={onSubmit}>
       <div className={style['field']}>
         <FormText
           title="姓"
@@ -75,6 +85,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
         value={fieldValue.telephone}
         onChange={(e) => onChange('telephone', e)}
       />
-    </div>
+      <button>ssss</button>
+    </form>
   );
 };
