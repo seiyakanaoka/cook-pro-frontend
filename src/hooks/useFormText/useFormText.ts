@@ -1,15 +1,14 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { z } from 'zod';
 
-type Mode = 'onChange' | 'onBlur' | 'onSubmit';
-
-type Message = string;
-
-type FieldValue = {
-  [x: string]: string;
-};
-
-type FieldValueKey<T extends FieldValue> = keyof T;
+import {
+  Mode,
+  FieldValue,
+  FieldValueKey,
+  FieldValueValidate,
+  FieldState,
+  UseFormTextArgs,
+} from '@/types/form';
 
 type UseFormText<T> = {
   fieldValue: T;
@@ -20,22 +19,6 @@ type UseFormText<T> = {
     validate?: FieldValueValidate
   ) => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
-};
-
-type FieldValueValidate = {
-  maxLength?: { value: number; message?: Message };
-  minLength?: { value: number; message?: Message };
-  validate?: { value: () => void; message?: Message };
-};
-
-type FieldState<T> = {
-  errors: T | undefined;
-  isValid: boolean;
-};
-
-type UseFormTextArgs<T> = {
-  mode?: Mode;
-  defaultValues: T;
 };
 
 export const useFormText = <T extends FieldValue>({
