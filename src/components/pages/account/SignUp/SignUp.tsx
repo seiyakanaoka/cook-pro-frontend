@@ -1,5 +1,5 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
@@ -23,6 +23,8 @@ type SignUpFormValues = {
 };
 
 export const SignUp: FC<Props> = ({}: Props) => {
+  const { push, back } = useRouter();
+
   const { fieldValue, onChange, onSubmit } = useFormText<SignUpFormValues>({
     lastName: '',
     firstName: '',
@@ -34,6 +36,10 @@ export const SignUp: FC<Props> = ({}: Props) => {
     passwordConfirm: '',
     telephone: '',
   });
+
+  const navigateToSignUpConfirm = () => {
+    push('/signup/confirm');
+  };
 
   return (
     <form className={style['sign-up']} onSubmit={onSubmit}>
@@ -90,8 +96,8 @@ export const SignUp: FC<Props> = ({}: Props) => {
         />
       </div>
       <div className={style['actions']}>
-        <Button text="進む" color="primary" onClick={() => {}} />
-        <Button text="キャンセル" color="secondary" onClick={() => {}} />
+        <Button text="進む" color="primary" onClick={navigateToSignUpConfirm} />
+        <Button text="キャンセル" color="secondary" onClick={back} />
       </div>
     </form>
   );
