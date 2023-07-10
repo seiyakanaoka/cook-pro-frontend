@@ -56,7 +56,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="姓"
             value={fieldValue.lastName}
-            errorMessage={''}
+            errorMessage={errors?.lastName}
             onChange={(e) =>
               onChange('lastName', e, {
                 required: { value: true },

@@ -5,13 +5,14 @@ import {
   FieldValueKey,
   FieldValueValidate,
   FieldState,
+  FieldErrors,
   UseFormTextArgs,
 } from '@/types/form';
 import { getErrorMessage, getErrorValues } from '@/utils/form';
 
-type UseFormText<T> = {
+type UseFormText<T extends FieldValues> = {
   fieldValue: T;
-  fieldState: FieldState;
+  fieldState: FieldState<T>;
   onChange: (
     key: keyof T,
     value: ChangeEvent<HTMLInputElement>,
@@ -26,7 +27,7 @@ export const useFormText = <T extends FieldValues>({
 }: UseFormTextArgs<T>): UseFormText<T> => {
   const [fieldValue, setFieldValue] = useState<FieldValues>(defaultValues);
 
-  const [fieldState, setFieldState] = useState<FieldState>({
+  const [fieldState, setFieldState] = useState<FieldState<T>>({
     errors: undefined,
     isValid: false,
   });
@@ -42,7 +43,7 @@ export const useFormText = <T extends FieldValues>({
     if (typeof result !== 'undefined') {
       setFieldState({
         ...fieldState,
-        errors: { [key]: result },
+        errors: { [key]: result } as FieldErrors<T>,
       });
     }
 
