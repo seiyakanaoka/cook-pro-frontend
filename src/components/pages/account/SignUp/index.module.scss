@@ -1,6 +1,39 @@
 @import '../../../../assets/styles/resources';
 
 .sign-up {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  align-items: center;
   width: 100%;
-  height: 100%;
+  padding: 24px 24px 32px;
+
+  > .title {
+    width: 100%;
+    font-size: 27px;
+    text-align: left;
+  }
+
+  > .actions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.sign-up-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  align-items: center;
+  width: 100%;
+
+  > .field {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    width: 100%;
+  }
 }
