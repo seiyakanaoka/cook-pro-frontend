@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ChangeEventHandler, useState } from 'react';
+import { FC } from 'react';
 
 import { FormText } from '@/components/ui/form/FormText';
 import { useFormText } from '@/hooks/useFormText';
@@ -9,113 +9,71 @@ import style from './index.module.scss';
 
 type Props = {};
 
+type SignUpFormValues = {
+  lastName: string;
+  firstName: string;
+  lastNameKana: string;
+  firstNameKana: string;
+  email: string;
+  emailConfirm: string;
+  password: string;
+  passwordConfirm: string;
+  telephone: string;
+};
+
 export const SignUp: FC<Props> = ({}: Props) => {
-  const [lastName, setLastName] = useState<string>('');
-
-  useFormText<{ text: string }>();
-
-  const handleChangeLastName: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setLastName(e.currentTarget.value);
-  };
-
-  const [firstName, setFirstName] = useState<string>('');
-
-  const handleChangeFirstName: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setFirstName(e.currentTarget.value);
-  };
-
-  const [lastNameKana, setLastNameKana] = useState<string>('');
-
-  const handleChangeLastNameKana: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    setLastNameKana(e.currentTarget.value);
-  };
-
-  const [firstNameKana, setFirstNameKana] = useState<string>('');
-
-  const handleChangeFirstNameKana: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    setFirstNameKana(e.currentTarget.value);
-  };
-
-  const [email, setEmail] = useState<string>('');
-
-  const handleChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setEmail(e.currentTarget.value);
-  };
-
-  const [emailConfirm, setEmailConfirm] = useState<string>('');
-
-  const handleChangeEmailConfirm: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    setEmailConfirm(e.currentTarget.value);
-  };
-
-  const [password, setPassword] = useState<string>('');
-
-  const handleChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setPassword(e.currentTarget.value);
-  };
-
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
-
-  const handleChangePasswordConfirm: ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    setPasswordConfirm(e.currentTarget.value);
-  };
-
-  const [telephone, setTelephone] = useState<string>('');
-
-  const handleChangeTelephone: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setTelephone(e.currentTarget.value);
-  };
+  const { fieldValue, onChange } = useFormText<SignUpFormValues>();
 
   return (
     <div className={style['sign-up']}>
       <div className={style['field']}>
-        <FormText title="姓" value={lastName} onChange={handleChangeLastName} />
+        <FormText
+          title="姓"
+          value={fieldValue.lastName}
+          onChange={(e) => onChange('lastName', e)}
+        />
         <FormText
           title="名"
-          value={firstName}
-          onChange={handleChangeFirstName}
+          value={fieldValue.firstName}
+          onChange={(e) => onChange('firstName', e)}
         />
       </div>
       <div className={style['field']}>
         <FormText
           title="姓カナ"
-          value={lastNameKana}
-          onChange={handleChangeLastNameKana}
+          value={fieldValue.lastNameKana}
+          onChange={(e) => onChange('lastNameKana', e)}
         />
         <FormText
           title="名カナ"
-          value={firstNameKana}
-          onChange={handleChangeFirstNameKana}
+          value={fieldValue.firstNameKana}
+          onChange={(e) => onChange('firstNameKana', e)}
         />
       </div>
-      <FormText title="Email" value={email} onChange={handleChangeEmail} />
+      <FormText
+        title="Email"
+        value={fieldValue.email}
+        onChange={(e) => onChange('email', e)}
+      />
       <FormText
         title="Email確認"
-        value={emailConfirm}
-        onChange={handleChangeEmailConfirm}
+        value={fieldValue.emailConfirm}
+        onChange={(e) => onChange('emailConfirm', e)}
       />
       <FormText
         title="パスワード"
-        value={password}
-        onChange={handleChangePassword}
+        value={fieldValue.password}
+        onChange={(e) => onChange('password', e)}
       />
       <FormText
         title="パスワード確認"
-        value={passwordConfirm}
-        onChange={handleChangePasswordConfirm}
+        value={fieldValue.passwordConfirm}
+        onChange={(e) => onChange('passwordConfirm', e)}
       />
       <FormText
         title="電話番号"
-        value={telephone}
-        onChange={handleChangeTelephone}
+        value={fieldValue.telephone}
+        onChange={(e) => onChange('telephone', e)}
       />
     </div>
   );
