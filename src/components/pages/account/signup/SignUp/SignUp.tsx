@@ -27,7 +27,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
 
   const {
     fieldValue,
-    fieldState: { isValid },
+    fieldState: { isValid, errors },
     onChange,
     onSubmit,
   } = useFormText<SignUpFormValues>({
@@ -56,6 +56,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="姓"
             value={fieldValue.lastName}
+            errorMessage={''}
             onChange={(e) =>
               onChange('lastName', e, {
                 required: { value: true },

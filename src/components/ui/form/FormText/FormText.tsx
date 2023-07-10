@@ -10,6 +10,7 @@ import style from './index.module.scss';
 type Props = {
   title: string;
   value: string;
+  errorMessage?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
 };
@@ -17,6 +18,7 @@ type Props = {
 export const FormText: FC<Props> = ({
   title,
   value,
+  errorMessage,
   onChange,
   onBlur,
 }: Props) => {
@@ -24,6 +26,7 @@ export const FormText: FC<Props> = ({
     <div className={style['form-text-component']}>
       <FormTitle title={title} />
       <FormTextField value={value} onChange={onChange} onBlur={onBlur} />
+      {!!errorMessage && <p className={style['message']}>{errorMessage}</p>}
     </div>
   );
 };
