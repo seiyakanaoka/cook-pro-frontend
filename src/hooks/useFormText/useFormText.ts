@@ -1,35 +1,81 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 
-type FieldValue = {
-  [x: string]: string;
-};
+import {
+  FieldValues,
+  FieldValueKey,
+  FieldValueValidate,
+  FieldState,
+  FieldErrors,
+  UseFormTextArgs,
+} from '@/types/form';
+import { getErrorMessage, getErrorValues } from '@/utils/form';
 
-type FieldValueKey<T extends FieldValue> = keyof T;
-
-type UseFormText<T> = {
+type UseFormText<T extends FieldValues> = {
   fieldValue: T;
-  onChange: (key: keyof T, value: ChangeEvent<HTMLInputElement>) => void;
+  fieldState: FieldState<T>;
+  onChange: (
+    key: keyof T,
+    value: ChangeEvent<HTMLInputElement>,
+    validate?: FieldValueValidate
+  ) => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
-export const useFormText = <T extends FieldValue>(
-  defaultValues: T
-): UseFormText<T> => {
-  const [fieldValue, setFieldValue] = useState<FieldValue>(defaultValues ?? {});
+export const useFormText = <T extends FieldValues>({
+  mode = 'onChange',
+  defaultValues,
+}: UseFormTextArgs<T>): UseFormText<T> => {
+  const [fieldValue, setFieldValue] = useState<FieldValues>(defaultValues);
+
+  const [fieldState, setFieldState] = useState<FieldState<T>>({
+    errors: undefined,
+    isValid: false,
+  });
 
   const onChange = (
     key: FieldValueKey<T>,
-    evt: ChangeEvent<HTMLInputElement>
+    evt: ChangeEvent<HTMLInputElement>,
+    validate?: FieldValueValidate
   ) => {
+    const input = evt.currentTarget.value;
+    const result = getErrorMessage(validate, input);
+
+    if (typeof result !== 'undefined') {
+      setFieldState({
+        ...fieldState,
+        errors: { [key]: result } as FieldErrors<T>,
+      });
+    }
+
     const newValue = { ...fieldValue, [key]: evt.currentTarget.value };
     setFieldValue(newValue);
   };
 
+  // isValidの計算
+  (() => {
+    const { errors, isValid } = fieldState;
+
+    const errorValues = getErrorValues(errors);
+
+    const isNewValid = errorValues.length > 0;
+
+    if (isValid === isNewValid) {
+      return isValid;
+    }
+
+    setFieldState({
+      ...fieldState,
+      isValid: isNewValid,
+    });
+  })();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
+    if (mode === 'onSubmit') {
+    }
     return fieldValue;
   };
 
   // TODO: 型アサーションがやめれるか時間があれば考える
-  return { fieldValue: fieldValue as T, onChange, onSubmit };
+  return { fieldValue: fieldValue as T, fieldState, onChange, onSubmit };
 };
