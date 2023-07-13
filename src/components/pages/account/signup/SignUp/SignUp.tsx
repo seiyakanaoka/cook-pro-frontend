@@ -9,8 +9,6 @@ import { useFormText } from '@/hooks/useFormText';
 
 import style from './index.module.scss';
 
-type Props = {};
-
 type SignUpFormValues = {
   lastName: string;
   firstName: string;
@@ -23,7 +21,7 @@ type SignUpFormValues = {
   telephone: string;
 };
 
-export const SignUp: FC<Props> = ({}: Props) => {
+export const SignUp: FC = () => {
   const { push, back } = useRouter();
 
   const {
@@ -44,8 +42,6 @@ export const SignUp: FC<Props> = ({}: Props) => {
       telephone: '',
     },
   });
-
-  console.log(errors);
 
   const navigateToSignUpConfirm = () => {
     push('/signup/confirm');

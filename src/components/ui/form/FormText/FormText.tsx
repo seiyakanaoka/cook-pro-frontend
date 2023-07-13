@@ -37,6 +37,9 @@ export const FormText: FC<Props> = ({
       {!!errorMessage?.minLength && (
         <p className={style['message']}>{errorMessage.minLength}</p>
       )}
+      {!!errorMessage?.regex && (
+        <p className={style['message']}>{errorMessage.regex}</p>
+      )}
     </div>
   );
 };
