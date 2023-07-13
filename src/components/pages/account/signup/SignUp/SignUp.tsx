@@ -45,6 +45,8 @@ export const SignUp: FC<Props> = ({}: Props) => {
     },
   });
 
+  console.log(errors);
+
   const navigateToSignUpConfirm = () => {
     push('/signup/confirm');
   };

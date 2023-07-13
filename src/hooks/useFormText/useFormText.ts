@@ -40,10 +40,17 @@ export const useFormText = <T extends FieldValues>({
     const input = evt.currentTarget.value;
     const result = getErrorMessage(validate, input);
 
+    const { errors } = fieldState;
+
+    const newErrors: FieldErrors<T> | undefined = {
+      ...errors,
+      [key]: result,
+    } as FieldErrors<T>;
+
     if (typeof result !== 'undefined') {
       setFieldState({
         ...fieldState,
-        errors: { [key]: result } as FieldErrors<T>,
+        errors: newErrors,
       });
     }
 
