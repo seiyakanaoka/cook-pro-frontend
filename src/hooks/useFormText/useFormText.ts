@@ -40,7 +40,7 @@ export const useFormText = <T extends FieldValues>({
     const input = evt.currentTarget.value;
     const result = getErrorMessage(validate, input);
 
-    if (typeof result !== 'undefined') {
+    if (mode === 'onChange' && typeof result !== 'undefined') {
       setFieldState({
         ...fieldState,
         errors: {
@@ -56,6 +56,8 @@ export const useFormText = <T extends FieldValues>({
 
   // isValidの計算
   (() => {
+    if (typeof fieldState.errors === 'undefined') return;
+
     const { errors, isValid } = fieldState;
 
     const errorValues = getErrorValues(errors);

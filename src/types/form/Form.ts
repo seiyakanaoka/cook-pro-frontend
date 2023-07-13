@@ -32,7 +32,7 @@ export type FieldState<T extends FieldValues> = {
   isValid: boolean;
 };
 
-export type UseFormTextArgs<T> = {
+export type UseFormTextArgs<T extends FieldValues> = {
   mode?: Mode;
   defaultValues: T;
 };

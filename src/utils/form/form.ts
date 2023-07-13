@@ -10,7 +10,7 @@ import {
 export const getErrorMessage = (
   validate: FieldValueValidate | undefined,
   input: string
-): ErrorMessage => {
+): ErrorMessage | undefined => {
   const errorMessage: ErrorMessage = {
     required: undefined,
     minLength: undefined,
@@ -56,7 +56,12 @@ export const getErrorMessage = (
     }
   }
 
-  return errorMessage;
+  const hasError =
+    Object.values(errorMessage).filter(
+      (values) => typeof values !== 'undefined'
+    ).length > 0;
+
+  return hasError ? errorMessage : undefined;
 };
 
 export const getErrorValues = <T extends FieldValues>(
