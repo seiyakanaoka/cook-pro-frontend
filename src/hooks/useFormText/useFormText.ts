@@ -60,7 +60,7 @@ export const useFormText = <T extends FieldValues>({
 
     const errorValues = getErrorValues(errors);
 
-    const isNewValid = errorValues.length > 0;
+    const isNewValid = errorValues.length === 0;
 
     if (isValid === isNewValid) {
       return isValid;
