@@ -23,10 +23,16 @@ export const getErrorMessage = (
     const minLength = z.string().min(validate?.minLength?.value ?? 0);
     minLength.parse(input);
 
+    const regex = validate?.regex?.value
+      ? z.string().regex(validate.regex.value)
+      : null;
+    regex?.parse(input);
+
     const errorMessage: ErrorMessage = {
       required: undefined,
       minLength: undefined,
       maxLength: undefined,
+      regex: undefined,
     };
     return errorMessage;
   } catch (err) {
@@ -34,6 +40,7 @@ export const getErrorMessage = (
       required: validate?.required?.message,
       maxLength: validate?.maxLength?.message,
       minLength: validate?.minLength?.message,
+      regex: validate?.regex?.message,
     };
     return errorMessage;
   }

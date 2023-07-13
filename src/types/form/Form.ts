@@ -6,6 +6,7 @@ export type ErrorMessage = {
   required?: Message | undefined;
   minLength?: Message | undefined;
   maxLength?: Message | undefined;
+  regex?: Message | undefined;
 };
 
 export type FieldErrors<T extends FieldValues> = {
@@ -22,7 +23,8 @@ export type FieldValueValidate = {
   required?: { value: boolean; message?: Message };
   maxLength?: { value: number; message?: Message };
   minLength?: { value: number; message?: Message };
-  validate?: { value: () => void; message?: Message };
+  validate?: { value: (x: string) => void; message?: Message };
+  regex?: { value: RegExp; message?: Message };
 };
 
 export type FieldState<T extends FieldValues> = {

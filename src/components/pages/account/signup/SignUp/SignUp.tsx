@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { SIGN_UP_VALIDATION } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
 
 import style from './index.module.scss';
@@ -67,6 +68,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="名"
             value={fieldValue.firstName}
+            errorMessage={errors?.firstName}
             onChange={(e) =>
               onChange('firstName', e, {
                 required: { value: true, message: '入力してください。' },
@@ -79,6 +81,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="姓カナ"
             value={fieldValue.lastNameKana}
+            errorMessage={errors?.lastNameKana}
             onChange={(e) =>
               onChange('lastNameKana', e, {
                 required: { value: true, message: '入力してください。' },
@@ -89,6 +92,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
           <FormText
             title="名カナ"
             value={fieldValue.firstNameKana}
+            errorMessage={errors?.firstNameKana}
             onChange={(e) =>
               onChange('firstNameKana', e, {
                 required: { value: true, message: '入力してください。' },
@@ -100,6 +104,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
         <FormText
           title="Email"
           value={fieldValue.email}
+          errorMessage={errors?.email}
           onChange={(e) =>
             onChange('email', e, {
               required: { value: true, message: '入力してください。' },
@@ -110,6 +115,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
         <FormText
           title="Email確認"
           value={fieldValue.emailConfirm}
+          errorMessage={errors?.emailConfirm}
           onChange={(e) =>
             onChange('emailConfirm', e, {
               required: { value: true, message: '入力してください。' },
@@ -120,6 +126,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
         <FormText
           title="パスワード"
           value={fieldValue.password}
+          errorMessage={errors?.password}
           onChange={(e) =>
             onChange('password', e, {
               required: { value: true, message: '入力してください。' },
@@ -130,6 +137,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
         <FormText
           title="パスワード確認"
           value={fieldValue.passwordConfirm}
+          errorMessage={errors?.passwordConfirm}
           onChange={(e) =>
             onChange('passwordConfirm', e, {
               required: { value: true, message: '入力してください。' },
@@ -140,11 +148,9 @@ export const SignUp: FC<Props> = ({}: Props) => {
         <FormText
           title="電話番号"
           value={fieldValue.telephone}
+          errorMessage={errors?.telephone}
           onChange={(e) =>
-            onChange('telephone', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
+            onChange('telephone', e, SIGN_UP_VALIDATION.TELEPHONE)
           }
         />
       </div>
