@@ -1,4 +1,5 @@
 import { FieldValueValidate } from '@/types/form';
+
 export const SIGN_UP_VALIDATION: {
   LAST_NAME: FieldValueValidate;
   FIRST_NAME: FieldValueValidate;

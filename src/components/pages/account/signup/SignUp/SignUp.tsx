@@ -59,10 +59,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
             value={fieldValue.lastName}
             errorMessage={errors?.lastName}
             onChange={(e) =>
-              onChange('lastName', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
+              onChange('lastName', e, SIGN_UP_VALIDATION.LAST_NAME)
             }
           />
           <FormText
@@ -70,10 +67,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
             value={fieldValue.firstName}
             errorMessage={errors?.firstName}
             onChange={(e) =>
-              onChange('firstName', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
+              onChange('firstName', e, SIGN_UP_VALIDATION.FIRST_NAME)
             }
           />
         </div>
@@ -83,10 +77,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
             value={fieldValue.lastNameKana}
             errorMessage={errors?.lastNameKana}
             onChange={(e) =>
-              onChange('lastNameKana', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
+              onChange('lastNameKana', e, SIGN_UP_VALIDATION.LAST_NAME_KANA)
             }
           />
           <FormText
@@ -94,10 +85,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
             value={fieldValue.firstNameKana}
             errorMessage={errors?.firstNameKana}
             onChange={(e) =>
-              onChange('firstNameKana', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
+              onChange('firstNameKana', e, SIGN_UP_VALIDATION.FIRST_NAME_KANA)
             }
           />
         </div>
@@ -105,44 +93,28 @@ export const SignUp: FC<Props> = ({}: Props) => {
           title="Email"
           value={fieldValue.email}
           errorMessage={errors?.email}
-          onChange={(e) =>
-            onChange('email', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          onChange={(e) => onChange('email', e, SIGN_UP_VALIDATION.EMAIL)}
         />
         <FormText
           title="Email確認"
           value={fieldValue.emailConfirm}
           errorMessage={errors?.emailConfirm}
           onChange={(e) =>
-            onChange('emailConfirm', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
+            onChange('emailConfirm', e, SIGN_UP_VALIDATION.EMAIL_CONFIRM)
           }
         />
         <FormText
           title="パスワード"
           value={fieldValue.password}
           errorMessage={errors?.password}
-          onChange={(e) =>
-            onChange('password', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          onChange={(e) => onChange('password', e, SIGN_UP_VALIDATION.PASSWORD)}
         />
         <FormText
           title="パスワード確認"
           value={fieldValue.passwordConfirm}
           errorMessage={errors?.passwordConfirm}
           onChange={(e) =>
-            onChange('passwordConfirm', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
+            onChange('passwordConfirm', e, SIGN_UP_VALIDATION.PASSWORD_CONFIRM)
           }
         />
         <FormText
