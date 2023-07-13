@@ -43,6 +43,8 @@ export const SignUp: FC = () => {
     },
   });
 
+  console.log('errors : ', errors);
+
   const navigateToSignUpConfirm = () => {
     push('/signup/confirm');
   };

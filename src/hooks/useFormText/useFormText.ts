@@ -7,6 +7,7 @@ import {
   FieldState,
   FieldErrors,
   UseFormTextArgs,
+  ErrorMessage,
 } from '@/types/form';
 import { getErrorMessage, getErrorValues } from '@/utils/form';
 
@@ -38,20 +39,45 @@ export const useFormText = <T extends FieldValues>({
     validate?: FieldValueValidate
   ) => {
     const input = evt.currentTarget.value;
-    const result = getErrorMessage(validate, input);
-
-    if (mode === 'onChange' && typeof result !== 'undefined') {
-      setFieldState({
-        ...fieldState,
-        errors: {
-          ...fieldState.errors,
-          [key]: result,
-        } as FieldErrors<T>,
-      });
-    }
 
     const newValue = { ...fieldValue, [key]: evt.currentTarget.value };
     setFieldValue(newValue);
+
+    if (mode !== 'onChange') return;
+
+    const errorMessage = getErrorMessage(validate, input);
+
+    const errors = fieldState.errors;
+
+    if (typeof errorMessage !== 'undefined') {
+      const newErrors = {
+        ...errors,
+        [key]: errorMessage,
+      } as FieldErrors<T>;
+
+      setFieldState({
+        ...fieldState,
+        errors: newErrors,
+      });
+    }
+
+    if (typeof errorMessage === 'undefined' && typeof errors !== 'undefined') {
+      const newErrors = Object.fromEntries(
+        Object.keys(errors)
+          .map((errorKey) => {
+            if (errorKey === key) return;
+            return [errorKey, errors[errorKey]];
+          })
+          .filter(
+            (value): value is (string | ErrorMessage)[] =>
+              typeof value !== 'undefined'
+          )
+      );
+      setFieldState({
+        ...fieldState,
+        errors: newErrors,
+      });
+    }
   };
 
   // isValidの計算
