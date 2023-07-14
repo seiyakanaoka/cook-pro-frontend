@@ -31,19 +31,44 @@ export const SignUp: FC = () => {
     onSubmit,
   } = useFormText<SignUpFormValues>({
     defaultValues: {
-      lastName: '',
-      firstName: '',
-      lastNameKana: '',
-      firstNameKana: '',
-      email: '',
-      emailConfirm: '',
-      password: '',
-      passwordConfirm: '',
-      telephone: '',
+      lastName: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.LAST_NAME,
+      },
+      firstName: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.FIRST_NAME,
+      },
+      lastNameKana: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.LAST_NAME_KANA,
+      },
+      firstNameKana: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.FIRST_NAME_KANA,
+      },
+      email: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.EMAIL,
+      },
+      emailConfirm: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.EMAIL_CONFIRM,
+      },
+      password: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.PASSWORD,
+      },
+      passwordConfirm: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.PASSWORD_CONFIRM,
+      },
+      telephone: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.TELEPHONE,
+      },
     },
   });
-
-  console.log('errors : ', errors);
 
   const navigateToSignUpConfirm = () => {
     push('/signup/confirm');
@@ -58,17 +83,13 @@ export const SignUp: FC = () => {
             title="姓"
             value={fieldValue.lastName}
             errorMessage={errors?.lastName}
-            onChange={(e) =>
-              onChange('lastName', e, SIGN_UP_VALIDATION.LAST_NAME)
-            }
+            onChange={(e) => onChange('lastName', e)}
           />
           <FormText
             title="名"
             value={fieldValue.firstName}
             errorMessage={errors?.firstName}
-            onChange={(e) =>
-              onChange('firstName', e, SIGN_UP_VALIDATION.FIRST_NAME)
-            }
+            onChange={(e) => onChange('firstName', e)}
           />
         </div>
         <div className={style['field']}>
@@ -76,54 +97,44 @@ export const SignUp: FC = () => {
             title="姓カナ"
             value={fieldValue.lastNameKana}
             errorMessage={errors?.lastNameKana}
-            onChange={(e) =>
-              onChange('lastNameKana', e, SIGN_UP_VALIDATION.LAST_NAME_KANA)
-            }
+            onChange={(e) => onChange('lastNameKana', e)}
           />
           <FormText
             title="名カナ"
             value={fieldValue.firstNameKana}
             errorMessage={errors?.firstNameKana}
-            onChange={(e) =>
-              onChange('firstNameKana', e, SIGN_UP_VALIDATION.FIRST_NAME_KANA)
-            }
+            onChange={(e) => onChange('firstNameKana', e)}
           />
         </div>
         <FormText
           title="Email"
           value={fieldValue.email}
           errorMessage={errors?.email}
-          onChange={(e) => onChange('email', e, SIGN_UP_VALIDATION.EMAIL)}
+          onChange={(e) => onChange('email', e)}
         />
         <FormText
           title="Email確認"
           value={fieldValue.emailConfirm}
           errorMessage={errors?.emailConfirm}
-          onChange={(e) =>
-            onChange('emailConfirm', e, SIGN_UP_VALIDATION.EMAIL_CONFIRM)
-          }
+          onChange={(e) => onChange('emailConfirm', e)}
         />
         <FormText
           title="パスワード"
           value={fieldValue.password}
           errorMessage={errors?.password}
-          onChange={(e) => onChange('password', e, SIGN_UP_VALIDATION.PASSWORD)}
+          onChange={(e) => onChange('password', e)}
         />
         <FormText
           title="パスワード確認"
           value={fieldValue.passwordConfirm}
           errorMessage={errors?.passwordConfirm}
-          onChange={(e) =>
-            onChange('passwordConfirm', e, SIGN_UP_VALIDATION.PASSWORD_CONFIRM)
-          }
+          onChange={(e) => onChange('passwordConfirm', e)}
         />
         <FormText
           title="電話番号"
           value={fieldValue.telephone}
           errorMessage={errors?.telephone}
-          onChange={(e) =>
-            onChange('telephone', e, SIGN_UP_VALIDATION.TELEPHONE)
-          }
+          onChange={(e) => onChange('telephone', e)}
         />
       </div>
       <div className={style['actions']}>

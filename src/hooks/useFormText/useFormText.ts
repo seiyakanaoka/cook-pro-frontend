@@ -24,8 +24,12 @@ type UseFormText<T extends FieldValues> = {
 
 export const useFormText = <T extends FieldValues>({
   mode = 'onChange',
-  defaultValues,
+  defaultValues: _defaultValues,
 }: UseFormTextArgs<T>): UseFormText<T> => {
+  const defaultValues = Object.fromEntries(
+    Object.keys(_defaultValues).map((key) => [key, _defaultValues[key].value])
+  );
+
   const [fieldValue, setFieldValue] = useState<FieldValues>(defaultValues);
 
   const [fieldState, setFieldState] = useState<FieldState<T>>({
@@ -62,7 +66,7 @@ export const useFormText = <T extends FieldValues>({
     }
 
     if (typeof errorMessage === 'undefined' && typeof errors !== 'undefined') {
-      const newErrors = Object.fromEntries(
+      const newErrors: FieldErrors<T> = Object.fromEntries(
         Object.keys(errors)
           .map((errorKey) => {
             if (errorKey === key) return;
@@ -75,16 +79,22 @@ export const useFormText = <T extends FieldValues>({
       );
       setFieldState({
         ...fieldState,
-        errors: newErrors,
+        errors: !!Object.keys(newErrors).length ? newErrors : undefined,
       });
     }
   };
 
   // isValidの計算
   (() => {
-    if (typeof fieldState.errors === 'undefined') return;
-
     const { errors, isValid } = fieldState;
+
+    const hasRequiredErrors =
+      Object.keys(_defaultValues)
+        .filter((key) => !!_defaultValues[key].validate.required?.value)
+        .map((key) => ({ key, value: fieldValue[key] }))
+        .filter((keyValue) => !keyValue.value).length > 0;
+
+    if (hasRequiredErrors) return;
 
     const errorValues = getErrorValues(errors);
 
