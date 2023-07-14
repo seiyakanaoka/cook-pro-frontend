@@ -39,8 +39,7 @@ export const useFormText = <T extends FieldValues>({
 
   const onChange = (
     key: FieldValueKey<T>,
-    evt: ChangeEvent<HTMLInputElement>,
-    validate?: FieldValueValidate
+    evt: ChangeEvent<HTMLInputElement>
   ) => {
     const input = evt.currentTarget.value;
 
@@ -49,7 +48,7 @@ export const useFormText = <T extends FieldValues>({
 
     if (mode !== 'onChange') return;
 
-    const errorMessage = getErrorMessage(validate, input);
+    const errorMessage = getErrorMessage(_defaultValues[key].validate, input);
 
     const errors = fieldState.errors;
 
@@ -90,18 +89,20 @@ export const useFormText = <T extends FieldValues>({
 
     const hasRequiredErrors =
       Object.keys(_defaultValues)
-        .filter((key) => !!_defaultValues[key].validate.required?.value)
+        .filter(
+          (key) =>
+            typeof _defaultValues[key]?.validate !== 'undefined' ||
+            !!_defaultValues[key]?.validate?.required?.value
+        )
         .map((key) => ({ key, value: fieldValue[key] }))
         .filter((keyValue) => !keyValue.value).length > 0;
 
-    if (hasRequiredErrors) return;
-
     const errorValues = getErrorValues(errors);
 
-    const isNewValid = errorValues.length === 0;
+    const isNewValid = errorValues.length === 0 && !hasRequiredErrors;
 
     if (isValid === isNewValid) {
-      return isValid;
+      return;
     }
 
     setFieldState({
