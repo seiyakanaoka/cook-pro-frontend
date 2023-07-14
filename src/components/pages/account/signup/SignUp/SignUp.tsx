@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
-import { SIGN_UP_VALIDATION } from '@/constants/validation/signup';
+import { SIGN_UP_FORM_VALUES } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
 
@@ -19,44 +19,7 @@ export const SignUp: FC = () => {
     onChange,
     onSubmit,
   } = useFormText<SignUpFormValues>({
-    defaultValues: {
-      lastName: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.LAST_NAME,
-      },
-      firstName: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.FIRST_NAME,
-      },
-      lastNameKana: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.LAST_NAME_KANA,
-      },
-      firstNameKana: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.FIRST_NAME_KANA,
-      },
-      email: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.EMAIL,
-      },
-      emailConfirm: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.EMAIL_CONFIRM,
-      },
-      password: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.PASSWORD,
-      },
-      passwordConfirm: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.PASSWORD_CONFIRM,
-      },
-      telephone: {
-        value: '',
-        validate: SIGN_UP_VALIDATION.TELEPHONE,
-      },
-    },
+    defaultValues: SIGN_UP_FORM_VALUES,
   });
 
   const navigateToSignUpConfirm = () => {

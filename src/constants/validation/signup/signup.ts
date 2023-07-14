@@ -1,4 +1,5 @@
-import { FieldValueValidate } from '@/types/form';
+import { DefaultValues, FieldValueValidate } from '@/types/form';
+import { SignUpFormValues } from '@/types/signup';
 
 export const SIGN_UP_VALIDATION: {
   LAST_NAME: FieldValueValidate;
@@ -78,5 +79,44 @@ export const SIGN_UP_VALIDATION: {
   TELEPHONE: {
     required: { value: true, message: '入力してください。' },
     regex: { value: /^[0-9]+$/, message: '半角数字のみ入力できます。' },
+  },
+} as const;
+
+export const SIGN_UP_FORM_VALUES: DefaultValues<SignUpFormValues> = {
+  lastName: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.LAST_NAME,
+  },
+  firstName: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.FIRST_NAME,
+  },
+  lastNameKana: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.LAST_NAME_KANA,
+  },
+  firstNameKana: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.FIRST_NAME_KANA,
+  },
+  email: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.EMAIL,
+  },
+  emailConfirm: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.EMAIL_CONFIRM,
+  },
+  password: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.PASSWORD,
+  },
+  passwordConfirm: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.PASSWORD_CONFIRM,
+  },
+  telephone: {
+    value: '',
+    validate: SIGN_UP_VALIDATION.TELEPHONE,
   },
 } as const;
