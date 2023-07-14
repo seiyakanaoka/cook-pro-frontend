@@ -58,30 +58,34 @@ export const SignUp: FC = () => {
             onChange={(e) => onChange('firstNameKana', e)}
           />
         </div>
-        <FormText
-          title="Email"
-          value={fieldValue.email}
-          errorMessage={errors?.email}
-          onChange={(e) => onChange('email', e)}
-        />
-        <FormText
-          title="Email確認"
-          value={fieldValue.emailConfirm}
-          errorMessage={errors?.emailConfirm}
-          onChange={(e) => onChange('emailConfirm', e)}
-        />
-        <FormText
-          title="パスワード"
-          value={fieldValue.password}
-          errorMessage={errors?.password}
-          onChange={(e) => onChange('password', e)}
-        />
-        <FormText
-          title="パスワード確認"
-          value={fieldValue.passwordConfirm}
-          errorMessage={errors?.passwordConfirm}
-          onChange={(e) => onChange('passwordConfirm', e)}
-        />
+        <div className={style['field']}>
+          <FormText
+            title="Email"
+            value={fieldValue.email}
+            errorMessage={errors?.email}
+            onChange={(e) => onChange('email', e)}
+          />
+          <FormText
+            title="Email確認"
+            value={fieldValue.emailConfirm}
+            errorMessage={errors?.emailConfirm}
+            onChange={(e) => onChange('emailConfirm', e)}
+          />
+        </div>
+        <div className={style['field']}>
+          <FormText
+            title="パスワード"
+            value={fieldValue.password}
+            errorMessage={errors?.password}
+            onChange={(e) => onChange('password', e)}
+          />
+          <FormText
+            title="パスワード確認"
+            value={fieldValue.passwordConfirm}
+            errorMessage={errors?.passwordConfirm}
+            onChange={(e) => onChange('passwordConfirm', e)}
+          />
+        </div>
         <FormText
           title="電話番号"
           value={fieldValue.telephone}
