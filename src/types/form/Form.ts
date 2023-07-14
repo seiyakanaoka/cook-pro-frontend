@@ -9,6 +9,10 @@ export type ErrorMessage = {
   regex?: Message | undefined;
 };
 
+export type DefaultValues<T extends FieldValues> = {
+  [x in keyof T]: { validate?: FieldValueValidate; value: string };
+};
+
 export type FieldErrors<T extends FieldValues> = {
   [x in keyof T]: ErrorMessage;
 };
@@ -34,7 +38,5 @@ export type FieldState<T extends FieldValues> = {
 
 export type UseFormTextArgs<T extends FieldValues> = {
   mode?: Mode;
-  defaultValues: {
-    [x in keyof T]: { validate?: FieldValueValidate; value: string };
-  };
+  defaultValues: DefaultValues<T>;
 };
