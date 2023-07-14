@@ -69,7 +69,6 @@ export const SignUp: FC = () => {
       },
     },
   });
-  console.log('isValid : ', isValid);
 
   const navigateToSignUpConfirm = () => {
     push('/signup/confirm');
