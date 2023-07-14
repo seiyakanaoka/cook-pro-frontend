@@ -4,11 +4,10 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { SIGN_UP_VALIDATION } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
 
 import style from './index.module.scss';
-
-type Props = {};
 
 type SignUpFormValues = {
   lastName: string;
@@ -22,7 +21,7 @@ type SignUpFormValues = {
   telephone: string;
 };
 
-export const SignUp: FC<Props> = ({}: Props) => {
+export const SignUp: FC = () => {
   const { push, back } = useRouter();
 
   const {
@@ -32,15 +31,42 @@ export const SignUp: FC<Props> = ({}: Props) => {
     onSubmit,
   } = useFormText<SignUpFormValues>({
     defaultValues: {
-      lastName: '',
-      firstName: '',
-      lastNameKana: '',
-      firstNameKana: '',
-      email: '',
-      emailConfirm: '',
-      password: '',
-      passwordConfirm: '',
-      telephone: '',
+      lastName: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.LAST_NAME,
+      },
+      firstName: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.FIRST_NAME,
+      },
+      lastNameKana: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.LAST_NAME_KANA,
+      },
+      firstNameKana: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.FIRST_NAME_KANA,
+      },
+      email: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.EMAIL,
+      },
+      emailConfirm: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.EMAIL_CONFIRM,
+      },
+      password: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.PASSWORD,
+      },
+      passwordConfirm: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.PASSWORD_CONFIRM,
+      },
+      telephone: {
+        value: '',
+        validate: SIGN_UP_VALIDATION.TELEPHONE,
+      },
     },
   });
 
@@ -57,95 +83,58 @@ export const SignUp: FC<Props> = ({}: Props) => {
             title="姓"
             value={fieldValue.lastName}
             errorMessage={errors?.lastName}
-            onChange={(e) =>
-              onChange('lastName', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
-            }
+            onChange={(e) => onChange('lastName', e)}
           />
           <FormText
             title="名"
             value={fieldValue.firstName}
-            onChange={(e) =>
-              onChange('firstName', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
-            }
+            errorMessage={errors?.firstName}
+            onChange={(e) => onChange('firstName', e)}
           />
         </div>
         <div className={style['field']}>
           <FormText
             title="姓カナ"
             value={fieldValue.lastNameKana}
-            onChange={(e) =>
-              onChange('lastNameKana', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
-            }
+            errorMessage={errors?.lastNameKana}
+            onChange={(e) => onChange('lastNameKana', e)}
           />
           <FormText
             title="名カナ"
             value={fieldValue.firstNameKana}
-            onChange={(e) =>
-              onChange('firstNameKana', e, {
-                required: { value: true, message: '入力してください。' },
-                maxLength: { value: 5, message: '100文字まで入力可能です。' },
-              })
-            }
+            errorMessage={errors?.firstNameKana}
+            onChange={(e) => onChange('firstNameKana', e)}
           />
         </div>
         <FormText
           title="Email"
           value={fieldValue.email}
-          onChange={(e) =>
-            onChange('email', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          errorMessage={errors?.email}
+          onChange={(e) => onChange('email', e)}
         />
         <FormText
           title="Email確認"
           value={fieldValue.emailConfirm}
-          onChange={(e) =>
-            onChange('emailConfirm', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          errorMessage={errors?.emailConfirm}
+          onChange={(e) => onChange('emailConfirm', e)}
         />
         <FormText
           title="パスワード"
           value={fieldValue.password}
-          onChange={(e) =>
-            onChange('password', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          errorMessage={errors?.password}
+          onChange={(e) => onChange('password', e)}
         />
         <FormText
           title="パスワード確認"
           value={fieldValue.passwordConfirm}
-          onChange={(e) =>
-            onChange('passwordConfirm', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          errorMessage={errors?.passwordConfirm}
+          onChange={(e) => onChange('passwordConfirm', e)}
         />
         <FormText
           title="電話番号"
           value={fieldValue.telephone}
-          onChange={(e) =>
-            onChange('telephone', e, {
-              required: { value: true, message: '入力してください。' },
-              maxLength: { value: 5, message: '100文字まで入力可能です。' },
-            })
-          }
+          errorMessage={errors?.telephone}
+          onChange={(e) => onChange('telephone', e)}
         />
       </div>
       <div className={style['actions']}>

@@ -7,6 +7,7 @@ import {
   FieldState,
   FieldErrors,
   UseFormTextArgs,
+  ErrorMessage,
 } from '@/types/form';
 import { getErrorMessage, getErrorValues } from '@/utils/form';
 
@@ -23,8 +24,12 @@ type UseFormText<T extends FieldValues> = {
 
 export const useFormText = <T extends FieldValues>({
   mode = 'onChange',
-  defaultValues,
+  defaultValues: _defaultValues,
 }: UseFormTextArgs<T>): UseFormText<T> => {
+  const defaultValues = Object.fromEntries(
+    Object.keys(_defaultValues).map((key) => [key, _defaultValues[key].value])
+  );
+
   const [fieldValue, setFieldValue] = useState<FieldValues>(defaultValues);
 
   const [fieldState, setFieldState] = useState<FieldState<T>>({
@@ -34,33 +39,70 @@ export const useFormText = <T extends FieldValues>({
 
   const onChange = (
     key: FieldValueKey<T>,
-    evt: ChangeEvent<HTMLInputElement>,
-    validate?: FieldValueValidate
+    evt: ChangeEvent<HTMLInputElement>
   ) => {
     const input = evt.currentTarget.value;
-    const result = getErrorMessage(validate, input);
-
-    if (typeof result !== 'undefined') {
-      setFieldState({
-        ...fieldState,
-        errors: { [key]: result } as FieldErrors<T>,
-      });
-    }
 
     const newValue = { ...fieldValue, [key]: evt.currentTarget.value };
     setFieldValue(newValue);
+
+    if (mode !== 'onChange') return;
+
+    const errorMessage = getErrorMessage(_defaultValues[key].validate, input);
+
+    const errors = fieldState.errors;
+
+    if (typeof errorMessage !== 'undefined') {
+      const newErrors = {
+        ...errors,
+        [key]: errorMessage,
+      } as FieldErrors<T>;
+
+      setFieldState({
+        ...fieldState,
+        errors: newErrors,
+      });
+    }
+
+    if (typeof errorMessage === 'undefined' && typeof errors !== 'undefined') {
+      const newErrors: FieldErrors<T> = Object.fromEntries(
+        Object.keys(errors)
+          .map((errorKey) => {
+            if (errorKey === key) return;
+            return [errorKey, errors[errorKey]];
+          })
+          .filter(
+            (value): value is (string | ErrorMessage)[] =>
+              typeof value !== 'undefined'
+          )
+      );
+      setFieldState({
+        ...fieldState,
+        errors: !!Object.keys(newErrors).length ? newErrors : undefined,
+      });
+    }
   };
 
   // isValidの計算
   (() => {
     const { errors, isValid } = fieldState;
 
+    const hasRequiredErrors =
+      Object.keys(_defaultValues)
+        .filter(
+          (key) =>
+            typeof _defaultValues[key]?.validate !== 'undefined' ||
+            !!_defaultValues[key]?.validate?.required?.value
+        )
+        .map((key) => ({ key, value: fieldValue[key] }))
+        .filter((keyValue) => !keyValue.value).length > 0;
+
     const errorValues = getErrorValues(errors);
 
-    const isNewValid = errorValues.length > 0;
+    const isNewValid = errorValues.length === 0 && !hasRequiredErrors;
 
     if (isValid === isNewValid) {
-      return isValid;
+      return;
     }
 
     setFieldState({
