@@ -6,20 +6,9 @@ import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { SIGN_UP_VALIDATION } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
+import { SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
-
-type SignUpFormValues = {
-  lastName: string;
-  firstName: string;
-  lastNameKana: string;
-  firstNameKana: string;
-  email: string;
-  emailConfirm: string;
-  password: string;
-  passwordConfirm: string;
-  telephone: string;
-};
 
 export const SignUp: FC = () => {
   const { push, back } = useRouter();
