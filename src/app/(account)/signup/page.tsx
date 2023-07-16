@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import React from 'react';
 
-import { SignUp } from '@/components/pages/account/signup/SignUp';
+import { SignUpField } from '@/components/pages/account/signup/SignUpField';
 
 const SignUpPage: NextPage = () => {
-  return <SignUp />;
+  return <SignUpField />;
 };
 
 export default SignUpPage;

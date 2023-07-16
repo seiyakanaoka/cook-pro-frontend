@@ -10,7 +10,7 @@ import { SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
 
-export const SignUp: FC = () => {
+export const SignUpField: FC = () => {
   const { push, back } = useRouter();
 
   const {
