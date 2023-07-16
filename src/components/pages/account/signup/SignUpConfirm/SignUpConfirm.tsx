@@ -1,5 +1,5 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
@@ -13,6 +13,12 @@ type Props = {
 };
 
 export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
+  const { push, back } = useRouter();
+
+  const handleRegister = async () => {
+    push('/');
+  };
+
   return (
     <div className={style['sign-up-confirm']}>
       <h1 className={style['title']}>新規登録入力確認</h1>
@@ -26,8 +32,8 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
         <FormResult title="電話番号" result={signUpFormValues.telephone} />
       </div>
       <div className={style['actions']}>
-        <Button text="登録" color="primary" onClick={() => {}} />
-        <Button text="戻る" color="secondary" onClick={() => {}} />
+        <Button text="登録" color="primary" onClick={handleRegister} />
+        <Button text="戻る" color="secondary" onClick={back} />
       </div>
     </div>
   );
