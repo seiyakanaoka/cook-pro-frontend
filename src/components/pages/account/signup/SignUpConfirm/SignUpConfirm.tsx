@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
@@ -13,11 +13,36 @@ type Props = {
 };
 
 export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
+  const isSignUpFormValuesEmpty =
+    Object.values(signUpFormValues).filter((value) => !!value).length === 0;
+
   const { push, back } = useRouter();
 
   const handleRegister = async () => {
     push('/');
   };
+
+  // 入力が空になっていた場合、新規登録画面にリダイレクトする（入力が空になるケースは以下）
+  // - リロードした時
+  // - 直遷移してきた時
+  if (isSignUpFormValuesEmpty) {
+    push('/signup');
+  }
+
+  // リロードイベントを検知して、入力内容の破棄を止める
+  useEffect(() => {
+    const onUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+
+    // リロードイベントの設定
+    addEventListener('beforeunload', onUnload);
+
+    return () => {
+      removeEventListener('beforeunload', onUnload);
+    };
+  }, [push]);
 
   return (
     <div className={style['sign-up-confirm']}>
