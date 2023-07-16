@@ -65,6 +65,8 @@ export const SignUpField: FC = () => {
             errorMessage={errors?.email}
             onChange={(e) => onChange('email', e)}
           />
+        </div>
+        <div className={style['field']}>
           <FormText
             title="Email確認"
             value={fieldValue.emailConfirm}
@@ -79,6 +81,8 @@ export const SignUpField: FC = () => {
             errorMessage={errors?.password}
             onChange={(e) => onChange('password', e)}
           />
+        </div>
+        <div className={style['field']}>
           <FormText
             title="パスワード確認"
             value={fieldValue.passwordConfirm}
