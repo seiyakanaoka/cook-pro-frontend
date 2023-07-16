@@ -13,10 +13,11 @@ type Props = {};
 export const SignUp: FC<Props> = ({}: Props) => {
   const searchParams = useSearchParams();
 
-  const search = searchParams?.get('status');
+  const status = searchParams?.get('status');
+  console.log('status : ', status);
   return (
     <div className={style['sign-up']}>
-      {!!search ? (
+      {status !== 'confirm' ? (
         <SignUpField />
       ) : (
         <SignUpConfirm
