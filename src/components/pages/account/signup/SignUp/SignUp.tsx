@@ -10,8 +10,6 @@ import { SignUpFormValues } from '@/types/signup';
 import { SignUpConfirm } from '../SignUpConfirm';
 import { SignUpField } from '../SignUpField';
 
-import style from './index.module.scss';
-
 type Props = {};
 
 export const SignUp: FC<Props> = ({}: Props) => {
@@ -28,7 +26,7 @@ export const SignUp: FC<Props> = ({}: Props) => {
   const status = searchParams?.get('status');
 
   return (
-    <div className={style['sign-up']}>
+    <div>
       {status !== 'confirm' ? (
         <SignUpField
           signUpFormValues={signUpFormValues}
