@@ -2,10 +2,17 @@
 
 import { FC } from 'react';
 
+import { FormTitle } from '../FormTitle';
+
 import style from './index.module.scss';
 
-type Props = {};
+type Props = { title: string; result: string };
 
-export const FormResult: FC<Props> = ({}: Props) => {
-  return <div className={style['form-result']}></div>;
+export const FormResult: FC<Props> = ({ title, result }: Props) => {
+  return (
+    <div className={style['form-result']}>
+      <FormTitle title={title} />
+      <p className={style['result']}>{result}</p>
+    </div>
+  );
 };

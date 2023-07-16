@@ -1,4 +1,13 @@
 @import '../../../../assets/styles/resources';
 
 .form-result {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+
+  > .result {
+    font-size: $font-size-15;
+    color: $color-required-red;
+  }
 }

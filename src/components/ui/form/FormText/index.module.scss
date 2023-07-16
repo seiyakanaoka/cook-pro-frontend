@@ -7,7 +7,7 @@
   width: 100%;
 
   > .message {
-    font-size: 13px;
+    font-size: $font-size-13;
     color: $color-required-red;
   }
 }
