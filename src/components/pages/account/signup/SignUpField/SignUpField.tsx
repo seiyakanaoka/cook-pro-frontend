@@ -36,7 +36,7 @@ export const SignUpField: FC<Props> = ({
       <h1 className={style['title']}>新規登録</h1>
       <div className={style['sign-up-field']}>
         <FormText
-          title="名"
+          title="ユーザー名"
           value={signUpFormValues.userName}
           errorMessage={fieldState.errors?.userName}
           onChange={(e) => onChange('userName', e)}
