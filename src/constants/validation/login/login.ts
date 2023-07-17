@@ -26,11 +26,9 @@ export const LOGIN_VALIDATION: {
 export const LOGIN_FORM_VALUES: DefaultValues<LoginFormValues> = {
   userName: {
     value: '',
-    validate: LOGIN_VALIDATION.USER_NAME,
   },
   email: {
     value: '',
-    validate: LOGIN_VALIDATION.EMAIL,
   },
   password: {
     value: '',

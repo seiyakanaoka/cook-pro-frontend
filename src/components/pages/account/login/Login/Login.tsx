@@ -25,11 +25,6 @@ export const Login: FC<Props> = ({}: Props) => {
     defaultValues: LOGIN_FORM_VALUES,
   });
 
-  const aa = !fieldState.isValid || (!fieldValue.email && !fieldValue.userName);
-
-  console.log('aa : ', aa);
-  console.log('fieldState.isValid : ', fieldState.isValid);
-
   return (
     <div className={style['login-component']}>
       <h1 className={style['title']}>ログイン</h1>
