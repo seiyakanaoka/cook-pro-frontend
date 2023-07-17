@@ -48,10 +48,7 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
     <div className={style['sign-up-confirm']}>
       <h1 className={style['title']}>新規登録入力確認</h1>
       <div className={style['sign-up-confirm-field']}>
-        <FormResult title="姓" result={signUpFormValues.lastName} />
-        <FormResult title="名" result={signUpFormValues.firstName} />
-        <FormResult title="姓カナ" result={signUpFormValues.lastNameKana} />
-        <FormResult title="名カナ" result={signUpFormValues.firstNameKana} />
+        <FormResult title="姓" result={signUpFormValues.userName} />
         <FormResult title="Email" result={signUpFormValues.email} />
         <FormResult title="パスワード" result={signUpFormValues.password} />
         <FormResult title="電話番号" result={signUpFormValues.telephone} />
