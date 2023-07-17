@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 
+import { FORM_TEXT_FIELD_TYPE, FormTextFieldType } from '@/constants/form';
 import { ErrorMessage } from '@/types/form';
 
 import { FormTextField } from '../FormTextField';
@@ -12,6 +13,7 @@ import style from './index.module.scss';
 type Props = {
   title: string;
   value: string;
+  type?: FormTextFieldType;
   errorMessage?: ErrorMessage;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -20,6 +22,7 @@ type Props = {
 export const FormText: FC<Props> = ({
   title,
   value,
+  type = FORM_TEXT_FIELD_TYPE.TEXT,
   errorMessage,
   onChange,
   onBlur,
@@ -27,7 +30,12 @@ export const FormText: FC<Props> = ({
   return (
     <div className={style['form-text-component']}>
       <FormTitle title={title} />
-      <FormTextField value={value} onChange={onChange} onBlur={onBlur} />
+      <FormTextField
+        value={value}
+        type={type}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
       {!!errorMessage?.required && (
         <p className={style['message']}>{errorMessage.required}</p>
       )}
