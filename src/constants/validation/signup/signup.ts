@@ -2,46 +2,19 @@ import { DefaultValues, FieldValueValidate } from '@/types/form';
 import { SignUpFormValues } from '@/types/signup';
 
 export const SIGN_UP_VALIDATION: {
-  LAST_NAME: FieldValueValidate;
-  FIRST_NAME: FieldValueValidate;
-  LAST_NAME_KANA: FieldValueValidate;
-  FIRST_NAME_KANA: FieldValueValidate;
+  USER_NAME: FieldValueValidate;
   EMAIL: FieldValueValidate;
   EMAIL_CONFIRM: FieldValueValidate;
   PASSWORD: FieldValueValidate;
   PASSWORD_CONFIRM: FieldValueValidate;
   TELEPHONE: FieldValueValidate;
 } = {
-  LAST_NAME: {
+  USER_NAME: {
     required: { value: true, message: '入力してください。' },
     maxLength: { value: 100, message: '100文字まで入力可能です。' },
     regex: {
       value: /^[ぁ-んァ-ヶ亜-熙a-zA-Z0-9]+$/,
       message: '半角英数字とひらがな・カタカナ・漢字が入力できます。',
-    },
-  },
-  FIRST_NAME: {
-    required: { value: true, message: '入力してください。' },
-    maxLength: { value: 100, message: '100文字まで入力可能です。' },
-    regex: {
-      value: /^[ぁ-んァ-ヶ亜-熙a-zA-Z0-9]+$/,
-      message: '半角英数字とひらがな・カタカナ・漢字が入力できます。',
-    },
-  },
-  LAST_NAME_KANA: {
-    required: { value: true, message: '入力してください。' },
-    maxLength: { value: 100, message: '100文字まで入力可能です。' },
-    regex: {
-      value: /^[ァ-ンー]+$/,
-      message: 'カタカナのみ入力できます。',
-    },
-  },
-  FIRST_NAME_KANA: {
-    required: { value: true, message: '入力してください。' },
-    maxLength: { value: 100, message: '100文字まで入力可能です。' },
-    regex: {
-      value: /^[ァ-ンー]+$/,
-      message: 'カタカナのみ入力できます。',
     },
   },
   EMAIL: {
@@ -83,21 +56,9 @@ export const SIGN_UP_VALIDATION: {
 } as const;
 
 export const SIGN_UP_FORM_VALUES: DefaultValues<SignUpFormValues> = {
-  lastName: {
+  userName: {
     value: '',
-    validate: SIGN_UP_VALIDATION.LAST_NAME,
-  },
-  firstName: {
-    value: '',
-    validate: SIGN_UP_VALIDATION.FIRST_NAME,
-  },
-  lastNameKana: {
-    value: '',
-    validate: SIGN_UP_VALIDATION.LAST_NAME_KANA,
-  },
-  firstNameKana: {
-    value: '',
-    validate: SIGN_UP_VALIDATION.FIRST_NAME_KANA,
+    validate: SIGN_UP_VALIDATION.USER_NAME,
   },
   email: {
     value: '',

@@ -35,34 +35,12 @@ export const SignUpField: FC<Props> = ({
     <div className={style['sign-up']}>
       <h1 className={style['title']}>新規登録</h1>
       <div className={style['sign-up-field']}>
-        <div className={style['field']}>
-          <FormText
-            title="姓"
-            value={signUpFormValues.lastName}
-            errorMessage={fieldState.errors?.lastName}
-            onChange={(e) => onChange('lastName', e)}
-          />
-          <FormText
-            title="名"
-            value={signUpFormValues.firstName}
-            errorMessage={fieldState.errors?.firstName}
-            onChange={(e) => onChange('firstName', e)}
-          />
-        </div>
-        <div className={style['field']}>
-          <FormText
-            title="姓カナ"
-            value={signUpFormValues.lastNameKana}
-            errorMessage={fieldState.errors?.lastNameKana}
-            onChange={(e) => onChange('lastNameKana', e)}
-          />
-          <FormText
-            title="名カナ"
-            value={signUpFormValues.firstNameKana}
-            errorMessage={fieldState.errors?.firstNameKana}
-            onChange={(e) => onChange('firstNameKana', e)}
-          />
-        </div>
+        <FormText
+          title="ユーザー名"
+          value={signUpFormValues.userName}
+          errorMessage={fieldState.errors?.userName}
+          onChange={(e) => onChange('userName', e)}
+        />
         <div className={style['field']}>
           <FormText
             title="Email"

@@ -10,9 +10,7 @@ import { SignUpFormValues } from '@/types/signup';
 import { SignUpConfirm } from '../SignUpConfirm';
 import { SignUpField } from '../SignUpField';
 
-type Props = {};
-
-export const SignUp: FC<Props> = ({}: Props) => {
+export const SignUp: FC = () => {
   const searchParams = useSearchParams();
 
   const {
