@@ -4,6 +4,7 @@ import { ChangeEvent, FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 import { FieldState, FieldValueValidate } from '@/types/form';
 import { SignUpFormValues } from '@/types/signup';
 
@@ -82,6 +83,7 @@ export const SignUpField: FC<Props> = ({
           <FormText
             title="パスワード"
             value={signUpFormValues.password}
+            type={FORM_TEXT_FIELD_TYPE.PASSWORD}
             errorMessage={fieldState.errors?.password}
             onChange={(e) => onChange('password', e)}
           />
@@ -90,6 +92,7 @@ export const SignUpField: FC<Props> = ({
           <FormText
             title="パスワード確認"
             value={signUpFormValues.passwordConfirm}
+            type={FORM_TEXT_FIELD_TYPE.PASSWORD}
             errorMessage={fieldState.errors?.passwordConfirm}
             onChange={(e) => onChange('passwordConfirm', e)}
           />
