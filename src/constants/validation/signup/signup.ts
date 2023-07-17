@@ -13,7 +13,7 @@ export const SIGN_UP_VALIDATION: {
     required: { value: true, message: '入力してください。' },
     maxLength: { value: 100, message: '100文字まで入力可能です。' },
     regex: {
-      value: /^[ぁ-んァ-ヶ亜-熙a-zA-Z0-9]+$/,
+      value: /^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠a-zA-Z0-9]+$/,
       message: '半角英数字とひらがな・カタカナ・漢字が入力できます。',
     },
   },
