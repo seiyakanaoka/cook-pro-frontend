@@ -23,7 +23,7 @@ export const LOGIN_VALIDATION: {
   },
 } as const;
 
-export const SIGN_UP_FORM_VALUES: DefaultValues<LoginFormValues> = {
+export const LOGIN_FORM_VALUES: DefaultValues<LoginFormValues> = {
   userName: {
     value: '',
     validate: LOGIN_VALIDATION.USER_NAME,
