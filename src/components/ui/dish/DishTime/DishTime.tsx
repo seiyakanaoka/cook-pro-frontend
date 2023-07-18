@@ -3,12 +3,10 @@
 import { FC } from 'react';
 
 import TimeIcon from '@/assets/icons/time.svg';
-import { HOUR_MINUTES } from '@/constants/date';
-import { formatDate } from '@/utils/date';
 
 import style from './index.module.scss';
 
-type Props = { time: Date };
+type Props = { time: string };
 
 export const DishTime: FC<Props> = ({ time }: Props) => {
   return (
@@ -16,7 +14,7 @@ export const DishTime: FC<Props> = ({ time }: Props) => {
       <div className={style['icon']}>
         <TimeIcon />
       </div>
-      <p className={style['time']}>{formatDate(time, HOUR_MINUTES)}</p>
+      <p className={style['time']}>{time}分</p>
     </div>
   );
 };
