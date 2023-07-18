@@ -1,4 +1,17 @@
 @import '../../../assets/styles/resources';
 
 .home-component {
+  width: 100%;
+
+  > .dish-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    padding: 24px 16px 32px;
+
+    > .dish {
+    }
+  }
 }

@@ -6,7 +6,7 @@ import { DishTime } from '../DishTime';
 
 import style from './index.module.scss';
 
-type Props = { image: string; title: string; time: Date };
+type Props = { image: string; title: string; time: string };
 
 export const DishItem: FC<Props> = ({ image, title, time }: Props) => {
   return (
