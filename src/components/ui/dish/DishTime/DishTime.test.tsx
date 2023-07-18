@@ -1,2 +1,5 @@
-import '@testing-library/jest-dom'; describe("DishTimeコンポーネント", () => {
-test("test", () => {}); });
+import '@testing-library/jest-dom';
+
+describe('DishTimeコンポーネント', () => {
+  test('test', () => {});
+});
