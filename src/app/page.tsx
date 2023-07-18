@@ -7,7 +7,7 @@ const Home: NextPage = () => {
     <div>
       home
       <br />
-      <DishTime time="10:00" />
+      <DishTime time={new Date()} />
     </div>
   );
 };
