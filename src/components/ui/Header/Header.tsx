@@ -8,13 +8,16 @@ import { FormTextField } from '../form/FormTextField';
 
 import style from './index.module.scss';
 
-type Props = {};
+type Props = {
+  userImage: string;
+};
 
-export const Header: FC<Props> = ({}: Props) => {
+export const Header: FC<Props> = ({ userImage }: Props) => {
   return (
     <div className={style['header-component']}>
-      <img src={LogoImage.src} alt="" />
+      <img src={userImage} alt="" className={style['image']} />
       <FormTextField value="" onChange={() => {}} />
+      <img src={LogoImage.src} alt="" className={style['image']} />
     </div>
   );
 };

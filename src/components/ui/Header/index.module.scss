@@ -1,4 +1,16 @@
 @import '../../../assets/styles/resources';
 
 .header-component {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  border-bottom: 1px solid $color-border-gray;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 }

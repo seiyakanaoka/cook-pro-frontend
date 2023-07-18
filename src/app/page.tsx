@@ -1,13 +1,12 @@
 import type { NextPage } from 'next';
 
 import { Header } from '@/components/ui/Header';
+import LogoImage from 'public/food-1.png';
 
 const Home: NextPage = () => {
   return (
     <div>
-      home
-      <br />
-      <Header />
+      <Header userImage={LogoImage.src} />
     </div>
   );
 };
