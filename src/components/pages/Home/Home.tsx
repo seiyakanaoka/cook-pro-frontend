@@ -3,7 +3,6 @@
 import { FC } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
-import { Header } from '@/components/ui/Header';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -28,8 +27,6 @@ const dishes = {
 export const Home: FC = () => {
   return (
     <div className={style['home-component']}>
-      {/* TODO: ログイン後の共通ヘッダーにする */}
-      <Header userImage={FoodImage.src} value="" onChange={() => {}} />
       <ul className={style['dish-list']}>
         {dishes.dishes.map((dish) => (
           <li key={dish.dishId} className={style['dish']}>
