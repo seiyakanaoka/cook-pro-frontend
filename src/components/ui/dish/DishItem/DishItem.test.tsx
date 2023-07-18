@@ -1,9 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
-import { HOUR_MINUTES } from '@/constants/date';
-import { formatDate } from '@/utils/date';
-
 import { DishItem } from './DishItem';
 
 describe('Dishコンポーネント', () => {
@@ -15,9 +12,9 @@ describe('Dishコンポーネント', () => {
   });
 
   test('propsで渡したtimeが「~分」形式で表示されていること', () => {
-    const time = new Date();
+    const time = '20';
     render(<DishItem image="" title="" time={'20'} />);
-    const element = screen.getByText(formatDate(time, HOUR_MINUTES));
+    const element = screen.getByText(`${time}分`);
     expect(element).toBeInTheDocument();
   });
 });
