@@ -9,14 +9,14 @@ import { DishItem } from './DishItem';
 describe('Dishコンポーネント', () => {
   test('propsで渡したtitleが表示されていること', () => {
     const title = 'Hello World';
-    render(<DishItem image="" title={title} time={new Date()} />);
+    render(<DishItem image="" title={title} time={'20'} />);
     const element = screen.getByText(title);
     expect(element).toBeInTheDocument();
   });
 
-  test('propsで渡したtimeが「HH:mm」形式で表示されていること', () => {
+  test('propsで渡したtimeが「~分」形式で表示されていること', () => {
     const time = new Date();
-    render(<DishItem image="" title="" time={time} />);
+    render(<DishItem image="" title="" time={'20'} />);
     const element = screen.getByText(formatDate(time, HOUR_MINUTES));
     expect(element).toBeInTheDocument();
   });
