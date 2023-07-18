@@ -14,6 +14,7 @@
 
 .image-field {
   position: relative;
+  width: fit-content;
 
   > .image {
     width: 300px;
@@ -23,7 +24,7 @@
 
   > .time {
     position: absolute;
-    right: 22%;
+    right: 3%;
     bottom: 5%;
   }
 }
