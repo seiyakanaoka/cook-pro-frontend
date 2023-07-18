@@ -2,10 +2,19 @@
 
 import { FC } from 'react';
 
+import TimeIcon from '@/assets/icons/time.svg';
+
 import style from './index.module.scss';
 
-type Props = {};
+type Props = { time: string };
 
-export const DishTime: FC<Props> = ({}: Props) => {
-  return <div className={style['dish-time-component']}></div>;
+export const DishTime: FC<Props> = ({ time }: Props) => {
+  return (
+    <div className={style['dish-time-component']}>
+      <div className={style['icon']}>
+        <TimeIcon />
+      </div>
+      <p className={style['time']}>{time}</p>
+    </div>
+  );
 };

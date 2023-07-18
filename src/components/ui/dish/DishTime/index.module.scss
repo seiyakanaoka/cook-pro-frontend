@@ -1,4 +1,18 @@
 @import '../../../../assets/styles/resources';
 
 .dish-time-component {
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  width: 100%;
+
+  > .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  > .time {
+    font-size: $font-size-15;
+    font-weight: bold;
+  }
 }
