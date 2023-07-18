@@ -1,1 +1,1 @@
-export const TIME_MINUTES = 'HH:mm';
+export const HOUR_MINUTES = 'HH:mm';

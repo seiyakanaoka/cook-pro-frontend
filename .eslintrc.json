@@ -38,6 +38,8 @@
     // https://zenn.dev/ryuu/scraps/583dad79532879
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
+    // imgタグの使用を許可する
+    "@next/next/no-img-element": "off",
     // 未使用の es6 モジュールのインポートを見つけて削除
     "unused-imports/no-unused-imports": "error",
     // 未使用の変数の禁止 ベースルールをoffにする

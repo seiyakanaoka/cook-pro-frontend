@@ -1,0 +1,30 @@
+@import '../../../../assets/styles/resources';
+
+.dish-component {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+
+  > .title {
+    font-size: $font-size-15;
+    white-space: pre-line;
+  }
+}
+
+.image-field {
+  position: relative;
+  width: fit-content;
+
+  > .image {
+    width: 300px;
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  > .time {
+    position: absolute;
+    right: 3%;
+    bottom: 5%;
+  }
+}
