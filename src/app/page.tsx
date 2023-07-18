@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 
-import { DishTime } from '@/components/ui/dish/DishTime';
+import { Header } from '@/components/ui/Header';
 
 const Home: NextPage = () => {
   return (
     <div>
       home
       <br />
-      <DishTime time={new Date()} />
+      <Header />
     </div>
   );
 };
