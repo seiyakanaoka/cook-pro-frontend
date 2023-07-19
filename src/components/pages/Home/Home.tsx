@@ -52,6 +52,7 @@ const dishes = {
 export const Home: FC = () => {
   return (
     <div className={style['home-component']}>
+      {/* <FormCheckbox text="text" isCheck={false} /> */}
       <ul className={style['dish-list']}>
         {dishes.dishes.map((dish) => (
           <Fragment key={dish.dishId}>

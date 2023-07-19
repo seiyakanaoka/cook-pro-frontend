@@ -1,4 +1,20 @@
 @import '../../../../assets/styles/resources';
 
 .form-checkbox-component {
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+  width: fit-content;
+
+  > .icon {
+    width: 18px;
+    height: 18px;
+    background-color: $color-white;
+    border: 1px solid #d3d3d3;
+    border-radius: 2px;
+  }
+
+  > .icon.-checked {
+    background-color: #69c;
+  }
 }
