@@ -4,19 +4,29 @@
   width: 100%;
 
   > .dish-list {
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 24px;
+    column-gap: 16px;
+    place-items: center;
+    align-items: start;
     width: 100%;
+    height: 100%;
     padding: 24px 16px 32px;
 
     > .dish {
-      padding-bottom: 16px;
-      border-bottom: 1px solid $color-border-gray;
+      width: fit-content;
+      height: 100%;
+      padding-bottom: 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #dddbd6;
     }
 
     > .dish:last-child {
+      border-bottom: 0;
+    }
+
+    > .dish.-even:nth-last-child(2) {
       border-bottom: 0;
     }
   }
