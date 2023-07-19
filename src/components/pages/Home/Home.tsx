@@ -1,6 +1,7 @@
 'use client';
 
-import { FC } from 'react';
+import clsx from 'clsx';
+import { FC, Fragment } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
 import FoodImage from 'public/food-1.png';
@@ -21,6 +22,30 @@ const dishes = {
       image: FoodImage.src,
       dishCreateRequiredTime: 20,
     },
+    {
+      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d608',
+      dishName: '季節の野菜たっぷりのカレーadsddad',
+      image: FoodImage.src,
+      dishCreateRequiredTime: 20,
+    },
+    {
+      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d609',
+      dishName: '季節の野菜たっぷりのカレー',
+      image: FoodImage.src,
+      dishCreateRequiredTime: 20,
+    },
+    {
+      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d6010',
+      dishName: '季節の野菜たっぷりのカレーadsddad',
+      image: FoodImage.src,
+      dishCreateRequiredTime: 20,
+    },
+    {
+      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d6011',
+      dishName: '季節の野菜たっぷりのカレー',
+      image: FoodImage.src,
+      dishCreateRequiredTime: 20,
+    },
   ],
 };
 
@@ -29,13 +54,20 @@ export const Home: FC = () => {
     <div className={style['home-component']}>
       <ul className={style['dish-list']}>
         {dishes.dishes.map((dish) => (
-          <li key={dish.dishId} className={style['dish']}>
-            <DishItem
-              image={dish.image}
-              title={dish.dishName}
-              time={dish.dishCreateRequiredTime.toString()}
-            />
-          </li>
+          <Fragment key={dish.dishId}>
+            <li
+              className={clsx(
+                style['dish'],
+                dishes.dishes.length % 2 === 0 && style['-even']
+              )}
+            >
+              <DishItem
+                image={dish.image}
+                title={dish.dishName}
+                time={dish.dishCreateRequiredTime.toString()}
+              />
+            </li>
+          </Fragment>
         ))}
       </ul>
     </div>
