@@ -5,6 +5,8 @@ import { ChangeEventHandler, useState } from 'react';
 import { Header } from '@/components/ui/Header';
 import FoodImage from 'public/food-1.png';
 
+import style from './layout.module.scss';
+
 export default function HomeLayout({
   children,
 }: {
@@ -21,13 +23,15 @@ export default function HomeLayout({
   };
 
   return (
-    <div>
-      <Header
-        userImage={FoodImage.src}
-        value={searchValue}
-        onSearch={handleSearch}
-        onClear={handleClear}
-      />
+    <div className={style['home-layout']}>
+      <header className={style['header']}>
+        <Header
+          userImage={FoodImage.src}
+          value={searchValue}
+          onSearch={handleSearch}
+          onClear={handleClear}
+        />
+      </header>
       {children}
     </div>
   );
