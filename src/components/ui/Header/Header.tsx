@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEventHandler, FC, useState } from 'react';
+import { ChangeEventHandler, FC } from 'react';
 
 import LogoImage from 'public/twitter_profile_image.png';
 
@@ -11,12 +11,16 @@ import style from './index.module.scss';
 type Props = {
   userImage: string;
   value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onSearch: ChangeEventHandler<HTMLInputElement>;
+  onClear: () => void;
 };
 
-export const Header: FC<Props> = ({ userImage, value, onChange }: Props) => {
-  const [_value, setValue] = useState('');
-
+export const Header: FC<Props> = ({
+  userImage,
+  value,
+  onSearch,
+  onClear,
+}: Props) => {
   return (
     <div className={style['header-component']}>
       <div className={style['field']}>
@@ -27,9 +31,10 @@ export const Header: FC<Props> = ({ userImage, value, onChange }: Props) => {
         <img src={userImage} alt="" className={style['image']} />
       </div>
       <FormSearch
-        value={_value}
+        value={value}
         placeholder="料理名で検索"
-        onChange={(e) => setValue(e.currentTarget.value)}
+        onSearch={onSearch}
+        onClear={onClear}
       />
     </div>
   );

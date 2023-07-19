@@ -6,21 +6,21 @@
 
   > .icon {
     position: absolute;
-    width: 16px;
-    height: 16px;
   }
 
   > .icon.-search {
-    position: absolute;
     top: 50%;
     left: 10px;
+    width: 16px;
+    height: 16px;
     transform: translate(0, -50%);
   }
 
   > .icon.-clear {
-    position: absolute;
     top: 50%;
     right: 10px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     transform: translate(0, -50%);
   }
