@@ -1,4 +1,39 @@
 @import '../../../../assets/styles/resources';
 
 .form-search-component {
+  position: relative;
+  width: 100%;
+
+  > .icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+  }
+
+  > .icon.-search {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+  }
+
+  > .icon.-clear {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    cursor: pointer;
+    transform: translate(0, -50%);
+  }
+
+  > .field {
+    width: 100%;
+    padding: 12px 32px;
+    font-size: $font-size-15;
+    border: 1px solid $color-border-gray;
+    border-radius: 4px;
+  }
+
+  > .field:focus {
+    border: 1px solid $color-black;
+  }
 }
