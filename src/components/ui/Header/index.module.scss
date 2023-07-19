@@ -2,15 +2,39 @@
 
 .header-component {
   display: flex;
-  column-gap: 8px;
-  align-items: center;
+  flex-direction: column;
+  row-gap: 12px;
   width: 100%;
   padding: 8px;
   border-bottom: 1px solid $color-border-gray;
 
-  > .image {
+  > .field {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+
+    > .image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.logo-field {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  width: 100%;
+
+  > .logo {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+  }
+
+  > .text {
+    font-size: 28px;
+    font-weight: bold;
   }
 }
