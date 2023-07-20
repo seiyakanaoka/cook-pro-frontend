@@ -1,7 +1,8 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useState, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
@@ -88,6 +89,8 @@ export const Home: FC = () => {
     setItems(newItems);
   };
 
+  const nodeRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className={style['home-component']}>
       <ul className={style['dish-list']}>
@@ -112,15 +115,26 @@ export const Home: FC = () => {
       <div className={style['icon']}>
         <FilterAction onClick={onOpen} />
       </div>
-      {isOpen && (
-        <div className={style['filter']}>
+      <CSSTransition
+        nodeRef={nodeRef}
+        unmountOnExit
+        in={isOpen}
+        timeout={300}
+        classNames={{
+          enter: style['filter-enter'],
+          enterActive: style['filter-active-enter'],
+          exit: style['filter-exit'],
+          exitActive: style['filter-active-exit'],
+        }}
+      >
+        <div className={style['filter']} ref={nodeRef}>
           <FilterPanel
             items={items}
             onClick={onClickFilterItem}
             onClose={onClose}
           />
         </div>
-      )}
+      </CSSTransition>
     </div>
   );
 };
