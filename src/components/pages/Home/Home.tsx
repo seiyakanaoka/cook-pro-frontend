@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
-import { Filter } from '@/components/ui/filter/Filter';
+import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import FoodImage from 'public/food-1.png';
 
@@ -109,7 +109,7 @@ export const Home: FC = () => {
         ))}
       </ul>
       <div className={style['icon']}>
-        <Filter onClick={onOpen} />
+        <FilterAction onClick={onOpen} />
       </div>
       {isOpen && (
         <div className={style['filter']}>
