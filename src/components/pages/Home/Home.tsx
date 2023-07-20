@@ -108,6 +108,7 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
+      {/* TODO: 統一できないか考える */}
       <div className={style['icon']}>
         <FilterAction onClick={onOpen} />
       </div>
