@@ -46,4 +46,14 @@
     background-color: $color-secondary-gray-3;
     border: 1px solid $color-secondary-gray-3;
   }
+
+  &.-blue {
+    color: #07c;
+    background-color: $color-white;
+    border: 1px solid #07c;
+  }
+
+  &.-blue:hover {
+    opacity: 0.7;
+  }
 }
