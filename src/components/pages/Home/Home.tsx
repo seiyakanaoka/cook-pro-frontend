@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
-import { FilterPanel } from '@/components/ui/FilterPanel';
+import { FilterAction } from '@/components/ui/filter/FilterAction';
+import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -51,12 +52,6 @@ const dishes = {
 };
 
 export const Home: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onClose = () => {
-    setIsOpen(false);
-  };
-
   const [items, setItems] = useState([
     { text: 'text1', isCheck: true },
     { text: 'text2', isCheck: false },
@@ -71,6 +66,16 @@ export const Home: FC = () => {
     { text: 'text11', isCheck: false },
     { text: 'text12', isCheck: false },
   ]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
 
   const onClickFilterItem = (text: string) => {
     const newItems = items.map((item) => {
@@ -103,12 +108,18 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
+      {/* TODO: 統一できないか考える */}
+      <div className={style['icon']}>
+        <FilterAction onClick={onOpen} />
+      </div>
       {isOpen && (
-        <FilterPanel
-          items={items}
-          onClick={onClickFilterItem}
-          onClose={onClose}
-        />
+        <div className={style['filter']}>
+          <FilterPanel
+            items={items}
+            onClick={onClickFilterItem}
+            onClose={onClose}
+          />
+        </div>
       )}
     </div>
   );

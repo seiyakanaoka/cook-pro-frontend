@@ -1,6 +1,7 @@
 @import '../../../assets/styles/resources';
 
 .home-component {
+  position: relative;
   width: 100%;
 
   > .dish-list {
@@ -12,7 +13,7 @@
     align-items: start;
     width: 100%;
     height: 100%;
-    padding: 24px 16px 32px;
+    padding: 24px 16px 72px;
 
     > .dish {
       width: fit-content;
@@ -29,5 +30,19 @@
     > .dish.-even:nth-last-child(2) {
       border-bottom: 0;
     }
+  }
+
+  > .icon {
+    position: fixed;
+    right: 5%;
+    bottom: 3%;
+  }
+
+  > .filter {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
   }
 }

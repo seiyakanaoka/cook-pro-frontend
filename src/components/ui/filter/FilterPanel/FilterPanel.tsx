@@ -2,8 +2,10 @@
 
 import { FC } from 'react';
 
-import { Button } from '../Button';
-import { FormCheckbox } from '../form/FormCheckbox';
+import { BUTTON_COLOR } from '@/constants/button';
+
+import { Button } from '../../Button';
+import { FormCheckbox } from '../../form/FormCheckbox';
 
 import style from './index.module.scss';
 
@@ -18,8 +20,11 @@ type Props = {
 
 export const FilterPanel: FC<Props> = ({ items, onClick, onClose }: Props) => {
   return (
-    <div className={style['filter-panel-component']}>
-      <div className={style['panel-field']}>
+    <div className={style['filter-panel-component']} onClick={onClose}>
+      <div
+        className={style['panel-field']}
+        onClick={(e) => e.stopPropagation()}
+      >
         <p className={style['title']}>カテゴリフィルター</p>
         <div className={style['body-content']}>
           <ul className={style['list']}>
@@ -33,7 +38,7 @@ export const FilterPanel: FC<Props> = ({ items, onClick, onClose }: Props) => {
             ))}
           </ul>
         </div>
-        <Button text="閉じる" color="blue" onClick={onClose} />
+        <Button text="閉じる" color={BUTTON_COLOR.green} onClick={onClose} />
       </div>
     </div>
   );
