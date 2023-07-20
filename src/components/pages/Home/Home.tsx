@@ -51,6 +51,12 @@ const dishes = {
 };
 
 export const Home: FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   const [items, setItems] = useState([
     { text: 'text1', isCheck: true },
     { text: 'text2', isCheck: false },
@@ -97,11 +103,13 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
-      <FilterPanel
-        items={items}
-        onClick={onClickFilterItem}
-        onClose={() => {}}
-      />
+      {isOpen && (
+        <FilterPanel
+          items={items}
+          onClick={onClickFilterItem}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };
