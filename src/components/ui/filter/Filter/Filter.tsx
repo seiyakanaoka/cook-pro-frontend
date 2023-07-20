@@ -29,8 +29,8 @@ export const Filter: FC<Props> = ({ items, onClick }: Props) => {
 
   return (
     <div className={style['filter-component']}>
-      <div className={style['field']}>
-        <div className={style['icon']} onClick={onOpen}>
+      <div className={style['field']} onClick={onOpen}>
+        <div className={style['icon']}>
           <FilterIcon />
         </div>
       </div>

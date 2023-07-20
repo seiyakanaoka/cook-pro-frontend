@@ -20,8 +20,11 @@ type Props = {
 
 export const FilterPanel: FC<Props> = ({ items, onClick, onClose }: Props) => {
   return (
-    <div className={style['filter-panel-component']}>
-      <div className={style['panel-field']}>
+    <div className={style['filter-panel-component']} onClick={onClose}>
+      <div
+        className={style['panel-field']}
+        onClick={(e) => e.stopPropagation()}
+      >
         <p className={style['title']}>カテゴリフィルター</p>
         <div className={style['body-content']}>
           <ul className={style['list']}>
