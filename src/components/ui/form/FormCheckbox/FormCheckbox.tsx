@@ -7,11 +7,11 @@ import CheckIcon from '@/assets/icons/check.svg';
 
 import style from './index.module.scss';
 
-type Props = { isCheck: boolean; text: string };
+type Props = { isCheck: boolean; text: string; onClick: () => void };
 
-export const FormCheckbox: FC<Props> = ({ isCheck, text }: Props) => {
+export const FormCheckbox: FC<Props> = ({ isCheck, text, onClick }: Props) => {
   return (
-    <div className={style['form-checkbox-component']}>
+    <div className={style['form-checkbox-component']} onClick={onClick}>
       <div className={clsx(style['icon'], isCheck && style['-checked'])}>
         <CheckIcon />
       </div>
