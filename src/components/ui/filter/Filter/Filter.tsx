@@ -2,6 +2,8 @@
 
 import { FC, useState } from 'react';
 
+import FilterIcon from '@/assets/icons/filter.svg';
+
 import { FilterPanel } from '../FilterPanel';
 
 import style from './index.module.scss';
@@ -27,7 +29,11 @@ export const Filter: FC<Props> = ({ items, onClick }: Props) => {
 
   return (
     <div className={style['filter-component']}>
-      <div className={style['icon']} onClick={onOpen}></div>
+      <div className={style['field']}>
+        <div className={style['icon']} onClick={onOpen}>
+          <FilterIcon />
+        </div>
+      </div>
       {isOpen && (
         <FilterPanel items={items} onClick={onClick} onClose={onClose} />
       )}

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
-import { FilterPanel } from '@/components/ui/filter/FilterPanel';
+import { Filter } from '@/components/ui/filter/Filter';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -51,12 +51,6 @@ const dishes = {
 };
 
 export const Home: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onClose = () => {
-    setIsOpen(false);
-  };
-
   const [items, setItems] = useState([
     { text: 'text1', isCheck: true },
     { text: 'text2', isCheck: false },
@@ -103,13 +97,7 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
-      {isOpen && (
-        <FilterPanel
-          items={items}
-          onClick={onClickFilterItem}
-          onClose={onClose}
-        />
-      )}
+      <Filter items={items} onClick={onClickFilterItem} />
     </div>
   );
 };
