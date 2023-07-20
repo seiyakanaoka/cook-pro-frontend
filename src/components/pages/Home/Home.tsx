@@ -97,7 +97,9 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
-      <Filter items={items} onClick={onClickFilterItem} />
+      <div className={style['filter']}>
+        <Filter items={items} onClick={onClickFilterItem} />
+      </div>
     </div>
   );
 };
