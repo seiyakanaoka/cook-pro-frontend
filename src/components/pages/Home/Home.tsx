@@ -1,9 +1,10 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
+import { FilterPanel } from '@/components/ui/FilterPanel';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -50,6 +51,38 @@ const dishes = {
 };
 
 export const Home: FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const [items, setItems] = useState([
+    { text: 'text1', isCheck: true },
+    { text: 'text2', isCheck: false },
+    { text: 'text3', isCheck: false },
+    { text: 'text4', isCheck: true },
+    { text: 'text5', isCheck: false },
+    { text: 'text6', isCheck: false },
+    { text: 'text7', isCheck: false },
+    { text: 'text8', isCheck: false },
+    { text: 'text9', isCheck: false },
+    { text: 'text10', isCheck: false },
+    { text: 'text11', isCheck: false },
+    { text: 'text12', isCheck: false },
+  ]);
+
+  const onClickFilterItem = (text: string) => {
+    const newItems = items.map((item) => {
+      if (text === item.text) {
+        const newItem = { ...item, isCheck: !item.isCheck };
+        return newItem;
+      }
+      return item;
+    });
+    setItems(newItems);
+  };
+
   return (
     <div className={style['home-component']}>
       <ul className={style['dish-list']}>
@@ -70,6 +103,13 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
+      {isOpen && (
+        <FilterPanel
+          items={items}
+          onClick={onClickFilterItem}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 };
