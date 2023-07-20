@@ -5,6 +5,7 @@ import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
 import { Filter } from '@/components/ui/filter/Filter';
+import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -66,6 +67,16 @@ export const Home: FC = () => {
     { text: 'text12', isCheck: false },
   ]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   const onClickFilterItem = (text: string) => {
     const newItems = items.map((item) => {
       if (text === item.text) {
@@ -97,9 +108,18 @@ export const Home: FC = () => {
           </Fragment>
         ))}
       </ul>
-      <div className={style['filter']}>
-        <Filter items={items} onClick={onClickFilterItem} />
+      <div className={style['icon']}>
+        <Filter onClick={onOpen} />
       </div>
+      {isOpen && (
+        <div className={style['filter']}>
+          <FilterPanel
+            items={items}
+            onClick={onClickFilterItem}
+            onClose={onClose}
+          />
+        </div>
+      )}
     </div>
   );
 };
