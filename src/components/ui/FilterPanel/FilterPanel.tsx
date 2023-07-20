@@ -21,19 +21,19 @@ export const FilterPanel: FC<Props> = ({ items, onClick, onClose }: Props) => {
     <div className={style['filter-panel-component']}>
       <div className={style['panel-field']}>
         <p className={style['title']}>カテゴリフィルター</p>
-        <ul className={style['list']}>
-          {items.map((item) => (
-            <FormCheckbox
-              key={item.text}
-              text={item.text}
-              isCheck={item.isCheck}
-              onClick={() => onClick(item.text)}
-            />
-          ))}
-        </ul>
-        <div className={style['action']}>
-          <Button text="閉じる" color="blue" onClick={onClose} />
+        <div className={style['body-content']}>
+          <ul className={style['list']}>
+            {items.map((item) => (
+              <FormCheckbox
+                key={item.text}
+                text={item.text}
+                isCheck={item.isCheck}
+                onClick={() => onClick(item.text)}
+              />
+            ))}
+          </ul>
         </div>
+        <Button text="閉じる" color="blue" onClick={onClose} />
       </div>
     </div>
   );
