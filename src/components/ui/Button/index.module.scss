@@ -48,9 +48,9 @@
   }
 
   &.-blue {
-    color: #07c;
+    color: $color-blue;
     background-color: $color-white;
-    border: 1px solid #07c;
+    border: 1px solid $color-blue;
   }
 
   &.-blue:hover {
