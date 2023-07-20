@@ -1,10 +1,22 @@
 @import '../../../../assets/styles/resources';
 
+.filter-overlay {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 30%);
+}
+
 .filter-panel-component {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: 100%;
   padding-top: 56px;
-  background-color: rgb(0 0 0 / 30%);
 }
 
 .panel-field {
@@ -16,6 +28,7 @@
   padding: 24px 24px 32px;
   background-color: $color-white;
   border-radius: 20px 20px 0 0;
+  box-shadow: $shadow-filter-action 0 -7px 7px -7px;
 
   > .title {
     font-size: $font-size-16;
@@ -32,4 +45,22 @@
     flex-wrap: wrap;
     gap: 24px;
   }
+}
+
+.filter-enter {
+  transform: translateY(100%);
+}
+
+.filter-active-enter {
+  transition: transform 300ms ease-out;
+  transform: translateY(0);
+}
+
+.filter-exit {
+  transform: translateY(0);
+}
+
+.filter-active-exit {
+  transition: transform 400ms ease-out;
+  transform: translateY(100%);
 }
