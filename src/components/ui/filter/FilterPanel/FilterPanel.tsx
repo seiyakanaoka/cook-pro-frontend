@@ -2,8 +2,8 @@
 
 import { FC } from 'react';
 
-import { Button } from '../Button';
-import { FormCheckbox } from '../form/FormCheckbox';
+import { Button } from '../../Button';
+import { FormCheckbox } from '../../form/FormCheckbox';
 
 import style from './index.module.scss';
 

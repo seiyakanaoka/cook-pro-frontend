@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC, Fragment, useState } from 'react';
 
 import { DishItem } from '@/components/ui/dish/DishItem';
-import { FilterPanel } from '@/components/ui/FilterPanel';
+import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
