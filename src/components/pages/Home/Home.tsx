@@ -112,14 +112,12 @@ export const Home: FC = () => {
       <div className={style['icon']}>
         <FilterAction onClick={onOpen} />
       </div>
-      {/* <div className={style['filter']}> */}
       <FilterPanel
         isOpen={isOpen}
         items={items}
         onClick={onClickFilterItem}
         onClose={onClose}
       />
-      {/* </div> */}
     </div>
   );
 };
