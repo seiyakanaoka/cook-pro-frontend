@@ -2,6 +2,8 @@
 
 import { FC } from 'react';
 
+import { BUTTON_COLOR } from '@/constants/button';
+
 import { Button } from '../../Button';
 import { FormCheckbox } from '../../form/FormCheckbox';
 
@@ -33,7 +35,7 @@ export const FilterPanel: FC<Props> = ({ items, onClick, onClose }: Props) => {
             ))}
           </ul>
         </div>
-        <Button text="閉じる" color="blue" onClick={onClose} />
+        <Button text="閉じる" color={BUTTON_COLOR.green} onClick={onClose} />
       </div>
     </div>
   );

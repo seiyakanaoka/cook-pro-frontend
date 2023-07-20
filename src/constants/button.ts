@@ -1,7 +1,7 @@
 export const BUTTON_COLOR = {
   primary: 'primary',
   secondary: 'secondary',
-  blur: 'blue',
+  green: 'green',
 } as const;
 
 export type ButtonColor = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];
