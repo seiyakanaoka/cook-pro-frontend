@@ -1,11 +1,35 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
+
+import { FilterPanel } from '../FilterPanel';
 
 import style from './index.module.scss';
 
-type Props = {};
+type Props = {
+  items: {
+    text: string;
+    isCheck: boolean;
+  }[];
+  onClick: (id: string) => void;
+};
 
-export const Filter: FC<Props> = ({}: Props) => {
-  return <div className={style['filter-component']}></div>;
+export const Filter: FC<Props> = ({ items, onClick }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <div className={style['filter-component']}>
+      {isOpen && (
+        <FilterPanel items={items} onClick={onClick} onClose={onClose} />
+      )}
+    </div>
+  );
 };
