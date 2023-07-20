@@ -27,6 +27,7 @@ export const Filter: FC<Props> = ({ items, onClick }: Props) => {
 
   return (
     <div className={style['filter-component']}>
+      <div className={style['icon']} onClick={onOpen}></div>
       {isOpen && (
         <FilterPanel items={items} onClick={onClick} onClose={onClose} />
       )}
