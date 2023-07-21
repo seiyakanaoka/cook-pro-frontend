@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { ChangeEventHandler, useState } from 'react';
 
+import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
 import FoodImage from 'public/food-1.png';
 
@@ -39,6 +40,9 @@ export default function HomeLayout({
         />
       </header>
       {children}
+      <footer className={style['footer']}>
+        <Footer />
+      </footer>
     </div>
   );
 }
