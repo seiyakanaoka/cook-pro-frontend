@@ -40,12 +40,15 @@ export const Login: FC<Props> = ({}: Props) => {
     };
 
     const authenticationDetails = new AuthenticationDetails(authenticationData);
+
     const userPool = new CognitoUserPool(poolData);
+
     const userData = {
       // Eメールも渡せる
       Username: fieldValue.userName || fieldValue.email || '',
       Pool: userPool,
     };
+
     const cognitoUser = new CognitoUser(userData);
 
     cognitoUser.authenticateUser(authenticationDetails, {
@@ -56,11 +59,10 @@ export const Login: FC<Props> = ({}: Props) => {
       },
       onFailure: (error) => {
         alert('Authentication error');
-        if (error.code === 'NewPasswordRequiredException') {
-          console.error('New password required : ', error);
-        } else {
-          console.error('Authentication error : ', error);
-        }
+        console.error('error : ', error);
+      },
+      newPasswordRequired: () => {
+        // TODO: 再パスワード入力させる
       },
     });
   };
