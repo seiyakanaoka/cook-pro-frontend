@@ -26,7 +26,9 @@ input {
   outline: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+/** ダークモードか判定してcssを変更できるが、今回はしない */
+
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -35,4 +37,4 @@ input {
     color: white;
     background: black;
   }
-}
+} */

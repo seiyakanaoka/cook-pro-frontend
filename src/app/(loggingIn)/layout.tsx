@@ -1,6 +1,5 @@
 'use client';
 
-import clsx from 'clsx';
 import { ChangeEventHandler, useState } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
@@ -25,12 +24,7 @@ export default function HomeLayout({
   };
 
   return (
-    <div
-      className={clsx(
-        style['home-layout'],
-        matchMedia('(prefers-color-scheme: dark)').matches && style['-dark']
-      )}
-    >
+    <div className={style['home-layout']}>
       <header className={style['header']}>
         <Header
           userImage={FoodImage.src}
