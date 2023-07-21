@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@types/react-transition-group": "^4.4.6",
+    "amazon-cognito-identity-js": "^6.3.1",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "date-fns": "^2.30.0",

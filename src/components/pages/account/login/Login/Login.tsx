@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
+import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
 import { LoginFormValues } from '@/types/login';
 
@@ -17,13 +18,19 @@ type Props = {};
 export const Login: FC<Props> = ({}: Props) => {
   const { push } = useRouter();
 
-  const handleLogin = () => {
-    push('/');
-  };
+  const { login } = useAuth();
 
   const { fieldValue, fieldState, onChange } = useFormText<LoginFormValues>({
     defaultValues: LOGIN_FORM_VALUES,
   });
+
+  const handleLogin = () => {
+    const userName = fieldValue.userName || fieldValue.email || '';
+
+    const password = fieldValue.password;
+
+    login(userName, password, () => push('/'));
+  };
 
   return (
     <div className={style['login-component']}>
