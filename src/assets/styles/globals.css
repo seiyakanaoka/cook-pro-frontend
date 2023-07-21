@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  color: #1a1a1a;
+  color: #4b4b4b;
   background-color: #fff;
 }
 
@@ -26,7 +26,9 @@ input {
   outline: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+/** ダークモードか判定してcssを変更できるが、今回はしない */
+
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -35,4 +37,4 @@ input {
     color: white;
     background: black;
   }
-}
+} */
