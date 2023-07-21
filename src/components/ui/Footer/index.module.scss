@@ -13,6 +13,18 @@
   > .icon {
     width: 24px;
     height: 24px;
+    padding: 0;
     color: $color-icon-gray;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    transition: 200ms ease-out;
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  }
+
+  > .icon.-selected {
+    color: $color-black;
+    transform: scale(1.2);
   }
 }
