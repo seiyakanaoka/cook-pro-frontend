@@ -6,6 +6,7 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
+import { Loading } from '@/components/ui/Loading';
 import FoodImage from 'public/food-1.png';
 
 import style from './layout.module.scss';
@@ -38,7 +39,7 @@ export default function HomeLayout({
   }, [hasToken, push]);
 
   if (!hasToken) {
-    return null;
+    return <Loading />;
   }
 
   return (
