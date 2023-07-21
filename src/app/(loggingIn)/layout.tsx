@@ -1,6 +1,8 @@
 'use client';
 
-import { ChangeEventHandler, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { parseCookies } from 'nookies';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
@@ -13,6 +15,8 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { push } = useRouter();
+
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -22,6 +26,18 @@ export default function HomeLayout({
   const handleClear = () => {
     setSearchValue('');
   };
+
+  const cookie = parseCookies();
+
+  useEffect(() => {
+    if (!cookie['idToken']) {
+      push('/login');
+    }
+  }, [cookie, push]);
+
+  if (!cookie['idToken']) {
+    return null;
+  }
 
   return (
     <div className={style['home-layout']}>
