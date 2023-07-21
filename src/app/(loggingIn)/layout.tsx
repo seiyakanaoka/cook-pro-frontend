@@ -7,6 +7,7 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
 import { Loading } from '@/components/ui/Loading';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import FoodImage from 'public/food-1.png';
 
 import style from './layout.module.scss';
@@ -30,7 +31,7 @@ export default function HomeLayout({
 
   const cookie = parseCookies();
 
-  const hasToken = !!cookie['idToken'];
+  const hasToken = !!cookie[ID_TOKEN_KEY];
 
   useEffect(() => {
     if (!hasToken) {

@@ -5,6 +5,7 @@ import { parseCookies } from 'nookies';
 import { useEffect } from 'react';
 
 import { Loading } from '@/components/ui/Loading';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 
 export default function HomeLayout({
   children,
@@ -15,7 +16,7 @@ export default function HomeLayout({
 
   const cookie = parseCookies();
 
-  const hasToken = !!cookie['idToken'];
+  const hasToken = !!cookie[ID_TOKEN_KEY];
 
   useEffect(() => {
     if (hasToken) {
