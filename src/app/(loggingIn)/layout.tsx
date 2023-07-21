@@ -1,9 +1,13 @@
 'use client';
 
-import { ChangeEventHandler, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { parseCookies } from 'nookies';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
+import { Loading } from '@/components/ui/Loading';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import FoodImage from 'public/food-1.png';
 
 import style from './layout.module.scss';
@@ -13,6 +17,8 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { push } = useRouter();
+
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -22,6 +28,20 @@ export default function HomeLayout({
   const handleClear = () => {
     setSearchValue('');
   };
+
+  const cookie = parseCookies();
+
+  const hasToken = !!cookie[ID_TOKEN_KEY];
+
+  useEffect(() => {
+    if (!hasToken) {
+      push('/login');
+    }
+  }, [hasToken, push]);
+
+  if (!hasToken) {
+    return <Loading />;
+  }
 
   return (
     <div className={style['home-layout']}>
