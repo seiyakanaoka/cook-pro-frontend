@@ -29,13 +29,15 @@ export default function HomeLayout({
 
   const cookie = parseCookies();
 
+  const hasToken = !!cookie['idToken'];
+
   useEffect(() => {
-    if (!cookie['idToken']) {
+    if (!hasToken) {
       push('/login');
     }
-  }, [cookie, push]);
+  }, [hasToken, push]);
 
-  if (!cookie['idToken']) {
+  if (!hasToken) {
     return null;
   }
 
