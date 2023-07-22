@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
+import { LOGIN_STATUS } from '@/constants/auth';
 import { useAuth } from '@/hooks/useAuth';
 import { SignUpFormValues } from '@/types/signup';
 
@@ -28,17 +29,25 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       signUpFormValues.telephone,
       signUpFormValues.password
     );
-    const isSuccess = await login(
+    const loginStatus = await login(
       signUpFormValues.userName,
       signUpFormValues.password
     );
-    if (!isSuccess) {
-      // TODO: 仮のエラーハンドリング
-      alert('入力内容が不正です。');
-      push('/signup');
-      return;
+
+    switch (loginStatus) {
+      case LOGIN_STATUS.SUCCESS: {
+        push('/');
+      }
+      case LOGIN_STATUS.FAILURE: {
+        // TODO: 仮のエラーハンドリング
+        alert('入力内容が不正です。');
+        push('/signup');
+        return;
+      }
+      case LOGIN_STATUS.CONFIRM: {
+        push('/code-input');
+      }
     }
-    push('/');
   };
 
   // 入力が空になっていた場合、新規登録画面にリダイレクトする（入力が空になるケースは以下）
