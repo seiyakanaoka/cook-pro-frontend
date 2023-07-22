@@ -22,6 +22,7 @@ type UseAuth = {
     password: string
   ) => Promise<void>;
   login: (userName: string, password: string) => Promise<LoginStatus>;
+  confirm: (confirmationCode: string) => Promise<any>;
 };
 
 export const useAuth = (): UseAuth => {
@@ -111,5 +112,28 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  return { signUp, login };
+  const confirm = (confirmationCode: string): Promise<any> => {
+    const userPool = new CognitoUserPool(poolData);
+
+    // 新規ユーザーオブジェクトを作成
+    const userData = {
+      Username: 'hoge',
+      Pool: userPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    return new Promise<any>((resolve, reject) =>
+      cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+        if (err) {
+          console.error('account err:', err);
+          reject(err);
+          return;
+        }
+        resolve(result);
+      })
+    );
+  };
+
+  return { signUp, login, confirm };
 };
