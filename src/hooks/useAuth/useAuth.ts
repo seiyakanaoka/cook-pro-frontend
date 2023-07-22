@@ -102,7 +102,7 @@ export const useAuth = (): UseAuth => {
           resolve(LOGIN_STATUS.SUCCESS);
         },
         onFailure: (err) => {
-          if (err.includes('ExpiredCodeException')) {
+          if (err.code === 'UserNotConfirmedException') {
             resolve(LOGIN_STATUS.CONFIRM);
             return;
           }
