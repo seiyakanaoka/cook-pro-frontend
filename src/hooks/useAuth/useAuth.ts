@@ -6,6 +6,7 @@ import {
 } from 'amazon-cognito-identity-js';
 import { setCookie } from 'nookies';
 
+import { LOGIN_STATUS, LoginStatus } from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 
 const poolData = {
@@ -20,7 +21,7 @@ type UseAuth = {
     phoneNumber: string,
     password: string
   ) => Promise<void>;
-  login: (userName: string, password: string) => Promise<boolean>;
+  login: (userName: string, password: string) => Promise<LoginStatus>;
 };
 
 export const useAuth = (): UseAuth => {
@@ -75,7 +76,7 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  const login = (userName: string, password: string): Promise<boolean> => {
+  const login = (userName: string, password: string): Promise<LoginStatus> => {
     const authenticationData = {
       Username: userName,
       Password: password,
@@ -92,19 +93,19 @@ export const useAuth = (): UseAuth => {
 
     const cognitoUser = new CognitoUser(userData);
 
-    return new Promise<boolean>((resolve) =>
+    return new Promise<LoginStatus>((resolve) =>
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const idToken = result.getIdToken().getJwtToken();
           setCookie(null, ID_TOKEN_KEY, idToken);
-          resolve(true);
+          resolve(LOGIN_STATUS.SUCCESS);
         },
         onFailure: (err) => {
           console.error('err : ', err);
-          resolve(false);
+          resolve(LOGIN_STATUS.FAILURE);
         },
         newPasswordRequired: () => {
-          resolve(true);
+          resolve(LOGIN_STATUS.CONFIRM);
         },
       })
     );
