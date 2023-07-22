@@ -28,12 +28,10 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       signUpFormValues.telephone,
       signUpFormValues.password
     );
-    console.log('①');
     const isSuccess = await login(
       signUpFormValues.userName,
       signUpFormValues.password
     );
-    console.log('② : ', isSuccess);
     if (!isSuccess) {
       // TODO: 仮のエラーハンドリング
       alert('入力内容が不正です。');

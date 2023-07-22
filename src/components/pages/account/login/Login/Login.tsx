@@ -29,7 +29,8 @@ export const Login: FC<Props> = ({}: Props) => {
 
     const password = fieldValue.password;
 
-    login(userName, password, () => push('/'));
+    login(userName, password);
+    push('/');
   };
 
   return (
