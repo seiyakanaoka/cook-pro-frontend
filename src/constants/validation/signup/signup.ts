@@ -36,8 +36,9 @@ export const SIGN_UP_VALIDATION: {
     minLength: { value: 8, message: '8文字から30文字の間で入力してください。' },
     maxLength: { value: 30, message: '8文字から30文字の間で入力してください' },
     regex: {
-      value: /^[a-zA-Z0-9]+$/,
-      message: '半角英数字のみ入力できます。',
+      value:
+        /^[0-9a-zA-Z\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`\+\=]+$/,
+      message: '半角英数字と記号のみ入力できます。',
     },
   },
   PASSWORD_CONFIRM: {
@@ -45,8 +46,9 @@ export const SIGN_UP_VALIDATION: {
     minLength: { value: 8, message: '8文字から30文字の間で入力してください。' },
     maxLength: { value: 30, message: '8文字から30文字の間で入力してください' },
     regex: {
-      value: /^[a-zA-Z0-9]+$/,
-      message: '半角英数字のみ入力できます。',
+      value:
+        /^[0-9a-zA-Z\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`\+\=]+$/,
+      message: '半角英数字と記号のみ入力できます。',
     },
   },
   TELEPHONE: {
