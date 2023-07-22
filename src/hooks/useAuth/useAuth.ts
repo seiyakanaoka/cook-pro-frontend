@@ -22,7 +22,7 @@ type UseAuth = {
     password: string
   ) => Promise<void>;
   login: (userName: string, password: string) => Promise<LoginStatus>;
-  confirm: (confirmationCode: string) => Promise<any>;
+  confirm: (userName: string, confirmationCode: string) => Promise<any>;
 };
 
 export const useAuth = (): UseAuth => {
@@ -94,7 +94,7 @@ export const useAuth = (): UseAuth => {
 
     const cognitoUser = new CognitoUser(userData);
 
-    return new Promise<LoginStatus>((resolve) =>
+    return new Promise<LoginStatus>((resolve, reject) =>
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const idToken = result.getIdToken().getJwtToken();
@@ -102,36 +102,47 @@ export const useAuth = (): UseAuth => {
           resolve(LOGIN_STATUS.SUCCESS);
         },
         onFailure: (err) => {
+          if (err.includes('ExpiredCodeException')) {
+            resolve(LOGIN_STATUS.CONFIRM);
+            return;
+          }
           console.error('err : ', err);
-          resolve(LOGIN_STATUS.FAILURE);
+          reject(LOGIN_STATUS.FAILURE);
         },
         newPasswordRequired: () => {
-          resolve(LOGIN_STATUS.CONFIRM);
+          // TODO: 新しいパスワードの処理を追加する
+          resolve(LOGIN_STATUS.NEW_PASSWORD);
         },
       })
     );
   };
 
-  const confirm = (confirmationCode: string): Promise<any> => {
+  const confirm = (
+    userName: string,
+    confirmationCode: string
+  ): Promise<any> => {
     const userPool = new CognitoUserPool(poolData);
 
-    // 新規ユーザーオブジェクトを作成
     const userData = {
-      Username: 'hoge',
+      Username: userName,
       Pool: userPool,
     };
 
     const cognitoUser = new CognitoUser(userData);
 
     return new Promise<any>((resolve, reject) =>
-      cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
-        if (err) {
-          console.error('account err:', err);
-          reject(err);
-          return;
+      cognitoUser.confirmRegistration(
+        confirmationCode,
+        false,
+        (err, result) => {
+          if (err) {
+            console.error('account err:', err);
+            reject(err);
+            return;
+          }
+          resolve(result);
         }
-        resolve(result);
-      })
+      )
     );
   };
 
