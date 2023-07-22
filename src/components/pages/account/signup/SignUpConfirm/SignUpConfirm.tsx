@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
+import { useAuth } from '@/hooks/useAuth';
 import { SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
@@ -18,7 +19,25 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
 
   const { push, back } = useRouter();
 
+  const { signUp, login } = useAuth();
+
   const handleRegister = async () => {
+    await signUp(
+      signUpFormValues.userName,
+      signUpFormValues.email,
+      signUpFormValues.telephone,
+      signUpFormValues.password
+    );
+    const isSuccess = await login(
+      signUpFormValues.userName,
+      signUpFormValues.password
+    );
+    if (!isSuccess) {
+      // TODO: 仮のエラーハンドリング
+      alert('入力内容が不正です。');
+      push('/signup');
+      return;
+    }
     push('/');
   };
 
