@@ -92,7 +92,7 @@ export const useAuth = (): UseAuth => {
 
     const cognitoUser = new CognitoUser(userData);
 
-    return new Promise<boolean>((resolve, reject) =>
+    return new Promise<boolean>((resolve) =>
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const idToken = result.getIdToken().getJwtToken();
@@ -101,11 +101,10 @@ export const useAuth = (): UseAuth => {
         },
         onFailure: (err) => {
           console.error('err : ', err);
-          reject(err);
+          resolve(false);
         },
         newPasswordRequired: () => {
-          reject(false);
-          // TODO: 再パスワード入力させる
+          resolve(true);
         },
       })
     );
