@@ -3,13 +3,12 @@
 import { useSearchParams } from 'next/navigation';
 import { FC } from 'react';
 
+import { SignUpCode } from '@/components/pages/account/signup/SignUpCode';
+import { SignUpConfirm } from '@/components/pages/account/signup/SignUpConfirm';
+import { SignUpField } from '@/components/pages/account/signup/SignUpField';
 import { SIGN_UP_FORM_VALUES } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
-
-import { SignUpCode } from '../../code/SignUpCode';
-import { SignUpConfirm } from '../SignUpConfirm';
-import { SignUpField } from '../SignUpField';
 
 export const SignUp: FC = () => {
   const searchParams = useSearchParams();
