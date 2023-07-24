@@ -1,8 +1,11 @@
 import { createContext, Ref } from 'react';
 
+import { SnackbarStatus } from '@/constants/snackbar';
+
 export type SnackbarEvent = {
   id: string;
   text: string;
+  status: SnackbarStatus;
   ref: Ref<HTMLDivElement> | undefined;
 };
 

@@ -3,29 +3,24 @@
 import clsx from 'clsx';
 import { FC, MouseEventHandler } from 'react';
 
+import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
+
 import style from './index.module.scss';
-
-const SNACKBAR_STATUS = {
-  NORMAL: 'normal',
-  ABNORMAL: 'abnormal',
-} as const;
-
-type SnackbarStatus = (typeof SNACKBAR_STATUS)[keyof typeof SNACKBAR_STATUS];
 
 type Props = {
   text: string;
-  color?: SnackbarStatus;
+  status?: SnackbarStatus;
   onClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const Snackbar: FC<Props> = ({
   text,
-  color = SNACKBAR_STATUS.NORMAL,
+  status = SNACKBAR_STATUS.NORMAL,
   onClick,
 }: Props) => {
   return (
     <button
-      className={clsx(style['snackbar-component'], style[`-${color}`])}
+      className={clsx(style['snackbar-component'], style[`-${status}`])}
       onClick={onClick}
     >
       {text}

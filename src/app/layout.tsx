@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState, createRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { Snackbar } from '@/components/ui/SnackBar';
+import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
 import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
 
 import style from './layout.module.scss';
@@ -16,10 +17,15 @@ export default function RootLayout({
 }) {
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
-  const addSnackbar = async (text: string) => {
+  const addSnackbar = async (text: string, status?: SnackbarStatus) => {
     setSnackbarEvents(
       snackbarEvents.concat([
-        { id: crypto.randomUUID(), text, ref: createRef<HTMLDivElement>() },
+        {
+          id: crypto.randomUUID(),
+          text,
+          status: status ?? SNACKBAR_STATUS.NORMAL,
+          ref: createRef<HTMLDivElement>(),
+        },
       ])
     );
   };
@@ -67,6 +73,7 @@ export default function RootLayout({
                   <div className={style['snackbar']} ref={snackbar.ref}>
                     <Snackbar
                       text={snackbar.text}
+                      status={snackbar.status}
                       onClick={() => deleteSnackbar(i)}
                     />
                   </div>
