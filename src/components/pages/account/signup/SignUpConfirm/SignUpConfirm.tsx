@@ -46,7 +46,7 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       case LOGIN_STATUS.FAILURE: {
         // TODO: 仮のエラーハンドリング
         alert('入力内容が不正です。');
-        push('/signup');
+        push('/signup?status=code');
         return;
       }
     }
