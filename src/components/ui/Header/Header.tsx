@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, FC } from 'react';
 
 import LogoutIcon from '@/assets/icons/logout.svg';
+import { PAGE_URL } from '@/constants/route';
 import { useAuth } from '@/hooks/useAuth';
 import LogoImage from 'public/twitter_profile_image.png';
 
@@ -24,7 +25,7 @@ export const Header: FC<Props> = ({ value, onSearch, onClear }: Props) => {
 
   const handleLogout = async () => {
     await logout();
-    push('/before');
+    push(PAGE_URL.BEFORE);
   };
 
   return (

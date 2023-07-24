@@ -5,6 +5,7 @@ import { ChangeEvent, FC } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
+import { PAGE_URL } from '@/constants/route';
 import { FieldState, FieldValueValidate } from '@/types/form';
 import { SignUpFormValues } from '@/types/signup';
 
@@ -28,7 +29,7 @@ export const SignUpField: FC<Props> = ({
   const { push, back } = useRouter();
 
   const navigateToSignUpConfirm = () => {
-    push('/signup?status=confirm');
+    push(`${PAGE_URL.SIGN_UP}?status=confirm`);
   };
 
   return (

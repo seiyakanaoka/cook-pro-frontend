@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { CopyRight } from '@/components/ui/CopyRight';
 import { Logo } from '@/components/ui/Logo';
 import { BUTTON_COLOR } from '@/constants/button';
+import { PAGE_URL } from '@/constants/route';
 
 import style from './index.module.scss';
 
@@ -14,11 +15,11 @@ export const SignUpLoginBefore: FC = () => {
   const { push } = useRouter();
 
   const navigateToLogin = () => {
-    push('/login');
+    push(PAGE_URL.LOGIN);
   };
 
   const navigateToSignUp = () => {
-    push('/signup');
+    push(PAGE_URL.SIGN_UP);
   };
 
   return (

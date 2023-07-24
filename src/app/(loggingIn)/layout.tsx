@@ -8,6 +8,7 @@ import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
 import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
+import { PAGE_URL } from '@/constants/route';
 
 import style from './layout.module.scss';
 
@@ -34,7 +35,7 @@ export default function HomeLayout({
 
   useEffect(() => {
     if (!hasToken) {
-      push('/login');
+      push(PAGE_URL.LOGIN);
     }
   }, [hasToken, push]);
 

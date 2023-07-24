@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
@@ -31,7 +32,7 @@ export const Login: FC<Props> = ({}: Props) => {
 
     await login(userName, password);
 
-    push('/');
+    push(PAGE_URL.HOME);
   };
 
   return (

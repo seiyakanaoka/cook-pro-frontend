@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
+import { PAGE_URL } from '@/constants/route';
 
 export default function HomeLayout({
   children,
@@ -20,7 +21,7 @@ export default function HomeLayout({
 
   useEffect(() => {
     if (hasToken) {
-      push('/');
+      push(PAGE_URL.HOME);
     }
   }, [hasToken, push]);
 

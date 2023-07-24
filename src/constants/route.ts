@@ -6,13 +6,3 @@ export const PAGE_URL = {
   LOGIN: '/login',
   SIGN_UP: '/signup',
 } as const;
-
-export const PAGE_QUERY = {
-  SIGN_UP: {
-    NAME: 'status=',
-    VALUE: {
-      CONFIRM: 'confirm',
-      CODE: 'code',
-    },
-  },
-} as const;

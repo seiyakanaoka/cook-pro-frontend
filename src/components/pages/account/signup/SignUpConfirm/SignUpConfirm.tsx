@@ -5,6 +5,7 @@ import { FC, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
 import { LOGIN_STATUS } from '@/constants/auth';
+import { PAGE_URL } from '@/constants/route';
 import { useAuth } from '@/hooks/useAuth';
 import { SignUpFormValues } from '@/types/signup';
 
@@ -36,17 +37,17 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
 
     switch (loginStatus) {
       case LOGIN_STATUS.SUCCESS: {
-        push('/');
+        push(PAGE_URL.HOME);
         return;
       }
       case LOGIN_STATUS.CONFIRM: {
-        push('/signup?status=code');
+        push(`${PAGE_URL.SIGN_UP}?status=code`);
         return;
       }
       case LOGIN_STATUS.FAILURE: {
         // TODO: 仮のエラーハンドリング
         alert('入力内容が不正です。');
-        push('/signup');
+        push(PAGE_URL.SIGN_UP);
         return;
       }
     }
