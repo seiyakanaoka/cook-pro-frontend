@@ -6,6 +6,7 @@ import { FC, useContext } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { useAuth } from '@/hooks/useAuth';
@@ -28,13 +29,13 @@ export const Login: FC<Props> = ({}: Props) => {
   });
 
   const handleLogin = async () => {
-    // const userName = fieldValue.userName || fieldValue.email || '';
+    const userName = fieldValue.userName || fieldValue.email || '';
 
-    // const password = fieldValue.password;
+    const password = fieldValue.password;
 
-    // await login(userName, password);
+    await login(userName, password);
 
-    // push(PAGE_URL.HOME);
+    push(PAGE_URL.HOME);
 
     addSnackbar('ログインしました');
   };

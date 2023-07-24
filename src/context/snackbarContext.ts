@@ -11,7 +11,7 @@ export type SnackbarEvent = {
 
 export type SnackbarContextType = {
   snackbarEvents: SnackbarEvent[];
-  addSnackbar: (text: string) => void;
+  addSnackbar: (text: string, status?: SnackbarStatus) => void;
 };
 
 export const SnackbarContext = createContext<SnackbarContextType>({
