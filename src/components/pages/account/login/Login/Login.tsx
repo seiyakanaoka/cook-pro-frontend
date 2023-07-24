@@ -24,12 +24,13 @@ export const Login: FC<Props> = ({}: Props) => {
     defaultValues: LOGIN_FORM_VALUES,
   });
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const userName = fieldValue.userName || fieldValue.email || '';
 
     const password = fieldValue.password;
 
-    login(userName, password);
+    await login(userName, password);
+
     push('/');
   };
 

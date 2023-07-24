@@ -7,6 +7,7 @@ import { SIGN_UP_FORM_VALUES } from '@/constants/validation/signup';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
 
+import { SignUpCode } from '../../code/SignUpCode';
 import { SignUpConfirm } from '../SignUpConfirm';
 import { SignUpField } from '../SignUpField';
 
@@ -23,17 +24,19 @@ export const SignUp: FC = () => {
 
   const status = searchParams?.get('status');
 
+  if (status === 'confirm') {
+    return <SignUpConfirm signUpFormValues={signUpFormValues} />;
+  }
+
+  if (status === 'code') {
+    return <SignUpCode signUpFormValues={signUpFormValues} />;
+  }
+
   return (
-    <div>
-      {status !== 'confirm' ? (
-        <SignUpField
-          signUpFormValues={signUpFormValues}
-          fieldState={fieldState}
-          onChange={onChange}
-        />
-      ) : (
-        <SignUpConfirm signUpFormValues={signUpFormValues} />
-      )}
-    </div>
+    <SignUpField
+      signUpFormValues={signUpFormValues}
+      fieldState={fieldState}
+      onChange={onChange}
+    />
   );
 };

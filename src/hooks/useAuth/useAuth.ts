@@ -6,6 +6,7 @@ import {
 } from 'amazon-cognito-identity-js';
 import { setCookie } from 'nookies';
 
+import { LOGIN_STATUS, LoginStatus } from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 
 const poolData = {
@@ -20,7 +21,8 @@ type UseAuth = {
     phoneNumber: string,
     password: string
   ) => Promise<void>;
-  login: (userName: string, password: string) => Promise<boolean>;
+  login: (userName: string, password: string) => Promise<LoginStatus>;
+  confirm: (userName: string, confirmationCode: string) => Promise<any>;
 };
 
 export const useAuth = (): UseAuth => {
@@ -75,7 +77,7 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  const login = (userName: string, password: string): Promise<boolean> => {
+  const login = (userName: string, password: string): Promise<LoginStatus> => {
     const authenticationData = {
       Username: userName,
       Password: password,
@@ -92,24 +94,57 @@ export const useAuth = (): UseAuth => {
 
     const cognitoUser = new CognitoUser(userData);
 
-    return new Promise<boolean>((resolve, reject) =>
+    return new Promise<LoginStatus>((resolve, reject) =>
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const idToken = result.getIdToken().getJwtToken();
           setCookie(null, ID_TOKEN_KEY, idToken);
-          resolve(true);
+          resolve(LOGIN_STATUS.SUCCESS);
         },
         onFailure: (err) => {
+          if (err.code === 'UserNotConfirmedException') {
+            resolve(LOGIN_STATUS.CONFIRM);
+            return;
+          }
           console.error('err : ', err);
-          reject(err);
+          reject(LOGIN_STATUS.FAILURE);
         },
         newPasswordRequired: () => {
-          reject(false);
-          // TODO: 再パスワード入力させる
+          // TODO: 新しいパスワードの処理を追加する
+          resolve(LOGIN_STATUS.NEW_PASSWORD);
         },
       })
     );
   };
 
-  return { signUp, login };
+  const confirm = (
+    userName: string,
+    confirmationCode: string
+  ): Promise<any> => {
+    const userPool = new CognitoUserPool(poolData);
+
+    const userData = {
+      Username: userName,
+      Pool: userPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    return new Promise<any>((resolve, reject) =>
+      cognitoUser.confirmRegistration(
+        confirmationCode,
+        false,
+        (err, result) => {
+          if (err) {
+            console.error('account err:', err);
+            reject(err);
+            return;
+          }
+          resolve(result);
+        }
+      )
+    );
+  };
+
+  return { signUp, login, confirm };
 };
