@@ -8,7 +8,6 @@ import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
 import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
-import FoodImage from 'public/food-1.png';
 
 import style from './layout.module.scss';
 
@@ -47,7 +46,6 @@ export default function HomeLayout({
     <div className={style['home-layout']}>
       <header className={style['header']}>
         <Header
-          userImage={FoodImage.src}
           value={searchValue}
           onSearch={handleSearch}
           onClear={handleClear}
