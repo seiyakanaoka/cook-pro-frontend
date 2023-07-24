@@ -26,12 +26,14 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
     defaultValues: { code: { value: '' } },
   });
 
-  const { confirm } = useAuth();
+  const { login, confirm } = useAuth();
 
   const handleSubmit = async () => {
     if (signUpFormValues.userName == null) return;
     await confirm(signUpFormValues.userName, fieldValue.code);
+    await login(signUpFormValues.userName, signUpFormValues.password);
     push('/');
+    // TODO: ログインできた時のスナックバーを出す
   };
 
   return (

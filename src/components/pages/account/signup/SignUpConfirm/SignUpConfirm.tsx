@@ -40,13 +40,13 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
         return;
       }
       case LOGIN_STATUS.CONFIRM: {
-        push(`/code-input?userName=${signUpFormValues.userName}`);
+        push('/signup?status=code');
         return;
       }
       case LOGIN_STATUS.FAILURE: {
         // TODO: 仮のエラーハンドリング
         alert('入力内容が不正です。');
-        push('/signup?status=code');
+        push('/signup');
         return;
       }
     }
