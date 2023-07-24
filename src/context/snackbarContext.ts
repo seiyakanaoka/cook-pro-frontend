@@ -1,7 +1,13 @@
-import { createContext } from 'react';
+import { createContext, Ref } from 'react';
 
-type SnackbarContextType = {
-  snackbarEvents: string[];
+export type SnackbarEvent = {
+  id: string;
+  text: string;
+  ref: Ref<HTMLDivElement> | undefined;
+};
+
+export type SnackbarContextType = {
+  snackbarEvents: SnackbarEvent[];
   addSnackbar: (text: string) => void;
 };
 

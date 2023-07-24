@@ -1,10 +1,11 @@
 'use client';
 
 import '../assets/styles/globals.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, createRef } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { Snackbar } from '@/components/ui/SnackBar';
-import { SnackbarContext } from '@/context/snackbarContext';
+import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
 
 import style from './layout.module.scss';
 
@@ -13,10 +14,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [snackbarEvents, setSnackbarEvents] = useState<string[]>([]);
+  const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
   const addSnackbar = async (text: string) => {
-    setSnackbarEvents(snackbarEvents.concat([text]));
+    setSnackbarEvents(
+      snackbarEvents.concat([
+        { id: crypto.randomUUID(), text, ref: createRef<HTMLDivElement>() },
+      ])
+    );
   };
 
   const deleteSnackbar = useCallback(
@@ -46,16 +51,28 @@ export default function RootLayout({
         >
           <div className={style['page-content']}>
             {children}
-            <ul className={style['field']}>
-              {snackbarEvents.map((snackbarText, i) => (
-                <li key={i} className={style['snackbar']}>
-                  <Snackbar
-                    text={snackbarText}
-                    onClick={() => deleteSnackbar(i)}
-                  />
-                </li>
+            <TransitionGroup className={style['field']}>
+              {snackbarEvents.map((snackbar, i) => (
+                <CSSTransition
+                  key={snackbar.id}
+                  nodeRef={snackbar.ref}
+                  timeout={300}
+                  classNames={{
+                    enter: style['snackbar-enter'],
+                    enterActive: style['snackbar-active-enter'],
+                    exit: style['snackbar-exit'],
+                    exitActive: style['snackbar-active-exit'],
+                  }}
+                >
+                  <div className={style['snackbar']} ref={snackbar.ref}>
+                    <Snackbar
+                      text={snackbar.text}
+                      onClick={() => deleteSnackbar(i)}
+                    />
+                  </div>
+                </CSSTransition>
               ))}
-            </ul>
+            </TransitionGroup>
           </div>
         </SnackbarContext.Provider>
       </body>
