@@ -1,0 +1,14 @@
+@import '../assets/styles/resources';
+
+.page-content {
+  width: 100%;
+  height: 100%;
+
+  > .snackbar {
+    position: fixed;
+    right: 0;
+    bottom: 7%;
+    width: 100%;
+    padding: 0 12px;
+  }
+}
