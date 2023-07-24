@@ -1,4 +1,13 @@
 @import '../../../assets/styles/resources';
 
 .snackbar-component {
+  width: 100%;
+  padding: 16px;
+  font-size: $font-size-15;
+  color: $color-white;
+  text-align: left;
+  cursor: pointer;
+  background-color: $color-black;
+  border: 0;
+  border-radius: 2px;
 }
