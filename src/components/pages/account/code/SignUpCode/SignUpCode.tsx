@@ -14,7 +14,7 @@ type CodeInputFormValues = {
   code: string;
 };
 
-export const CodeInput: FC = () => {
+export const SignUpCode: FC = () => {
   const { push } = useRouter();
 
   const userName = useSearchParams()?.get('userName');
