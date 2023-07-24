@@ -6,6 +6,6 @@ import style from './index.module.scss';
 
 type Props = {};
 
-export const SnackBar: FC<Props> = ({}: Props) => {
+export const Snackbar: FC<Props> = ({}: Props) => {
   return <div className={style['snackbar-component']}></div>;
 };
