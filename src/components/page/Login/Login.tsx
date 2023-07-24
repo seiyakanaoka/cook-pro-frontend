@@ -5,7 +5,6 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
-import { Snackbar } from '@/components/ui/Snackbar';
 import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
@@ -67,7 +66,6 @@ export const Login: FC<Props> = ({}: Props) => {
           !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
         }
       />
-      <Snackbar text="スナックバー" onClick={() => {}} />
     </div>
   );
 };
