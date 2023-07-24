@@ -3,7 +3,7 @@
 import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 
 import { FORM_TEXT_FIELD_TYPE, FormTextFieldType } from '@/constants/form';
-import { ErrorMessage } from '@/types/form';
+import { ErrorMessage } from '@/types/Form';
 
 import { FormTextField } from '../FormTextField';
 import { FormTitle } from '../FormTitle';

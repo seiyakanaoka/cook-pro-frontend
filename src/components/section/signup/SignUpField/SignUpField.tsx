@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 import { PAGE_URL } from '@/constants/route';
-import { FieldState, FieldValueValidate } from '@/types/form';
+import { FieldState, FieldValueValidate } from '@/types/Form';
 import { SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
