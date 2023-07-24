@@ -24,7 +24,7 @@ export const Header: FC<Props> = ({ value, onSearch, onClear }: Props) => {
 
   const handleLogout = async () => {
     await logout();
-    push('/');
+    push('/before');
   };
 
   return (
