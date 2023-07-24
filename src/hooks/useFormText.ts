@@ -8,7 +8,7 @@ import {
   FieldErrors,
   UseFormTextArgs,
   ErrorMessage,
-} from '@/types/form';
+} from '@/types/Form';
 import { getErrorMessage, getErrorValues } from '@/utils/form';
 
 type UseFormText<T extends FieldValues> = {

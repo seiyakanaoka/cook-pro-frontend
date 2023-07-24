@@ -1,4 +1,4 @@
-import { DefaultValues, FieldValueValidate } from '@/types/form';
+import { DefaultValues, FieldValueValidate } from '@/types/Form';
 import { LoginFormValues } from '@/types/login';
 
 export const LOGIN_VALIDATION: {

@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { FC, Fragment, useState } from 'react';
 
-import { DishItem } from '@/components/ui/dish/DishItem';
+import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import FoodImage from 'public/food-1.png';

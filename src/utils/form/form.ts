@@ -5,7 +5,7 @@ import {
   ErrorMessage,
   FieldErrors,
   FieldValueValidate,
-} from '@/types/form';
+} from '@/types/Form';
 
 export const getErrorMessage = (
   validate: FieldValueValidate | undefined,
