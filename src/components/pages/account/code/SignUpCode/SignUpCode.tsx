@@ -1,12 +1,13 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
+import { SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
 
@@ -14,10 +15,12 @@ type CodeInputFormValues = {
   code: string;
 };
 
-export const SignUpCode: FC = () => {
-  const { push } = useRouter();
+type Props = {
+  signUpFormValues: SignUpFormValues;
+};
 
-  const userName = useSearchParams()?.get('userName');
+export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
+  const { push } = useRouter();
 
   const { fieldValue, onChange } = useFormText<CodeInputFormValues>({
     defaultValues: { code: { value: '' } },
@@ -26,8 +29,8 @@ export const SignUpCode: FC = () => {
   const { confirm } = useAuth();
 
   const handleSubmit = async () => {
-    if (userName == null) return;
-    await confirm(userName, fieldValue.code);
+    if (signUpFormValues.userName == null) return;
+    await confirm(signUpFormValues.userName, fieldValue.code);
     push('/');
   };
 
