@@ -1,0 +1,40 @@
+@import '../assets/styles/resources';
+
+.page-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  > .field {
+    position: fixed;
+    right: 0;
+    bottom: 7%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 100%;
+
+    > .snackbar {
+      width: 100%;
+      padding: 0 12px;
+    }
+  }
+}
+
+.snackbar-enter {
+  opacity: 0;
+}
+
+.snackbar-active-enter {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.snackbar-exit {
+  opacity: 1;
+}
+
+.snackbar-active-exit {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}

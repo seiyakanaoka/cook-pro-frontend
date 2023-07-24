@@ -1,11 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { PAGE_URL } from '@/constants/route';
+import { SNACKBAR_STATUS } from '@/constants/snackbar';
+import { SnackbarContext } from '@/context/snackbarContext';
 import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
@@ -21,6 +23,8 @@ type Props = {
 };
 
 export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
+  const { addSnackbar } = useContext(SnackbarContext);
+
   const { push } = useRouter();
 
   const { fieldValue, onChange } = useFormText<CodeInputFormValues>({
@@ -35,11 +39,12 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
     // TODO: 定数にする
     if (result !== 'SUCCESS') {
       // TODO: 仮のエラーハンドリング
-      alert('確認コードが不正です。再度入力してください。');
+      addSnackbar('確認コードが不正です', SNACKBAR_STATUS.ABNORMAL);
       return;
     }
     await login(signUpFormValues.userName, signUpFormValues.password);
     push(PAGE_URL.HOME);
+    addSnackbar('Cook Proへようこそ');
     // TODO: ログインできた時のスナックバーを出す
   };
 
