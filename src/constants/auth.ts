@@ -6,3 +6,10 @@ export const LOGIN_STATUS = {
 } as const;
 
 export type LoginStatus = (typeof LOGIN_STATUS)[keyof typeof LOGIN_STATUS];
+
+export const LOGOUT_STATUS = {
+  SUCCESS: 'success',
+  FAILURE: 'failure',
+} as const;
+
+export type LogoutStatus = (typeof LOGOUT_STATUS)[keyof typeof LOGOUT_STATUS];

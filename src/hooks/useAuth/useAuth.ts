@@ -6,7 +6,12 @@ import {
 } from 'amazon-cognito-identity-js';
 import { setCookie, destroyCookie } from 'nookies';
 
-import { LOGIN_STATUS, LoginStatus } from '@/constants/auth';
+import {
+  LOGIN_STATUS,
+  LOGOUT_STATUS,
+  LoginStatus,
+  LogoutStatus,
+} from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 
 const poolData = {
@@ -118,13 +123,6 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  const LOGOUT_STATUS = {
-    SUCCESS: 'success',
-    FAILURE: 'failure',
-  } as const;
-
-  type LogoutStatus = (typeof LOGOUT_STATUS)[keyof typeof LOGOUT_STATUS];
-
   const logout = (): Promise<LogoutStatus> => {
     return new Promise<LogoutStatus>((resolve, reject) => {
       const userPool = new CognitoUserPool(poolData);
@@ -132,9 +130,9 @@ export const useAuth = (): UseAuth => {
       if (cognitoUser !== null) {
         cognitoUser.signOut();
         destroyCookie(null, ID_TOKEN_KEY);
-        resolve('success');
+        resolve(LOGOUT_STATUS.SUCCESS);
       }
-      reject('failure');
+      reject(LOGOUT_STATUS.FAILURE);
     });
   };
 
