@@ -1,7 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, FC } from 'react';
 
+import LogoutIcon from '@/assets/icons/logout.svg';
+import { useAuth } from '@/hooks/useAuth';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import { FormSearch } from '../form/FormSearch';
@@ -9,26 +12,30 @@ import { FormSearch } from '../form/FormSearch';
 import style from './index.module.scss';
 
 type Props = {
-  userImage: string;
   value: string;
   onSearch: ChangeEventHandler<HTMLInputElement>;
   onClear: () => void;
 };
 
-export const Header: FC<Props> = ({
-  userImage,
-  value,
-  onSearch,
-  onClear,
-}: Props) => {
+export const Header: FC<Props> = ({ value, onSearch, onClear }: Props) => {
+  const { logout } = useAuth();
+
+  const { push } = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    push('/before');
+  };
+
   return (
     <div className={style['header-component']}>
-      <div className={style['field']}>
-        <div className={style['logo-field']}>
+      <div className={style['header-top']}>
+        <div className={style['field']}>
           <img src={LogoImage.src} alt="" className={style['logo']} />
-          <p className={style['text']}>Cook Pro</p>
         </div>
-        <img src={userImage} alt="" className={style['image']} />
+        <div className={style['icon']} onClick={handleLogout}>
+          <LogoutIcon />
+        </div>
       </div>
       <FormSearch
         value={value}

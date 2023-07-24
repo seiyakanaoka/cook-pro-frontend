@@ -4,9 +4,14 @@ import {
   CognitoUserPool,
   CognitoUserAttribute,
 } from 'amazon-cognito-identity-js';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 
-import { LOGIN_STATUS, LoginStatus } from '@/constants/auth';
+import {
+  LOGIN_STATUS,
+  LOGOUT_STATUS,
+  LoginStatus,
+  LogoutStatus,
+} from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 
 const poolData = {
@@ -22,6 +27,7 @@ type UseAuth = {
     password: string
   ) => Promise<void>;
   login: (userName: string, password: string) => Promise<LoginStatus>;
+  logout: () => Promise<LogoutStatus>;
   confirm: (userName: string, confirmationCode: string) => Promise<any>;
 };
 
@@ -117,6 +123,19 @@ export const useAuth = (): UseAuth => {
     );
   };
 
+  const logout = (): Promise<LogoutStatus> => {
+    return new Promise<LogoutStatus>((resolve, reject) => {
+      const userPool = new CognitoUserPool(poolData);
+      const cognitoUser = userPool.getCurrentUser();
+      if (cognitoUser !== null) {
+        cognitoUser.signOut();
+        destroyCookie(null, ID_TOKEN_KEY);
+        resolve(LOGOUT_STATUS.SUCCESS);
+      }
+      reject(LOGOUT_STATUS.FAILURE);
+    });
+  };
+
   const confirm = (
     userName: string,
     confirmationCode: string
@@ -146,5 +165,5 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  return { signUp, login, confirm };
+  return { signUp, login, logout, confirm };
 };
