@@ -1,7 +1,7 @@
 'use client';
 
 import '../assets/styles/globals.css';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Snackbar } from '@/components/ui/SnackBar';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -15,19 +15,33 @@ export default function RootLayout({
 }) {
   const [snackbarEvents, setSnackbarEvents] = useState<string[]>([]);
 
-  const deleteSnackbar = (snackbarIndex: number) => {
-    setSnackbarEvents(
-      snackbarEvents.filter((_, index) => index !== snackbarIndex)
-    );
+  const addSnackbar = async (text: string) => {
+    setSnackbarEvents(snackbarEvents.concat([text]));
   };
+
+  const deleteSnackbar = useCallback(
+    (snackbarIndex: number) => {
+      const news = snackbarEvents.filter((_, index) => index !== snackbarIndex);
+      setSnackbarEvents(news);
+    },
+    [snackbarEvents]
+  );
+
+  useEffect(() => {
+    if (snackbarEvents.length === 0) return;
+    const timer = setTimeout(() => deleteSnackbar(0), 5000);
+    // clearTimeoutを実行せずにスナックバーを複数表示した場合、setTimeoutを実行した瞬間のsnackbarEventsの状態を保持してしまい、おかしい挙動になる
+    // clearTimeoutを行うことで、最後に実行されたsetTimeoutでは最新のsnackbarEventsを保持しているため、挙動がおかしくならない
+    return () => clearTimeout(timer);
+  }, [deleteSnackbar, snackbarEvents]);
 
   return (
     <html lang="ja">
       <body>
         <SnackbarContext.Provider
           value={{
-            snackbarEvents: snackbarEvents,
-            setSnackbarEvents: setSnackbarEvents,
+            snackbarEvents,
+            addSnackbar,
           }}
         >
           <div className={style['page-content']}>
@@ -36,7 +50,7 @@ export default function RootLayout({
               {snackbarEvents.map((snackbarText, i) => (
                 <li key={i} className={style['snackbar']}>
                   <Snackbar
-                    text={`${snackbarText} ${i}`}
+                    text={snackbarText}
                     onClick={() => deleteSnackbar(i)}
                   />
                 </li>

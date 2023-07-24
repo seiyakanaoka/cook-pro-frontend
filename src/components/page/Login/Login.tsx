@@ -17,7 +17,7 @@ import style from './index.module.scss';
 type Props = {};
 
 export const Login: FC<Props> = ({}: Props) => {
-  const { snackbarEvents, setSnackbarEvents } = useContext(SnackbarContext);
+  const { addSnackbar } = useContext(SnackbarContext);
 
   const { push } = useRouter();
 
@@ -36,7 +36,7 @@ export const Login: FC<Props> = ({}: Props) => {
 
     // push(PAGE_URL.HOME);
 
-    setSnackbarEvents(snackbarEvents.concat(['This is Snackbar']));
+    addSnackbar('ログインしました');
   };
 
   return (

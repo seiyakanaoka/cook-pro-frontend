@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, createContext } from 'react';
+import { createContext } from 'react';
 
 type SnackbarContextType = {
   snackbarEvents: string[];
-  setSnackbarEvents: Dispatch<SetStateAction<string[]>>;
+  addSnackbar: (text: string) => void;
 };
 
 export const SnackbarContext = createContext<SnackbarContextType>({
   snackbarEvents: [],
-  setSnackbarEvents: () => {},
+  addSnackbar: () => {},
 });
