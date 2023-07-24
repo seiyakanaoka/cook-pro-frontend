@@ -7,6 +7,7 @@ import { FC } from 'react';
 import HeartIcon from '@/assets/icons/heart.svg';
 import HomeIcon from '@/assets/icons/home.svg';
 import HumanIcon from '@/assets/icons/human.svg';
+import { PAGE_URL } from '@/constants/route';
 
 import style from './index.module.scss';
 
@@ -21,13 +22,13 @@ export const Footer: FC<Props> = ({}: Props) => {
     console.log(path);
     switch (path) {
       case 'home':
-        push('/');
+        push(PAGE_URL.HOME);
         return;
       case 'favorite':
-        push('/favorite');
+        push(PAGE_URL.FAVORITE);
         return;
       case 'user':
-        push('/user');
+        push(PAGE_URL.USER);
         return;
     }
   };

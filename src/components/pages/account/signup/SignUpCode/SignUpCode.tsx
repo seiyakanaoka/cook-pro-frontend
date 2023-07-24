@@ -5,6 +5,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { PAGE_URL } from '@/constants/route';
 import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
@@ -38,7 +39,7 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
       return;
     }
     await login(signUpFormValues.userName, signUpFormValues.password);
-    push('/');
+    push(PAGE_URL.HOME);
     // TODO: ログインできた時のスナックバーを出す
   };
 
