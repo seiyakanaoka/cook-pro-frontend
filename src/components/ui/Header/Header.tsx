@@ -1,8 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, FC } from 'react';
 
 import LogoutIcon from '@/assets/icons/logout.svg';
+import { useAuth } from '@/hooks/useAuth';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import { FormSearch } from '../form/FormSearch';
@@ -16,7 +18,14 @@ type Props = {
 };
 
 export const Header: FC<Props> = ({ value, onSearch, onClear }: Props) => {
-  const handleLogout = () => {};
+  const { logout } = useAuth();
+
+  const { push } = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    push('/');
+  };
 
   return (
     <div className={style['header-component']}>
