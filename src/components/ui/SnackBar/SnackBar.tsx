@@ -1,13 +1,15 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 
 import style from './index.module.scss';
 
-type Props = {};
+type Props = { text: string; onClick: MouseEventHandler<HTMLButtonElement> };
 
-export const Snackbar: FC<Props> = ({}: Props) => {
+export const Snackbar: FC<Props> = ({ text, onClick }: Props) => {
   return (
-    <button className={style['snackbar-component']}>This is Snackbar</button>
+    <button className={style['snackbar-component']} onClick={onClick}>
+      {text}
+    </button>
   );
 };

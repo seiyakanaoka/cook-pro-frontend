@@ -67,7 +67,7 @@ export const Login: FC<Props> = ({}: Props) => {
           !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
         }
       />
-      <Snackbar />
+      <Snackbar text="スナックバー" onClick={() => {}} />
     </div>
   );
 };
