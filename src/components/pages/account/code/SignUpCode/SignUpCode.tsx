@@ -30,7 +30,13 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
 
   const handleSubmit = async () => {
     if (signUpFormValues.userName == null) return;
-    await confirm(signUpFormValues.userName, fieldValue.code);
+    const result = await confirm(signUpFormValues.userName, fieldValue.code);
+    // TODO: 定数にする
+    if (result !== 'SUCCESS') {
+      // TODO: 仮のエラーハンドリング
+      alert('確認コードが不正です。再度入力してください。');
+      return;
+    }
     await login(signUpFormValues.userName, signUpFormValues.password);
     push('/');
     // TODO: ログインできた時のスナックバーを出す
