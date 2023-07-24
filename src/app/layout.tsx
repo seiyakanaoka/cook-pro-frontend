@@ -32,14 +32,16 @@ export default function RootLayout({
         >
           <div className={style['page-content']}>
             {children}
-            {snackbarEvents.map((snackbarText, i) => (
-              <div key={i} className={style['snackbar']}>
-                <Snackbar
-                  text={snackbarText}
-                  onClick={() => deleteSnackbar(i)}
-                />
-              </div>
-            ))}
+            <ul className={style['field']}>
+              {snackbarEvents.map((snackbarText, i) => (
+                <li key={i} className={style['snackbar']}>
+                  <Snackbar
+                    text={`${snackbarText} ${i}`}
+                    onClick={() => deleteSnackbar(i)}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </SnackbarContext.Provider>
       </body>
