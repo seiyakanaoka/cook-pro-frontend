@@ -1,4 +1,5 @@
 import { postUser } from '@/api/user';
+import { API_URL } from '@/constants/api/api';
 import { UserSignUpRequest } from '@/types/codegen/UserSignUpRequest';
 
 type UseUserRequest = {
@@ -7,7 +8,7 @@ type UseUserRequest = {
 
 export const useUserRequest = (): UseUserRequest => {
   const createUser = async (requestBody: UserSignUpRequest): Promise<void> => {
-    await postUser('user/signup', requestBody);
+    await postUser(API_URL.USER.SIGN_UP, requestBody);
   };
 
   return { createUser };
