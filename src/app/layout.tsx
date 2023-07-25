@@ -7,6 +7,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Snackbar } from '@/components/ui/SnackBar';
 import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
 import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
+import { useAxiosConfig } from '@/hooks/useAxiosConfig';
 
 import style from './layout.module.scss';
 
@@ -15,6 +16,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useAxiosConfig();
+
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
   const addSnackbar = async (text: string, status?: SnackbarStatus) => {

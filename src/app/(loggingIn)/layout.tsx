@@ -6,7 +6,6 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
-import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 
@@ -38,10 +37,6 @@ export default function HomeLayout({
       push(PAGE_URL.LOGIN);
     }
   }, [hasToken, push]);
-
-  if (!hasToken) {
-    return <Loading />;
-  }
 
   return (
     <div className={style['home-layout']}>
