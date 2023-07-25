@@ -10,7 +10,7 @@ export const useAxiosConfig = () => {
 
   axiosClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     if (config.headers === undefined || !idToken) return config;
-    config.headers.Authorization = `Bearer ${idToken}`;
+    config.headers.Authorization = `${idToken}`;
     return config;
   });
 };

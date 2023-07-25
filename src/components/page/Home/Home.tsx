@@ -1,11 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
+import { axiosClient } from '@/utils/axios';
 import FoodImage from 'public/food-1.png';
 
 import style from './index.module.scss';
@@ -52,6 +53,14 @@ const dishes = {
 };
 
 export const Home: FC = () => {
+  useEffect(() => {
+    const aaa = async () => {
+      const response = await axiosClient.get('/category');
+      console.log('response : ', response.data);
+    };
+    aaa();
+  }, []);
+
   const [items, setItems] = useState([
     { text: 'text1', isCheck: true },
     { text: 'text2', isCheck: false },
