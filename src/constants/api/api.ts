@@ -1,3 +1,4 @@
+import { API_URL_CATEGORIES } from './category';
 import { API_URL_DISHES, API_URL_DISHES_SEARCH } from './dish';
 import { API_URL_USER_SIGN_UP } from './user';
 
@@ -8,5 +9,8 @@ export const API_URL = {
   DISH: {
     DISHES: API_URL_DISHES,
     DISHES_SEARCH: API_URL_DISHES_SEARCH,
+  },
+  CATEGORY: {
+    CATEGORIES: API_URL_CATEGORIES,
   },
 } as const;
