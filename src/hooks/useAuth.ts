@@ -19,6 +19,11 @@ const poolData = {
   ClientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ?? '',
 } as const;
 
+type LoginResponse = {
+  idToken?: string;
+  status: LoginStatus;
+};
+
 type UseAuth = {
   signUp: (
     userName: string,
@@ -26,7 +31,7 @@ type UseAuth = {
     phoneNumber: string,
     password: string
   ) => Promise<void>;
-  login: (userName: string, password: string) => Promise<LoginStatus>;
+  login: (userName: string, password: string) => Promise<LoginResponse>;
   logout: () => Promise<LogoutStatus>;
   confirm: (userName: string, confirmationCode: string) => Promise<any>;
 };
@@ -83,7 +88,10 @@ export const useAuth = (): UseAuth => {
     );
   };
 
-  const login = (userName: string, password: string): Promise<LoginStatus> => {
+  const login = (
+    userName: string,
+    password: string
+  ): Promise<LoginResponse> => {
     const authenticationData = {
       Username: userName,
       Password: password,
@@ -100,24 +108,37 @@ export const useAuth = (): UseAuth => {
 
     const cognitoUser = new CognitoUser(userData);
 
-    return new Promise<LoginStatus>((resolve, reject) =>
+    return new Promise<LoginResponse>((resolve, reject) =>
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           const idToken = result.getIdToken().getJwtToken();
           setCookie(null, ID_TOKEN_KEY, idToken);
-          resolve(LOGIN_STATUS.SUCCESS);
+          const successResponse: LoginResponse = {
+            idToken,
+            status: LOGIN_STATUS.SUCCESS,
+          };
+          resolve(successResponse);
         },
         onFailure: (err) => {
           if (err.code === 'UserNotConfirmedException') {
-            resolve(LOGIN_STATUS.CONFIRM);
+            const confirmResponse: LoginResponse = {
+              status: LOGIN_STATUS.CONFIRM,
+            };
+            resolve(confirmResponse);
             return;
           }
           console.error('err : ', err);
-          reject(LOGIN_STATUS.FAILURE);
+          const failureResponse: LoginResponse = {
+            status: LOGIN_STATUS.FAILURE,
+          };
+          reject(failureResponse);
         },
         newPasswordRequired: () => {
+          const passwordResponse: LoginResponse = {
+            status: LOGIN_STATUS.NEW_PASSWORD,
+          };
           // TODO: 新しいパスワードの処理を追加する
-          resolve(LOGIN_STATUS.NEW_PASSWORD);
+          resolve(passwordResponse);
         },
       })
     );

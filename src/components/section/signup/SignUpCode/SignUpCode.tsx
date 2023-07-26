@@ -6,8 +6,10 @@ import { FC, useContext } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { PAGE_URL } from '@/constants/route';
+// import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SnackbarContext } from '@/context/snackbarContext';
+import { useUserRequest } from '@/hooks/api/user/useUserRequest';
 import { useAuth } from '@/hooks/useAuth';
 import { useFormText } from '@/hooks/useFormText';
 import { SignUpFormValues } from '@/types/signup';
@@ -27,6 +29,8 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
 
   const { push } = useRouter();
 
+  const { createUser } = useUserRequest();
+
   const { fieldValue, onChange } = useFormText<CodeInputFormValues>({
     defaultValues: { code: { value: '' } },
   });
@@ -42,10 +46,25 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
       addSnackbar('確認コードが不正です', SNACKBAR_STATUS.ABNORMAL);
       return;
     }
-    await login(signUpFormValues.userName, signUpFormValues.password);
+
+    const requestBody = {
+      userName: signUpFormValues.userName,
+      email: signUpFormValues.email,
+      telNumber: signUpFormValues.telephone,
+    };
+
+    const status = await login(
+      signUpFormValues.userName,
+      signUpFormValues.password
+    );
+
+    const headers = {
+      Authorization: `Bearer ${status.idToken}`,
+    };
+
+    await createUser(requestBody, headers);
     push(PAGE_URL.HOME);
     addSnackbar('Cook Proへようこそ');
-    // TODO: ログインできた時のスナックバーを出す
   };
 
   return (
