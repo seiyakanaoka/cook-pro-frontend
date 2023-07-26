@@ -6,23 +6,14 @@ import {
 } from 'amazon-cognito-identity-js';
 import { setCookie, destroyCookie } from 'nookies';
 
-import {
-  LOGIN_STATUS,
-  LOGOUT_STATUS,
-  LoginStatus,
-  LogoutStatus,
-} from '@/constants/auth';
+import { LOGIN_STATUS, LOGOUT_STATUS, LogoutStatus } from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
+import { LoginResponse } from '@/types/login';
 
 const poolData = {
   UserPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID ?? '',
   ClientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID ?? '',
 } as const;
-
-type LoginResponse = {
-  idToken?: string;
-  status: LoginStatus;
-};
 
 type UseAuth = {
   signUp: (
