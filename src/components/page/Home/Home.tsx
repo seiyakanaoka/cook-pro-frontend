@@ -79,7 +79,7 @@ export const Home: FC = () => {
               )}
             >
               <DishItem
-                image={dish.image}
+                image={!!dish.images.length ? dish.images[0] : ''}
                 title={dish.dishName}
                 time={dish.dishCreateRequiredTime.toString()}
               />
