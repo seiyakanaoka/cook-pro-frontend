@@ -6,6 +6,7 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
+import { CATEGORY } from '@/constants/category';
 import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
@@ -35,7 +36,7 @@ export const Home: FC = () => {
       const response = await _getCategories();
       setCategories(
         response.map((category) => ({
-          text: category.toString(),
+          text: CATEGORY[category],
           isCheck: false,
         }))
       );
