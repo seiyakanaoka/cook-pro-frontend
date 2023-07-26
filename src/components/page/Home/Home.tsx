@@ -1,71 +1,49 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
-import FoodImage from 'public/food-1.png';
+import { useCategories } from '@/hooks/api/category/useCategories';
+import { useDishes } from '@/hooks/api/dish/useDishes';
+import { DishResponse } from '@/types/codegen/dish/DishResponse';
 
 import style from './index.module.scss';
 
-const dishes = {
-  dishes: [
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d606',
-      dishName: '季節の野菜たっぷりのカレー',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d607',
-      dishName: '季節の野菜たっぷりのカレー',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d608',
-      dishName: '季節の野菜たっぷりのカレーadsddad',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d609',
-      dishName: '季節の野菜たっぷりのカレー',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d6010',
-      dishName: '季節の野菜たっぷりのカレーadsddad',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-    {
-      dishId: 'f59fa544-abfe-423d-a20c-2799eed2d6011',
-      dishName: '季節の野菜たっぷりのカレー',
-      image: FoodImage.src,
-      dishCreateRequiredTime: 20,
-    },
-  ],
-};
-
 export const Home: FC = () => {
-  const [items, setItems] = useState([
-    { text: 'text1', isCheck: true },
-    { text: 'text2', isCheck: false },
-    { text: 'text3', isCheck: false },
-    { text: 'text4', isCheck: true },
-    { text: 'text5', isCheck: false },
-    { text: 'text6', isCheck: false },
-    { text: 'text7', isCheck: false },
-    { text: 'text8', isCheck: false },
-    { text: 'text9', isCheck: false },
-    { text: 'text10', isCheck: false },
-    { text: 'text11', isCheck: false },
-    { text: 'text12', isCheck: false },
-  ]);
+  const { getDishes: _getDishes } = useDishes();
+
+  const { getCategories: _getCategories } = useCategories();
+
+  const [dishes, setDishes] = useState<DishResponse[] | undefined>();
+
+  const [categories, setCategories] = useState<
+    { text: string; isCheck: boolean }[]
+  >([]);
+
+  useEffect(() => {
+    const getDishes = async () => {
+      const response = await _getDishes();
+      setDishes(response);
+    };
+
+    getDishes();
+
+    const getCategories = async () => {
+      const response = await _getCategories();
+      setCategories(
+        response.map((category) => ({
+          text: category.toString(),
+          isCheck: false,
+        }))
+      );
+    };
+
+    getCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -78,25 +56,25 @@ export const Home: FC = () => {
   };
 
   const onClickFilterItem = (text: string) => {
-    const newItems = items.map((item) => {
-      if (text === item.text) {
-        const newItem = { ...item, isCheck: !item.isCheck };
+    const newCategories = categories.map((category) => {
+      if (text === category.text) {
+        const newItem = { ...category, isCheck: !category.isCheck };
         return newItem;
       }
-      return item;
+      return category;
     });
-    setItems(newItems);
+    setCategories(newCategories);
   };
 
   return (
     <div className={style['home-component']}>
       <ul className={style['dish-list']}>
-        {dishes.dishes.map((dish) => (
+        {dishes?.map((dish) => (
           <Fragment key={dish.dishId}>
             <li
               className={clsx(
                 style['dish'],
-                dishes.dishes.length % 2 === 0 && style['-even']
+                dishes?.length % 2 === 0 && style['-even']
               )}
             >
               <DishItem
@@ -114,7 +92,7 @@ export const Home: FC = () => {
       </div>
       <FilterPanel
         isOpen={isOpen}
-        items={items}
+        items={categories}
         onClick={onClickFilterItem}
         onClose={onClose}
       />
