@@ -29,6 +29,7 @@ export const Home: FC = () => {
       const response = await _getDishes();
       setDishes(response);
     };
+
     getDishes();
 
     const getCategories = async () => {
@@ -40,6 +41,7 @@ export const Home: FC = () => {
         }))
       );
     };
+
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
