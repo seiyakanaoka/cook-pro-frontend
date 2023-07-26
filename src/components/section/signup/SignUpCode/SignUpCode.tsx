@@ -61,7 +61,7 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
       Authorization: `Bearer ${status.idToken}`,
     };
 
-    await createUser(requestBody, headers);
+    await createUser(requestBody, { headers });
     push(PAGE_URL.HOME);
     addSnackbar('Cook Proへようこそ');
   };
