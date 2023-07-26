@@ -35,7 +35,7 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       signUpFormValues.password
     );
 
-    switch (loginStatus) {
+    switch (loginStatus.status) {
       case LOGIN_STATUS.SUCCESS: {
         push(PAGE_URL.HOME);
         return;
