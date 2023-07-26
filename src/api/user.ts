@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { UserSignUpRequest } from '@/types/codegen/UserSignUpRequest';
+import { UserSignUpRequest } from '@/types/codegen/user/UserSignUpRequest';
 import { axiosClient } from '@/utils/axios';
 
 export const postUser = async (
