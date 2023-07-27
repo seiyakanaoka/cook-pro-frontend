@@ -11,6 +11,7 @@ import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
+import { FilterItem } from '@/types/Filter';
 
 import style from './index.module.scss';
 
@@ -21,9 +22,7 @@ export const Home: FC = () => {
 
   const [dishes, setDishes] = useState<DishResponse[] | undefined>();
 
-  const [categories, setCategories] = useState<
-    { id: string; text: string; isCheck: boolean }[]
-  >([]);
+  const [categories, setCategories] = useState<FilterItem[]>([]);
 
   useEffect(() => {
     const getDishes = async () => {
@@ -65,9 +64,7 @@ export const Home: FC = () => {
     setIsOpen(false);
   };
 
-  const onChangeFilterItem = (
-    items: { id: string; text: string; isCheck: boolean }[]
-  ) => {
+  const onChangeFilterItem = (items: FilterItem[]) => {
     setCategories(items);
   };
 

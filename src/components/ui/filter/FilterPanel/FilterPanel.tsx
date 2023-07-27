@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { BUTTON_COLOR } from '@/constants/button';
+import { FilterItem } from '@/types/Filter';
 
 import { Button } from '../../Button';
 import { FormCheckbox } from '../../form/FormCheckbox';
@@ -12,7 +13,7 @@ import style from './index.module.scss';
 
 type Props = {
   isOpen: boolean;
-  items: { id: string; text: string; isCheck: boolean }[];
+  items: FilterItem[];
   onChange: (items: { id: string; text: string; isCheck: boolean }[]) => void;
   onClose: () => void;
 };
