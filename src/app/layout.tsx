@@ -4,7 +4,7 @@ import '../assets/styles/globals.css';
 import { useCallback, useEffect, useState, createRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { Snackbar } from '@/components/ui/SnackBar';
+import { Snackbar } from '@/components/ui/Snackbar';
 import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
 import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
 import { useAxiosConfig } from '@/hooks/useAxiosConfig';
