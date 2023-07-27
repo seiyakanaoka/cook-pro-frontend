@@ -9,7 +9,9 @@ import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 
 type UseDishes = {
   getDishes: () => Promise<DishResponse[]>;
-  getDishesSearch: () => Promise<DishSearchResponse[]>;
+  getDishesSearch: (
+    params?: DishesSearchParams
+  ) => Promise<DishSearchResponse[]>;
 };
 
 export const useDishes = (): UseDishes => {
@@ -21,7 +23,7 @@ export const useDishes = (): UseDishes => {
   const getDishesSearch = async (
     params?: DishesSearchParams
   ): Promise<DishSearchResponse[]> => {
-    const response = await _getDishesSearch(API_URL.DISH.DISHES, params);
+    const response = await _getDishesSearch(API_URL.DISH.DISHES_SEARCH, params);
     return response.dishesSearch;
   };
 

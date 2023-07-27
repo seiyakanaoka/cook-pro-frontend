@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { Header } from '@/components/ui/Header';
@@ -18,16 +18,6 @@ export default function HomeLayout({
 }) {
   const { push } = useRouter();
 
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchValue(e.currentTarget.value);
-  };
-
-  const handleClear = () => {
-    setSearchValue('');
-  };
-
   const cookie = parseCookies();
 
   const hasToken = !!cookie[ID_TOKEN_KEY];
@@ -41,11 +31,7 @@ export default function HomeLayout({
   return (
     <div className={style['home-layout']}>
       <header className={style['header']}>
-        <Header
-          value={searchValue}
-          onSearch={handleSearch}
-          onClear={handleClear}
-        />
+        <Header />
       </header>
       {children}
       <footer className={style['footer']}>
