@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { BUTTON_COLOR } from '@/constants/button';
@@ -12,23 +12,50 @@ import style from './index.module.scss';
 
 type Props = {
   isOpen: boolean;
-  items: {
-    text: string;
-    isCheck: boolean;
-  }[];
-  onClick: (id: string) => void;
+  items: { id: string; text: string; isCheck: boolean }[];
+  onChange: (items: { id: string; text: string; isCheck: boolean }[]) => void;
   onClose: () => void;
 };
 
 export const FilterPanel: FC<Props> = ({
   isOpen,
   items,
-  onClick,
+  onChange,
   onClose,
 }: Props) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const panelRef = useRef<HTMLDivElement | null>(null);
+
+  const [filterItems, setFilterItems] = useState<
+    {
+      id: string;
+      text: string;
+      isCheck: boolean;
+    }[]
+  >(items);
+
+  useEffect(() => {
+    if (!filterItems.length && !!items.length) {
+      setFilterItems(items);
+    }
+  }, [filterItems.length, items]);
+
+  const handleClick = (id: string) => {
+    const newCategories = filterItems.map((item) => {
+      if (id === item.id) {
+        const newItem = { ...item, isCheck: !item.isCheck };
+        return newItem;
+      }
+      return item;
+    });
+    setFilterItems(newCategories);
+  };
+
+  const handleClose = () => {
+    onChange(filterItems);
+    onClose();
+  };
 
   return (
     <div>
@@ -72,12 +99,12 @@ export const FilterPanel: FC<Props> = ({
             <p className={style['title']}>カテゴリフィルター</p>
             <div className={style['body-content']}>
               <ul className={style['list']}>
-                {items.map((item) => (
+                {filterItems.map((item) => (
                   <FormCheckbox
                     key={item.text}
                     text={item.text}
                     isCheck={item.isCheck}
-                    onClick={() => onClick(item.text)}
+                    onClick={() => handleClick(item.id)}
                   />
                 ))}
               </ul>
@@ -85,7 +112,7 @@ export const FilterPanel: FC<Props> = ({
             <Button
               text="閉じる"
               color={BUTTON_COLOR.green}
-              onClick={onClose}
+              onClick={handleClose}
             />
           </div>
         </div>

@@ -9,6 +9,7 @@ import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import { CATEGORY } from '@/constants/category';
 import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
+import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
 
 import style from './index.module.scss';
@@ -21,20 +22,29 @@ export const Home: FC = () => {
   const [dishes, setDishes] = useState<DishResponse[] | undefined>();
 
   const [categories, setCategories] = useState<
-    { text: string; isCheck: boolean }[]
+    { id: string; text: string; isCheck: boolean }[]
   >([]);
 
   useEffect(() => {
     const getDishes = async () => {
-      const response = await _getDishes();
+      const response = await _getDishes({
+        categories: categories
+          .filter((category) => category.isCheck)
+          .map((category) => category.id),
+      });
       setDishes(response);
     };
     getDishes();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories]);
+
+  useEffect(() => {
     const getCategories = async () => {
       const response = await _getCategories();
       setCategories(
         response.map((category) => ({
+          id: category,
           text: CATEGORY[category],
           isCheck: false,
         }))
@@ -55,15 +65,10 @@ export const Home: FC = () => {
     setIsOpen(false);
   };
 
-  const onClickFilterItem = (text: string) => {
-    const newCategories = categories.map((category) => {
-      if (text === category.text) {
-        const newItem = { ...category, isCheck: !category.isCheck };
-        return newItem;
-      }
-      return category;
-    });
-    setCategories(newCategories);
+  const onChangeFilterItem = (
+    items: { id: string; text: string; isCheck: boolean }[]
+  ) => {
+    setCategories(items);
   };
 
   return (
@@ -92,8 +97,12 @@ export const Home: FC = () => {
       </div>
       <FilterPanel
         isOpen={isOpen}
-        items={categories}
-        onClick={onClickFilterItem}
+        items={categories.map((category) => ({
+          id: category.id,
+          text: CATEGORY[category.id as CategoryResponse],
+          isCheck: category.isCheck,
+        }))}
+        onChange={onChangeFilterItem}
         onClose={onClose}
       />
     </div>

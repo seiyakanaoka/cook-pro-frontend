@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import { DishesParams } from '@/types/codegen/dish/DishesParams';
 import { DishesResponse } from '@/types/codegen/dish/DishesResponse';
 import { DishesSearchParams } from '@/types/codegen/dish/DishesSearchParams';
@@ -8,7 +10,12 @@ export const getDishes = async (
   url: string,
   params?: DishesParams
 ): Promise<DishesResponse> => {
-  const response = await axiosClient.get<DishesResponse>(url, { params });
+  const response = await axiosClient.get<DishesResponse>(url, {
+    params,
+    paramsSerializer: (params) => {
+      return qs.stringify(params, { arrayFormat: 'repeat' });
+    },
+  });
   return response.data;
 };
 

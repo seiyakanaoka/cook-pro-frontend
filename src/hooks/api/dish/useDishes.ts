@@ -3,20 +3,21 @@ import {
   getDishesSearch as _getDishesSearch,
 } from '@/api/dish';
 import { API_URL } from '@/constants/api/api';
+import { DishesParams } from '@/types/codegen/dish/DishesParams';
 import { DishesSearchParams } from '@/types/codegen/dish/DishesSearchParams';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
 import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 
 type UseDishes = {
-  getDishes: () => Promise<DishResponse[]>;
+  getDishes: (params?: DishesParams) => Promise<DishResponse[]>;
   getDishesSearch: (
     params?: DishesSearchParams
   ) => Promise<DishSearchResponse[]>;
 };
 
 export const useDishes = (): UseDishes => {
-  const getDishes = async (): Promise<DishResponse[]> => {
-    const response = await _getDishes(API_URL.DISH.DISHES);
+  const getDishes = async (params?: DishesParams): Promise<DishResponse[]> => {
+    const response = await _getDishes(API_URL.DISH.DISHES, params);
     return response.dishes;
   };
 
