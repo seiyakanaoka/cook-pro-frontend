@@ -1,3 +1,3 @@
 export interface DishesParams {
-  category?: string[];
+  categories?: string[];
 }
