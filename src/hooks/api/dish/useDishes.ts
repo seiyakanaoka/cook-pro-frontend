@@ -3,6 +3,7 @@ import {
   getDishesSearch as _getDishesSearch,
 } from '@/api/dish';
 import { API_URL } from '@/constants/api/api';
+import { DishesSearchParams } from '@/types/codegen/dish/DishesSearchParams';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
 import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 
@@ -17,8 +18,10 @@ export const useDishes = (): UseDishes => {
     return response.dishes;
   };
 
-  const getDishesSearch = async (): Promise<DishSearchResponse[]> => {
-    const response = await _getDishesSearch(API_URL.DISH.DISHES);
+  const getDishesSearch = async (
+    params?: DishesSearchParams
+  ): Promise<DishSearchResponse[]> => {
+    const response = await _getDishesSearch(API_URL.DISH.DISHES, params);
     return response.dishesSearch;
   };
 

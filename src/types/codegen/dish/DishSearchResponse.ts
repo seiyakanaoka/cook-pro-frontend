@@ -1,4 +1,4 @@
 export interface DishSearchResponse {
-  dishId: string;
-  dishName: string;
+  id: string;
+  name: string;
 }
