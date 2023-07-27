@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { ChangeEventHandler, FC } from 'react';
 
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
@@ -23,6 +24,8 @@ export const FormSuggest: FC<Props> = ({
   onSearch,
   onClear,
 }: Props) => {
+  const isEmpty = items.length === 0;
+
   return (
     <div className={style['form-suggest-component']}>
       <FormSearch
@@ -33,11 +36,11 @@ export const FormSuggest: FC<Props> = ({
         onClear={onClear}
       />
       {!!value && (
-        <div className={style['panel']}>
-          {!items.length ? (
-            <div>結果がありません</div>
+        <div className={clsx(style['panel'], isEmpty && style['-empty'])}>
+          {isEmpty ? (
+            <div className={style['message']}>結果がありません</div>
           ) : (
-            <ul className={style['select-panel']}>
+            <ul className={style['panel-list']}>
               {items.map((item) => (
                 <li key={item.id} className={style['item']}>
                   {item.name}
