@@ -24,6 +24,12 @@ export const Home: FC = () => {
 
   const [categories, setCategories] = useState<FilterItem[]>([]);
 
+  const filterItems = categories.map((category) => ({
+    id: category.id,
+    text: CATEGORY[category.id as CategoryResponse],
+    isCheck: category.isCheck,
+  }));
+
   useEffect(() => {
     const getDishes = async () => {
       const response = await _getDishes({
@@ -94,11 +100,7 @@ export const Home: FC = () => {
       </div>
       <FilterPanel
         isOpen={isOpen}
-        items={categories.map((category) => ({
-          id: category.id,
-          text: CATEGORY[category.id as CategoryResponse],
-          isCheck: category.isCheck,
-        }))}
+        items={filterItems}
         onChange={onChangeFilterItem}
         onClose={onClose}
       />
