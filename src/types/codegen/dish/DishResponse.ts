@@ -1,6 +1,6 @@
 export interface DishResponse {
   dishId: string;
   dishName: string;
-  images: string[];
+  image: string;
   dishCreateRequiredTime: number;
 }
