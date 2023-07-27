@@ -1,0 +1,10 @@
+export enum CategoryResponse {
+  JAPAN_FOOD = 'JAPAN_FOOD',
+  WESTERN_FOOD = 'WESTERN_FOOD',
+  CHINESE_FOOD = 'CHINESE_FOOD',
+  MEAT_DISH = 'MEAT_DISH',
+  FISH_DISH = 'FISH_DISH',
+  NOODLE = 'NOODLE',
+  RICE = 'RICE',
+  SALAD = 'SALAD',
+}

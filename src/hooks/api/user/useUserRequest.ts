@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 import { postUser } from '@/api/user';
 import { API_URL } from '@/constants/api/api';
-import { UserSignUpRequest } from '@/types/codegen/UserSignUpRequest';
+import { UserSignUpRequest } from '@/types/codegen/user/UserSignUpRequest';
 
 type UseUserRequest = {
   createUser: (
