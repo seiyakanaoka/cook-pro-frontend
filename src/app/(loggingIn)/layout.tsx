@@ -28,6 +28,7 @@ export default function HomeLayout({
     }
   }, [hasToken, push]);
 
+  // TODO: childrenの量が少ない時はスクロールさせないようにする
   return (
     <div className={style['home-layout']}>
       <header className={style['header']}>
