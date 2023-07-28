@@ -1,5 +1,7 @@
 @import '../../assets/styles/resources';
 
+$footer-height: 50px;
+
 .home-layout {
   position: relative;
   width: 100%;
@@ -14,8 +16,10 @@
 
   > .footer {
     position: sticky;
+    top: calc(100% - $footer-height);
     bottom: 0;
     z-index: 1;
     width: 100%;
+    height: $footer-height;
   }
 }
