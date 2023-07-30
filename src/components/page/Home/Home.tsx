@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, Fragment, useEffect, useState } from 'react';
+import { ChangeEventHandler, FC, Fragment, useEffect, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
@@ -12,18 +12,46 @@ import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { DishResponse } from '@/types/codegen/dish/DishResponse';
+import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 import { FilterItem } from '@/types/Filter';
 
 import style from './index.module.scss';
 
 export const Home: FC = () => {
-  const { getDishes: _getDishes } = useDishes();
+  const { getDishes: _getDishes, getDishesSearch: _getDishesSearch } =
+    useDishes();
 
   const { getCategories: _getCategories } = useCategories();
 
   const [dishes, setDishes] = useState<DishResponse[] | undefined>();
 
   const [categories, setCategories] = useState<FilterItem[]>([]);
+
+  const onChangeFilterItem = (items: FilterItem[]) => {
+    setCategories(items);
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const [searchItems, setSearchItems] = useState<DishSearchResponse[]>([]);
+
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setSearchValue(e.currentTarget.value);
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+  };
 
   const filterItems = categories.map((category) => ({
     id: category.id,
@@ -61,24 +89,25 @@ export const Home: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const getDishesSearch = async () => {
+      const response = await _getDishesSearch({ dishName: searchValue });
+      setSearchItems(response);
+    };
 
-  const onOpen = () => {
-    setIsOpen(true);
-  };
-
-  const onClose = () => {
-    setIsOpen(false);
-  };
-
-  const onChangeFilterItem = (items: FilterItem[]) => {
-    setCategories(items);
-  };
+    getDishesSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   return (
     <div className={style['home-component']}>
       <div className={style['header']}>
-        <Header />
+        <Header
+          searchItems={searchItems}
+          searchValue={searchValue}
+          onSearch={handleSearch}
+          onClear={handleClear}
+        />
       </div>
       <ul className={style['dish-list']}>
         {dishes?.map((dish) => (

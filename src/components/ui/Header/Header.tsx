@@ -1,52 +1,42 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { ChangeEventHandler, FC } from 'react';
 
 import LogoutIcon from '@/assets/icons/logout.svg';
 import { PAGE_URL } from '@/constants/route';
-import { useDishes } from '@/hooks/api/dish/useDishes';
 import { useAuth } from '@/hooks/useAuth';
-import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import { FormSuggest } from '../form/FormSuggest';
 
 import style from './index.module.scss';
 
-export const Header: FC = () => {
+type Props = {
+  searchItems: { id: string; name: string }[];
+  searchValue: string;
+  onSearch: ChangeEventHandler<HTMLInputElement>;
+  onClear: () => void;
+};
+
+export const Header: FC<Props> = ({
+  searchItems,
+  searchValue,
+  onSearch,
+  onClear,
+}: Props) => {
   const { logout } = useAuth();
 
   const { push } = useRouter();
 
-  const { getDishesSearch: _getDishesSearch } = useDishes();
-
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchValue(e.currentTarget.value);
-  };
-
-  const handleClear = () => {
-    setSearchValue('');
-  };
-
-  const [searchItems, setSearchItems] = useState<DishSearchResponse[]>([]);
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     await logout();
     push(PAGE_URL.BEFORE);
   };
 
-  useEffect(() => {
-    const getDishesSearch = async () => {
-      const response = await _getDishesSearch({ dishName: searchValue });
-      setSearchItems(response);
-    };
-
-    getDishesSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue]);
+  const isHome = pathname === PAGE_URL.HOME;
 
   return (
     <div className={style['header-component']}>
@@ -58,13 +48,15 @@ export const Header: FC = () => {
           <LogoutIcon />
         </div>
       </div>
-      <FormSuggest
-        items={searchItems}
-        value={searchValue}
-        placeholder="料理名で検索"
-        onSearch={handleSearch}
-        onClear={handleClear}
-      />
+      {isHome && (
+        <FormSuggest
+          items={searchItems}
+          value={searchValue}
+          placeholder="料理名で検索"
+          onSearch={onSearch}
+          onClear={onClear}
+        />
+      )}
     </div>
   );
 };
