@@ -13,10 +13,10 @@ import { FormSuggest } from '../form/FormSuggest';
 import style from './index.module.scss';
 
 type Props = {
-  searchItems: { id: string; name: string }[];
-  searchValue: string;
-  onSearch: ChangeEventHandler<HTMLInputElement>;
-  onClear: () => void;
+  searchItems?: { id: string; name: string }[];
+  searchValue?: string;
+  onSearch?: ChangeEventHandler<HTMLInputElement>;
+  onClear?: () => void;
 };
 
 export const Header: FC<Props> = ({
@@ -50,11 +50,11 @@ export const Header: FC<Props> = ({
       </div>
       {isHome && (
         <FormSuggest
-          items={searchItems}
-          value={searchValue}
+          items={searchItems ?? []}
+          value={searchValue ?? ''}
           placeholder="料理名で検索"
-          onSearch={onSearch}
-          onClear={onClear}
+          onSearch={onSearch ?? (() => {})}
+          onClear={onClear ?? (() => {})}
         />
       )}
     </div>

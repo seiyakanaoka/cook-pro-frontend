@@ -1,0 +1,14 @@
+@import '../../../assets/styles/resources';
+
+.has-header-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  > .header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+  }
+}
