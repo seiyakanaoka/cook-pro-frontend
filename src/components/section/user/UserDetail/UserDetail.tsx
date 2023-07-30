@@ -1,7 +1,9 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
+import { PAGE_URL } from '@/constants/route';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import style from './index.module.scss';
@@ -9,6 +11,12 @@ import style from './index.module.scss';
 type Props = {};
 
 export const UserDetail: FC<Props> = ({}: Props) => {
+  const { push } = useRouter();
+
+  const navigateToEdit = () => {
+    push(PAGE_URL.USER + '?status=edit');
+  };
+
   return (
     <div className={style['user-detail-component']}>
       <div className={style['top']}>
@@ -24,7 +32,11 @@ export const UserDetail: FC<Props> = ({}: Props) => {
           </div>
         </div>
       </div>
-      <Button color="primary" text="プロフィール編集" onClick={() => {}} />
+      <Button
+        color="primary"
+        text="プロフィール編集"
+        onClick={navigateToEdit}
+      />
     </div>
   );
 };
