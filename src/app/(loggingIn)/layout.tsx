@@ -30,7 +30,7 @@ export default function HomeLayout({
   // TODO: childrenの量が少ない時はスクロールさせないようにする
   return (
     <div className={style['home-layout']}>
-      {children}
+      <div className={style['main']}>{children}</div>
       <footer className={style['footer']}>
         <Footer />
       </footer>
