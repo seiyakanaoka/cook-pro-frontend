@@ -17,6 +17,20 @@
   justify-content: center;
   width: 100%;
 
+  > .icon {
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    transform: translate(0, -50%);
+  }
+
+  > .icon.-back {
+    left: 0;
+    width: 20px;
+    height: 20px;
+    color: $color-black;
+  }
+
   > .field {
     display: flex;
     column-gap: 8px;
@@ -31,13 +45,9 @@
     }
   }
 
-  > .icon {
-    position: absolute;
-    top: 50%;
+  > .icon.-logout {
     right: 0;
     width: 32px;
     height: 32px;
-    cursor: pointer;
-    transform: translate(0, -50%);
   }
 }

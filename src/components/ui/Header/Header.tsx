@@ -1,8 +1,10 @@
 'use client';
 
+import clsx from 'clsx';
 import { useRouter, usePathname } from 'next/navigation';
 import { ChangeEventHandler, FC } from 'react';
 
+import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
 import { PAGE_URL } from '@/constants/route';
 import { useAuth } from '@/hooks/useAuth';
@@ -27,9 +29,13 @@ export const Header: FC<Props> = ({
 }: Props) => {
   const { logout } = useAuth();
 
-  const { push } = useRouter();
+  const { push, back } = useRouter();
 
   const pathname = usePathname();
+
+  const handleBack = () => {
+    back();
+  };
 
   const handleLogout = async () => {
     await logout();
@@ -38,13 +44,26 @@ export const Header: FC<Props> = ({
 
   const isHome = pathname === PAGE_URL.HOME;
 
+  const isShowBackAction = pathname === PAGE_URL.USER;
+
   return (
     <div className={style['header-component']}>
       <div className={style['header-top']}>
+        {isShowBackAction && (
+          <div
+            className={clsx(style['icon'], style['-back'])}
+            onClick={handleBack}
+          >
+            <ArrowLeftIcon />
+          </div>
+        )}
         <div className={style['field']}>
           <img src={LogoImage.src} alt="" className={style['logo']} />
         </div>
-        <div className={style['icon']} onClick={handleLogout}>
+        <div
+          className={clsx(style['icon'], style['-logout'])}
+          onClick={handleLogout}
+        >
           <LogoutIcon />
         </div>
       </div>
