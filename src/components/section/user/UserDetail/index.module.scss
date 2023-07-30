@@ -10,7 +10,7 @@
 
   > .top {
     display: flex;
-    column-gap: 24px;
+    column-gap: 20px;
     justify-content: center;
     width: 100%;
   }
@@ -23,6 +23,11 @@
     max-width: 150px;
     height: auto;
     border-radius: 50%;
+  }
+
+  > .image.-not-image {
+    max-width: 120px;
+    border-radius: 0;
   }
 }
 
