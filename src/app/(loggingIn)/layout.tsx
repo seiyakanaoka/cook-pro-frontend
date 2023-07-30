@@ -5,7 +5,6 @@ import { parseCookies } from 'nookies';
 import { useEffect } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
-import { Header } from '@/components/ui/Header';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 
@@ -31,9 +30,6 @@ export default function HomeLayout({
   // TODO: childrenの量が少ない時はスクロールさせないようにする
   return (
     <div className={style['home-layout']}>
-      <header className={style['header']}>
-        <Header />
-      </header>
       {children}
       <footer className={style['footer']}>
         <Footer />

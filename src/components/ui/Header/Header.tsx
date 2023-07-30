@@ -1,70 +1,81 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import clsx from 'clsx';
+import { useRouter, usePathname } from 'next/navigation';
+import { ChangeEventHandler, FC } from 'react';
 
+import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
 import { PAGE_URL } from '@/constants/route';
-import { useDishes } from '@/hooks/api/dish/useDishes';
 import { useAuth } from '@/hooks/useAuth';
-import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import { FormSuggest } from '../form/FormSuggest';
 
 import style from './index.module.scss';
 
-export const Header: FC = () => {
+type Props = {
+  searchItems?: { id: string; name: string }[];
+  searchValue?: string;
+  onSearch?: ChangeEventHandler<HTMLInputElement>;
+  onClear?: () => void;
+};
+
+export const Header: FC<Props> = ({
+  searchItems,
+  searchValue,
+  onSearch,
+  onClear,
+}: Props) => {
   const { logout } = useAuth();
 
-  const { push } = useRouter();
+  const { push, back } = useRouter();
 
-  const { getDishesSearch: _getDishesSearch } = useDishes();
+  const pathname = usePathname();
 
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchValue(e.currentTarget.value);
+  const handleBack = () => {
+    back();
   };
-
-  const handleClear = () => {
-    setSearchValue('');
-  };
-
-  const [searchItems, setSearchItems] = useState<DishSearchResponse[]>([]);
 
   const handleLogout = async () => {
     await logout();
     push(PAGE_URL.BEFORE);
   };
 
-  useEffect(() => {
-    const getDishesSearch = async () => {
-      const response = await _getDishesSearch({ dishName: searchValue });
-      setSearchItems(response);
-    };
+  const isHome = pathname === PAGE_URL.HOME;
 
-    getDishesSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue]);
+  const isShowBackAction = pathname === PAGE_URL.USER;
 
   return (
     <div className={style['header-component']}>
       <div className={style['header-top']}>
+        {isShowBackAction && (
+          <div
+            className={clsx(style['icon'], style['-back'])}
+            onClick={handleBack}
+          >
+            <ArrowLeftIcon />
+          </div>
+        )}
         <div className={style['field']}>
           <img src={LogoImage.src} alt="" className={style['logo']} />
         </div>
-        <div className={style['icon']} onClick={handleLogout}>
+        <div
+          className={clsx(style['icon'], style['-logout'])}
+          onClick={handleLogout}
+        >
           <LogoutIcon />
         </div>
       </div>
-      <FormSuggest
-        items={searchItems}
-        value={searchValue}
-        placeholder="料理名で検索"
-        onSearch={handleSearch}
-        onClear={handleClear}
-      />
+      {isHome && (
+        <FormSuggest
+          items={searchItems ?? []}
+          value={searchValue ?? ''}
+          placeholder="料理名で検索"
+          onSearch={onSearch ?? (() => {})}
+          onClear={onClear ?? (() => {})}
+        />
+      )}
     </div>
   );
 };
