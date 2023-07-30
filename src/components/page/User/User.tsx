@@ -2,10 +2,10 @@
 
 import { FC } from 'react';
 
-import style from './index.module.scss';
+import { UserDetail } from '@/components/section/user/UserDetail';
 
 type Props = {};
 
 export const User: FC<Props> = ({}: Props) => {
-  return <div className={style['user-component']}></div>;
+  return <UserDetail />;
 };
