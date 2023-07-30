@@ -1,10 +1,13 @@
 'use client';
+
+import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { PAGE_URL } from '@/constants/route';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
+import NoImage from 'public/no-image.png';
 
 import style from './index.module.scss';
 
@@ -23,7 +26,14 @@ export const UserDetail: FC<Props> = ({ user }: Props) => {
     <div className={style['user-detail-component']}>
       <div className={style['top']}>
         <div className={style['image-field']}>
-          <img src={user?.image} alt="" className={style['image']} />
+          <img
+            src={user?.image ?? NoImage.src}
+            alt=""
+            className={clsx(
+              style['image'],
+              user?.image == undefined && style['-not-image']
+            )}
+          />
         </div>
         <div className={style['user-info']}>
           <p className={style['nickname']}>
