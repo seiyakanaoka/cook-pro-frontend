@@ -1,16 +1,15 @@
-import { getUser as _getUser } from '@/api/user';
+import useSWR from 'swr';
+
+import { getUser } from '@/api/user';
 import { API_URL } from '@/constants/api/api';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
 
 type UseUser = {
-  getUser: () => Promise<UserResponse>;
+  userResponse: UserResponse | undefined;
 };
 
 export const useUser = (): UseUser => {
-  const getUser = async (): Promise<UserResponse> => {
-    const response = await _getUser(API_URL.USER.USER);
-    return response;
-  };
+  const { data: userResponse } = useSWR(API_URL.USER.USER, getUser);
 
-  return { getUser };
+  return { userResponse };
 };

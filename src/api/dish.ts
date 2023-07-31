@@ -1,5 +1,6 @@
 import qs from 'qs';
 
+import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
 import { DishesParams } from '@/types/codegen/dish/DishesParams';
 import { DishesResponse } from '@/types/codegen/dish/DishesResponse';
 import { DishesSearchParams } from '@/types/codegen/dish/DishesSearchParams';
@@ -24,5 +25,10 @@ export const getDishesSearch = async (
   params?: DishesSearchParams
 ): Promise<DishesSearchResponse> => {
   const response = await axiosClient.get<DishesSearchResponse>(url, { params });
+  return response.data;
+};
+
+export const getDish = async (url: string): Promise<DishDetailResponse> => {
+  const response = await axiosClient.get<DishDetailResponse>(url);
   return response.data;
 };

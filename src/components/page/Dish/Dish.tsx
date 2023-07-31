@@ -1,25 +1,17 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
 import { DishDetail } from '@/components/section/dish/DishDetail';
-import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
-import DishImage from 'public/food-1.png';
+import { useDish } from '@/hooks/api/dish/useDish';
 
 export const Dish: FC = () => {
-  return (
-    <DishDetail
-      dish={{
-        images: [DishImage.src, DishImage.src, DishImage.src],
-        title: '【マネしてほしい料理！！】\n最高のメインディッシュ',
-        categories: [
-          CategoryResponse.JAPAN_FOOD,
-          CategoryResponse.MEAT_DISH,
-          CategoryResponse.FISH_DISH,
-          CategoryResponse.SALAD,
-        ],
-        time: '20',
-      }}
-    />
-  );
+  const params = useParams();
+
+  const dishId = params?.dishId as string | null;
+
+  const { dishDetailResponse } = useDish(dishId ?? '');
+
+  return <DishDetail dishDetailResponse={dishDetailResponse} />;
 };

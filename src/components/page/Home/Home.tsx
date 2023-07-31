@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import { ChangeEventHandler, FC, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
@@ -12,9 +12,6 @@ import { CATEGORY } from '@/constants/category';
 import { PAGE_URL } from '@/constants/route';
 import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
-import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
-import { DishResponse } from '@/types/codegen/dish/DishResponse';
-import { DishSearchResponse } from '@/types/codegen/dish/DishSearchResponse';
 import { FilterItem } from '@/types/Filter';
 
 import style from './index.module.scss';
@@ -26,17 +23,20 @@ export const Home: FC = () => {
     push(PAGE_URL.DISH + '/' + dishId);
   };
 
-  const { getDishes: _getDishes, getDishesSearch: _getDishesSearch } =
-    useDishes();
+  const {
+    dishesResponse,
+    dishesSearchResponse,
+    dishesSearchParams,
+    onChangeDishesParams,
+    onChangeDishesSearchParams,
+  } = useDishes();
 
-  const { getCategories: _getCategories } = useCategories();
-
-  const [dishes, setDishes] = useState<DishResponse[] | undefined>();
-
-  const [categories, setCategories] = useState<FilterItem[]>([]);
+  const { categoriesResponse } = useCategories();
 
   const onChangeFilterItem = (items: FilterItem[]) => {
-    setCategories(items);
+    onChangeDishesParams(
+      items.filter((item) => item.isCheck).map((item) => item.id)
+    );
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -49,88 +49,44 @@ export const Home: FC = () => {
     setIsOpen(false);
   };
 
-  const [searchItems, setSearchItems] = useState<DishSearchResponse[]>([]);
-
-  const [searchValue, setSearchValue] = useState('');
-
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearchValue(e.currentTarget.value);
+    onChangeDishesSearchParams(e.currentTarget.value);
   };
 
   const handleClear = () => {
-    setSearchValue('');
+    onChangeDishesSearchParams('');
   };
 
-  const filterItems = categories.map((category) => ({
-    id: category.id,
-    text: CATEGORY[category.id as CategoryResponse],
-    isCheck: category.isCheck,
+  const filterItems = categoriesResponse.map((category) => ({
+    id: category,
+    text: CATEGORY[category],
+    isCheck: false,
   }));
-
-  useEffect(() => {
-    const getDishes = async () => {
-      const response = await _getDishes({
-        categories: categories
-          .filter((category) => category.isCheck)
-          .map((category) => category.id),
-      });
-      setDishes(response);
-    };
-    getDishes();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categories]);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      const response = await _getCategories();
-      setCategories(
-        response.map((category) => ({
-          id: category,
-          text: CATEGORY[category],
-          isCheck: false,
-        }))
-      );
-    };
-    getCategories();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const getDishesSearch = async () => {
-      const response = await _getDishesSearch({ dishName: searchValue });
-      setSearchItems(response);
-    };
-
-    getDishesSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue]);
 
   return (
     <div className={style['home-component']}>
       <div className={style['header']}>
         <Header
-          searchItems={searchItems}
-          searchValue={searchValue}
+          searchItems={dishesSearchResponse}
+          searchValue={dishesSearchParams?.dishName}
           onSearch={handleSearch}
           onClear={handleClear}
         />
       </div>
       <ul className={style['dish-list']}>
-        {dishes?.map((dish) => (
+        {dishesResponse?.map((dish) => (
           <li
-            key={dish.dishId}
+            key={dish.id}
             className={clsx(
               style['dish'],
-              dishes?.length % 2 === 0 && style['-even']
+              dishesResponse?.length % 2 === 0 && style['-even']
             )}
-            onClick={() => navigateToDish(dish.dishId)}
+            onClick={() => navigateToDish(dish.id)}
           >
             <DishItem
-              image={dish.image.dishImageUrl}
-              title={dish.dishName}
-              time={dish.dishCreateRequiredTime.toString()}
+              image={dish.image.url}
+              title={dish.name}
+              time={dish.createRequiredTime.toString()}
             />
           </li>
         ))}
