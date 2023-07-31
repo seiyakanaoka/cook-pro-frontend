@@ -9,3 +9,15 @@ export const CATEGORY = {
   SALAD: 'サラダ',
   WITH_ALCOHOL: 'お酒に合う',
 } as const;
+
+export const CATEGORY_FOR_CSS = {
+  JAPAN_FOOD: 'japan',
+  WESTERN_FOOD: 'western',
+  CHINESE_FOOD: 'chinese',
+  MEAT_DISH: 'meat',
+  FISH_DISH: 'fish',
+  NOODLE: 'noodle',
+  RICE: 'rice',
+  SALAD: 'salad',
+  WITH_ALCOHOL: 'with-alcohol',
+} as const;
