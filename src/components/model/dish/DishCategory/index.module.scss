@@ -12,40 +12,40 @@
   border-radius: 4px;
 
   &.-japan {
-    background-color: #9bcc93;
+    background-color: $color-dish-japan-green;
   }
 
   &.-western {
-    background-color: #191970;
+    background-color: $color-dish-western-blue;
   }
 
   &.-chinese {
-    background-color: #ff4500;
+    background-color: $color-dish-chinese-red;
   }
 
   &.-meat {
-    background-color: #a93226;
+    background-color: $color-dish-meat-brown;
   }
 
   &.-fish {
-    background-color: #40e0d0;
+    background-color: $color-dish-fish-blue;
   }
 
   &.-noodle {
-    background-color: #ffd700;
+    background-color: $color-dish-noodle-yellow;
   }
 
   &.-rice {
     color: $color-black;
-    background-color: #f5f5dc;
+    background-color: $color-dish-rice-white;
   }
 
   &.-salad {
-    color: #006400;
-    background-color: #98fb98;
+    color: $color-dish-salad-char-green;
+    background-color: $color-dish-salad-green;
   }
 
   &.-with-alcohol {
-    background-color: #800020;
+    background-color: $color-dish-with-alcohol-brown;
   }
 }
