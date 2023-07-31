@@ -12,10 +12,10 @@ import NoImage from 'public/no-image.png';
 import style from './index.module.scss';
 
 type Props = {
-  user: UserResponse | undefined;
+  userResponse: UserResponse | undefined;
 };
 
-export const UserDetail: FC<Props> = ({ user }: Props) => {
+export const UserDetail: FC<Props> = ({ userResponse }: Props) => {
   const { push } = useRouter();
 
   const navigateToEdit = () => {
@@ -27,22 +27,22 @@ export const UserDetail: FC<Props> = ({ user }: Props) => {
       <div className={style['top']}>
         <div className={style['image-field']}>
           <img
-            src={user?.image ?? NoImage.src}
+            src={userResponse?.image ?? NoImage.src}
             alt=""
             className={clsx(
               style['image'],
-              user?.image == undefined && style['-not-image']
+              userResponse?.image == undefined && style['-not-image']
             )}
           />
         </div>
         <div className={style['user-info']}>
           <p className={style['nickname']}>
-            {user?.displayUserName ?? user?.name}
+            {userResponse?.displayUserName ?? userResponse?.name}
           </p>
           <div className={style['detail']}>
-            <p className={style['name']}>{user?.name}</p>
-            <p className={style['email']}>{user?.email}</p>
-            <p className={style['telephone']}>{user?.telNumber}</p>
+            <p className={style['name']}>{userResponse?.name}</p>
+            <p className={style['email']}>{userResponse?.email}</p>
+            <p className={style['telephone']}>{userResponse?.telNumber}</p>
           </div>
         </div>
       </div>
