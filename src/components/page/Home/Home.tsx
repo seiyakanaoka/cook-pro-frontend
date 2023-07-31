@@ -120,17 +120,17 @@ export const Home: FC = () => {
       <ul className={style['dish-list']}>
         {dishes?.map((dish) => (
           <li
-            key={dish.dishId}
+            key={dish.id}
             className={clsx(
               style['dish'],
               dishes?.length % 2 === 0 && style['-even']
             )}
-            onClick={() => navigateToDish(dish.dishId)}
+            onClick={() => navigateToDish(dish.id)}
           >
             <DishItem
               image={dish.image.id}
-              title={dish.dishName}
-              time={dish.dishCreateRequiredTime.toString()}
+              title={dish.name}
+              time={dish.createRequiredTime.toString()}
             />
           </li>
         ))}

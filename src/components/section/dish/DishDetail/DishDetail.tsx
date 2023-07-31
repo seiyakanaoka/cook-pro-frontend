@@ -7,21 +7,16 @@ import './dot.scss';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
-import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
+import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
 
 import style from './index.module.scss';
 
 type Props = {
-  dish: {
-    images: string[];
-    title: string;
-    categories: CategoryResponse[];
-    time: string;
-  };
+  dishDetailResponse: DishDetailResponse | undefined;
 };
 
-export const DishDetail: FC<Props> = ({ dish }: Props) => {
-  const titles = dish.title.split('\n');
+export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
+  const titles = dishDetailResponse?.name.split('\n');
 
   // 画像の速さとスライド方法の指定
   const properties = {
@@ -43,29 +38,31 @@ export const DishDetail: FC<Props> = ({ dish }: Props) => {
     <div className={style['dish-detail-component']}>
       <div className={style['top']}>
         <Slide {...properties}>
-          {dish.images.map((image, i) => (
-            <div key={i} className={style['image-item']}>
-              <img src={image} alt="" className={style['image']} />
+          {dishDetailResponse?.images.map((image) => (
+            <div key={image.id} className={style['image-item']}>
+              <img src={image.url} alt="" className={style['image']} />
             </div>
           ))}
         </Slide>
       </div>
       <div className={style['bottom']}>
         <div className={style['title-field']}>
-          {titles.map((text, i) => (
+          {titles?.map((text, i) => (
             <p className={style['title']} key={`${i}-${text}`}>
               {text}
             </p>
           ))}
         </div>
         <ul className={style['category-field']}>
-          {dish.categories.map((category) => (
+          {dishDetailResponse?.categories.map((category) => (
             <li key={category} className={style['category']}>
               <DishCategory category={category} />
             </li>
           ))}
         </ul>
-        <DishTime time={dish.time} />
+        <DishTime
+          time={dishDetailResponse?.createRequiredTime.toString() ?? ''}
+        />
       </div>
     </div>
   );

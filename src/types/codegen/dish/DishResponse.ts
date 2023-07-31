@@ -1,8 +1,8 @@
 import { DishImageResponse } from './DishImageResponse';
 
 export interface DishResponse {
-  dishId: string;
-  dishName: string;
+  id: string;
+  name: string;
   image: DishImageResponse;
-  dishCreateRequiredTime: number;
+  createRequiredTime: number;
 }
