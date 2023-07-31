@@ -128,7 +128,7 @@ export const Home: FC = () => {
             onClick={() => navigateToDish(dish.dishId)}
           >
             <DishItem
-              image={dish.image.dishImageUrl}
+              image={dish.image.id}
               title={dish.dishName}
               time={dish.dishCreateRequiredTime.toString()}
             />
