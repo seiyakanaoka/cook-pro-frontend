@@ -18,6 +18,8 @@ type Props = {
 export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
   const titles = dishDetailResponse?.name.split('\n');
 
+  const images = dishDetailResponse?.images;
+
   // 画像の速さとスライド方法の指定
   const properties = {
     width: '100%',
@@ -38,7 +40,7 @@ export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
     <div className={style['dish-detail-component']}>
       <div className={style['top']}>
         <Slide {...properties}>
-          {dishDetailResponse?.images.map((image) => (
+          {images?.map((image) => (
             <div key={image.id} className={style['image-item']}>
               <img src={image.url} alt="" className={style['image']} />
             </div>
