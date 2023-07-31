@@ -48,7 +48,8 @@ export const Header: FC<Props> = ({
 
   const isHome = pathname === PAGE_URL.HOME;
 
-  const isShowBackAction = pathname === PAGE_URL.USER;
+  const isShowBackAction =
+    pathname === PAGE_URL.USER || pathname?.includes(PAGE_URL.DISH);
 
   return (
     <div className={style['header-component']}>
