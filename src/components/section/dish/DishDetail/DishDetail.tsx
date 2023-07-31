@@ -28,8 +28,8 @@ export const DishDetail: FC<Props> = ({ dish }: Props) => {
           <img key={i} src={image} alt="" className={style['image']} />
         ))}
         <ul className={style['image-dot']}>
-          {dish.images.map((image, i) => (
-            <li key={i} className={clsx(style['dot'], style['-selected'])}></li>
+          {dish.images.map((_, i) => (
+            <li key={i} className={clsx(style['dot'], style['-selected'])} />
           ))}
         </ul>
       </div>
