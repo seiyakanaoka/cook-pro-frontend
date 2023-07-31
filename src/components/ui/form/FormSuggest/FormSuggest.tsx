@@ -15,6 +15,7 @@ type Props = {
   placeholder?: string;
   onSearch: ChangeEventHandler<HTMLInputElement>;
   onClear: () => void;
+  onClick: (id: string) => void;
 };
 
 export const FormSuggest: FC<Props> = ({
@@ -23,6 +24,7 @@ export const FormSuggest: FC<Props> = ({
   placeholder = '入力してください',
   onSearch,
   onClear,
+  onClick,
 }: Props) => {
   const isEmpty = items.length === 0;
 
@@ -42,7 +44,11 @@ export const FormSuggest: FC<Props> = ({
           ) : (
             <ul className={style['panel-list']}>
               {items.map((item) => (
-                <li key={item.id} className={style['item']}>
+                <li
+                  key={item.id}
+                  className={style['item']}
+                  onClick={() => onClick(item.id)}
+                >
                   {item.name}
                 </li>
               ))}

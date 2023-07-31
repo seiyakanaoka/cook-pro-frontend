@@ -1,0 +1,65 @@
+@import '../../../../assets/styles/resources';
+
+.dish-detail-component {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  width: 100%;
+
+  > .top {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 100%;
+
+    > .image {
+      width: 100%;
+      border-bottom: 1px solid $color-border-gray;
+    }
+  }
+
+  > .bottom {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 100%;
+    padding: 0 12px;
+  }
+}
+
+.image-dot {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  > .dot {
+    width: 10px;
+    height: 10px;
+    background-color: $color-secondary-gray-2;
+    border-radius: 50%;
+  }
+
+  > .dot.-selected {
+    background-color: $color-black;
+  }
+}
+
+.title-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+
+  > .title {
+    font-size: $font-size-20;
+    font-weight: bold;
+  }
+}
+
+.category-field {
+  display: flex;
+  column-gap: 8px;
+  width: 100%;
+}

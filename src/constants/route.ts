@@ -3,6 +3,7 @@ export const PAGE_URL = {
   BEFORE: '/before',
   FAVORITE: '/favorite',
   USER: '/user',
+  DISH: '/dish',
   LOGIN: '/login',
   SIGN_UP: '/signup',
 } as const;

@@ -1,13 +1,15 @@
 'use client';
 
 import clsx from 'clsx';
-import { ChangeEventHandler, FC, Fragment, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChangeEventHandler, FC, useEffect, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
 import { Header } from '@/components/ui/Header';
 import { CATEGORY } from '@/constants/category';
+import { PAGE_URL } from '@/constants/route';
 import { useCategories } from '@/hooks/api/category/useCategories';
 import { useDishes } from '@/hooks/api/dish/useDishes';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
@@ -18,6 +20,12 @@ import { FilterItem } from '@/types/Filter';
 import style from './index.module.scss';
 
 export const Home: FC = () => {
+  const { push } = useRouter();
+
+  const navigateToDish = (dishId: string) => {
+    push(PAGE_URL.DISH + '/' + dishId);
+  };
+
   const { getDishes: _getDishes, getDishesSearch: _getDishesSearch } =
     useDishes();
 
@@ -111,20 +119,20 @@ export const Home: FC = () => {
       </div>
       <ul className={style['dish-list']}>
         {dishes?.map((dish) => (
-          <Fragment key={dish.dishId}>
-            <li
-              className={clsx(
-                style['dish'],
-                dishes?.length % 2 === 0 && style['-even']
-              )}
-            >
-              <DishItem
-                image={dish.image.dishImageUrl}
-                title={dish.dishName}
-                time={dish.dishCreateRequiredTime.toString()}
-              />
-            </li>
-          </Fragment>
+          <li
+            key={dish.dishId}
+            className={clsx(
+              style['dish'],
+              dishes?.length % 2 === 0 && style['-even']
+            )}
+            onClick={() => navigateToDish(dish.dishId)}
+          >
+            <DishItem
+              image={dish.image.dishImageUrl}
+              title={dish.dishName}
+              time={dish.dishCreateRequiredTime.toString()}
+            />
+          </li>
         ))}
       </ul>
       {/* TODO: 統一できないか考える */}
