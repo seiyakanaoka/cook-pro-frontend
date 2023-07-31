@@ -1,4 +1,4 @@
 export interface DishImageResponse {
-  dishImageId: string;
-  dishImageUrl: string;
+  id: string;
+  url: string;
 }
