@@ -6,26 +6,32 @@ import { FC } from 'react';
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
-import DishImage from 'public/food-1.png';
 
 import style from './index.module.scss';
 
-type Props = {};
+type Props = {
+  dish: {
+    images: string[];
+    title: string;
+    categories: CategoryResponse[];
+    time: string;
+  };
+};
 
-export const DishDetail: FC<Props> = ({}: Props) => {
-  const title = '【マネしてほしい料理！！】\n最高のメインディッシュ';
-
-  const titles = title.split('\n');
+export const DishDetail: FC<Props> = ({ dish }: Props) => {
+  const titles = dish.title.split('\n');
 
   return (
     <div className={style['dish-detail-component']}>
       <div className={style['top']}>
-        <img src={DishImage.src} alt="" className={style['image']} />
-        <div className={style['image-dot']}>
-          <div className={style['dot']}></div>
-          <div className={clsx(style['dot'], style['-selected'])}></div>
-          <div className={style['dot']}></div>
-        </div>
+        {dish.images.map((image, i) => (
+          <img key={i} src={image} alt="" className={style['image']} />
+        ))}
+        <ul className={style['image-dot']}>
+          {dish.images.map((image, i) => (
+            <li key={i} className={clsx(style['dot'], style['-selected'])}></li>
+          ))}
+        </ul>
       </div>
       <div className={style['bottom']}>
         <div className={style['title-field']}>
@@ -36,20 +42,13 @@ export const DishDetail: FC<Props> = ({}: Props) => {
           ))}
         </div>
         <ul className={style['category-field']}>
-          <li className={style['category']}>
-            <DishCategory category={CategoryResponse.JAPAN_FOOD} />
-          </li>
-          <li className={style['category']}>
-            <DishCategory category={CategoryResponse.MEAT_DISH} />
-          </li>
-          <li className={style['category']}>
-            <DishCategory category={CategoryResponse.FISH_DISH} />
-          </li>
-          <li className={style['category']}>
-            <DishCategory category={CategoryResponse.SALAD} />
-          </li>
+          {dish.categories.map((category) => (
+            <li key={category} className={style['category']}>
+              <DishCategory category={category} />
+            </li>
+          ))}
         </ul>
-        <DishTime time="20" />
+        <DishTime time={dish.time} />
       </div>
     </div>
   );
