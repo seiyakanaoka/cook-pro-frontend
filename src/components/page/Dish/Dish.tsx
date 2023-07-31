@@ -2,10 +2,10 @@
 
 import { FC } from 'react';
 
-import style from './index.module.scss';
+import { DishDetail } from '@/components/section/dish/DishDetail';
 
 type Props = {};
 
 export const Dish: FC<Props> = ({}: Props) => {
-  return <div className={style['dish-component']}></div>;
+  return <DishDetail />;
 };
