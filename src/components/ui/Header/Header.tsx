@@ -31,6 +31,10 @@ export const Header: FC<Props> = ({
 
   const { push, back } = useRouter();
 
+  const navigateToDish = (dishId: string) => {
+    push(PAGE_URL.DISH + '/' + dishId);
+  };
+
   const pathname = usePathname();
 
   const handleBack = () => {
@@ -74,6 +78,7 @@ export const Header: FC<Props> = ({
           placeholder="料理名で検索"
           onSearch={onSearch ?? (() => {})}
           onClear={onClear ?? (() => {})}
+          onClick={navigateToDish}
         />
       )}
     </div>
