@@ -10,7 +10,7 @@ export const Dish: FC = () => {
   return (
     <DishDetail
       dish={{
-        images: [DishImage.src],
+        images: [DishImage.src, DishImage.src, DishImage.src],
         title: '【マネしてほしい料理！！】\n最高のメインディッシュ',
         categories: [
           CategoryResponse.JAPAN_FOOD,

@@ -11,11 +11,6 @@
     flex-direction: column;
     row-gap: 20px;
     width: 100%;
-
-    > .image {
-      width: 100%;
-      border-bottom: 1px solid $color-border-gray;
-    }
   }
 
   > .bottom {
@@ -27,24 +22,33 @@
   }
 }
 
-.image-dot {
+.image-item {
   display: flex;
-  column-gap: 16px;
   align-items: center;
   justify-content: center;
   width: 100%;
+  background-size: cover;
 
-  > .dot {
-    width: 10px;
-    height: 10px;
-    background-color: $color-secondary-gray-2;
-    border-radius: 50%;
-  }
-
-  > .dot.-selected {
-    background-color: $color-black;
+  > .image {
+    width: 100%;
+    border-bottom: 1px solid $color-border-gray;
   }
 }
+
+// .image-dot {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 4px;
+//   cursor: pointer;
+
+//   > .dot {
+//     width: 10px;
+//     height: 10px;
+//     background-color: $color-secondary-gray-2;
+//     border-radius: 50%;
+//   }
+// }
 
 .title-field {
   display: flex;
