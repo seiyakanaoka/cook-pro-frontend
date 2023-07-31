@@ -7,4 +7,5 @@ export enum CategoryResponse {
   NOODLE = 'NOODLE',
   RICE = 'RICE',
   SALAD = 'SALAD',
+  WITH_ALCOHOL = 'WITH_ALCOHOL',
 }
