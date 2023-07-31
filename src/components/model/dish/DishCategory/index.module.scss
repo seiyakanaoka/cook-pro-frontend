@@ -1,0 +1,51 @@
+@import '../../../../assets/styles/resources';
+
+.dish-category-component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: $font-size-13;
+  color: $color-white;
+  white-space: nowrap;
+  border-radius: 4px;
+
+  &.-japan {
+    background-color: $color-dish-japan-green;
+  }
+
+  &.-western {
+    background-color: $color-dish-western-blue;
+  }
+
+  &.-chinese {
+    background-color: $color-dish-chinese-red;
+  }
+
+  &.-meat {
+    background-color: $color-dish-meat-brown;
+  }
+
+  &.-fish {
+    background-color: $color-dish-fish-blue;
+  }
+
+  &.-noodle {
+    background-color: $color-dish-noodle-yellow;
+  }
+
+  &.-rice {
+    color: $color-black;
+    background-color: $color-dish-rice-white;
+  }
+
+  &.-salad {
+    color: $color-dish-salad-char-green;
+    background-color: $color-dish-salad-green;
+  }
+
+  &.-with-alcohol {
+    background-color: $color-dish-with-alcohol-brown;
+  }
+}
