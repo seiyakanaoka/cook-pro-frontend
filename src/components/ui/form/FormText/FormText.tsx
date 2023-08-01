@@ -14,6 +14,7 @@ type Props = {
   title: string;
   value: string;
   type?: FormTextFieldType;
+  placeholder?: string;
   errorMessage?: ErrorMessage;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -23,6 +24,7 @@ export const FormText: FC<Props> = ({
   title,
   value,
   type = FORM_TEXT_FIELD_TYPE.TEXT,
+  placeholder = '入力してください',
   errorMessage,
   onChange,
   onBlur,
@@ -33,6 +35,7 @@ export const FormText: FC<Props> = ({
       <FormTextField
         value={value}
         type={type}
+        placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
       />
