@@ -31,11 +31,6 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     push(PAGE_URL.USER);
   };
 
-  const handleEditUser = () => {
-    addSnackbar('編集が完了しました');
-    navigateToUserDetail();
-  };
-
   const defaultValues = {
     userImage: { value: userResponse?.image ?? '' },
     nickname: { value: userResponse?.displayUserName ?? '' },
@@ -49,13 +44,18 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
   const hasNotUserImage = !fieldValue.userImage;
 
+  const handleEditUser = () => {
+    console.log('fieldValue : ', fieldValue);
+    addSnackbar('編集が完了しました');
+    navigateToUserDetail();
+  };
+
   const handleClearUserImage = () => {
     onChange('userImage', '');
   };
 
   const handleChangeUserImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     const blob = e.target.files?.[0];
-    console.log('blob : ', blob);
     if (typeof blob === 'undefined') {
       addSnackbar(
         '画像をアップロードできませんでした',
