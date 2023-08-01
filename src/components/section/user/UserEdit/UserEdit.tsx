@@ -69,7 +69,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
   const hasNotUserImage = !fieldValue.userImage;
 
-  const _handleEditUser = async (
+  const handleEditUser = async (
     displayName?: string | undefined,
     imageId?: string | undefined
   ) => {
@@ -94,13 +94,13 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     }
   };
 
-  const handleEditUser = async () => {
+  const handleClick = async () => {
     const userImage = fieldValue.userImage;
 
     const displayName = fieldValue.nickname;
 
     if (typeof userImage === 'undefined' || !userImage.includes('image/png')) {
-      _handleEditUser(displayName, userImage);
+      handleEditUser(displayName, userImage);
       return;
     }
 
@@ -112,7 +112,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
     imageId = await uploadImage(blob);
 
-    _handleEditUser(displayName, imageId);
+    handleEditUser(displayName, imageId);
   };
 
   const handleClearUserImage = () => {
@@ -205,7 +205,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
           color={BUTTON_COLOR.primary}
           text="完了"
           isDisabled={!isValid}
-          onClick={handleEditUser}
+          onClick={handleClick}
         />
         <Button
           color={BUTTON_COLOR.secondary}
