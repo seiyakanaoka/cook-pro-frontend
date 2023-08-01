@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 
+import CameraIcon from '@/assets/icons/camera.svg';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
@@ -33,19 +34,32 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
   return (
     <div className={style['user-edit-component']}>
       <div className={style['field']}>
+        <div className={style['image']}>
+          <div className={style['image-field']}>
+            <div className={style['icon']}>
+              <CameraIcon />
+            </div>
+            <label className={style['wrapper']}>
+              <input type="file" className={style['field']} />
+            </label>
+          </div>
+        </div>
         <FormText
           title="ニックネーム"
           value={userResponse?.displayUserName ?? ''}
+          isRequired={false}
           onChange={() => {}}
         />
         <FormText
           title="Eメール"
           value={userResponse?.email ?? ''}
+          isRequired={false}
           onChange={() => {}}
         />
         <FormText
           title="電話番号"
           value={userResponse?.telNumber ?? ''}
+          isRequired={false}
           onChange={() => {}}
         />
       </div>
