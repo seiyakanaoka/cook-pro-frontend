@@ -14,6 +14,8 @@ type Props = {
   title: string;
   value: string;
   type?: FormTextFieldType;
+  placeholder?: string;
+  isRequired?: boolean;
   errorMessage?: ErrorMessage;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -23,16 +25,19 @@ export const FormText: FC<Props> = ({
   title,
   value,
   type = FORM_TEXT_FIELD_TYPE.TEXT,
+  placeholder = '入力してください',
+  isRequired = true,
   errorMessage,
   onChange,
   onBlur,
 }: Props) => {
   return (
     <div className={style['form-text-component']}>
-      <FormTitle title={title} />
+      <FormTitle title={title} isRequired={isRequired} />
       <FormTextField
         value={value}
         type={type}
+        placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
       />

@@ -1,7 +1,5 @@
 @import '../../assets/styles/resources';
 
-$footer-height: 50px;
-
 .home-layout {
   position: relative;
   width: 100%;
@@ -9,6 +7,7 @@ $footer-height: 50px;
 
   > .main {
     width: 100%;
+    height: calc(100% - $footer-height);
   }
 
   > .footer {

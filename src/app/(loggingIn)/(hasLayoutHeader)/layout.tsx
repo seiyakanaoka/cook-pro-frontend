@@ -13,7 +13,7 @@ export default function HasHeaderLayout({
       <div className={style['header']}>
         <Header />
       </div>
-      {children}
+      <div className={style['main']}>{children}</div>
     </div>
   );
 }

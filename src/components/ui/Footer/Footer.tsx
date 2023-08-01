@@ -19,7 +19,6 @@ export const Footer: FC<Props> = ({}: Props) => {
   const pathName = usePathname();
 
   const handleNavigation = (path: 'home' | 'favorite' | 'user') => {
-    console.log(path);
     switch (path) {
       case 'home':
         push(PAGE_URL.HOME);
