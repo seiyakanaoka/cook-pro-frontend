@@ -10,11 +10,12 @@
     top: 0;
     z-index: 999;
     width: 100%;
+    height: $has-layout-header-height;
   }
 
   > .main {
     width: 100%;
-    height: calc(100% - $footer-height);
+    height: calc(100% - $has-layout-header-height);
     overflow-y: auto;
   }
 }
