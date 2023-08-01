@@ -16,6 +16,7 @@ import { SnackbarContext } from '@/context/snackbarContext';
 import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useUser } from '@/hooks/api/user/useUser';
 import { useUserRequest } from '@/hooks/api/user/useUserRequest';
+import { useCognito } from '@/hooks/aws/useCognito';
 import { useFormText } from '@/hooks/useFormText';
 import { PutUserRequest } from '@/types/codegen/user/PutUserRequest';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
@@ -32,6 +33,8 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
   const { push } = useRouter();
 
   const { addSnackbar } = useContext(SnackbarContext);
+
+  const { updateCognitoUser } = useCognito();
 
   const { updateUser } = useUserRequest();
 
@@ -83,8 +86,17 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     if (!!imageId) {
       requestBody.imageId = imageId;
     }
+
+    const attribute = {
+      email: fieldValue.email ?? '',
+      phone_number: fieldValue.telNumber ?? '',
+    };
+
     try {
       await updateUser(requestBody);
+      if (userResponse?.name) {
+        await updateCognitoUser(userResponse.name, attribute);
+      }
       await mutate();
       addSnackbar('編集が完了しました');
       navigateToUserDetail();
@@ -112,7 +124,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
     imageId = await uploadImage(blob);
 
-    handleEditUser(displayName, imageId);
+    await handleEditUser(displayName, imageId);
   };
 
   const handleClearUserImage = () => {

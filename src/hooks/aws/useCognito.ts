@@ -34,23 +34,32 @@ const createAttributes = (attribute: {
 };
 
 type UseCognito = {
-  updateUser: (userName: string, attribute: Attribute) => void;
+  updateCognitoUser: (
+    userName: string,
+    attribute: Attribute
+  ) => Promise<string>;
 };
 
 export const useCognito = (): UseCognito => {
-  const updateUser = (userName: string, attribute: Attribute): void => {
+  const updateCognitoUser = (
+    userName: string,
+    attribute: Attribute
+  ): Promise<string> => {
     const attributes = createAttributes(attribute);
     const cognitoUser = createCognitoUser(userName);
-    cognitoUser.updateAttributes(attributes, (err, result) => {
-      if (err) {
-        alert(err.message || JSON.stringify(err));
-        return;
-      }
-      console.log('call result: ' + result);
+    return new Promise((resolve, reject) => {
+      cognitoUser.updateAttributes(attributes, (err, result) => {
+        if (err) {
+          alert(err.message || JSON.stringify(err));
+          reject(err);
+          return;
+        }
+        typeof result !== 'undefined' && resolve(result);
+      });
     });
   };
 
   return {
-    updateUser,
+    updateCognitoUser,
   };
 };
