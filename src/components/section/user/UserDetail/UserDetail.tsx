@@ -36,9 +36,9 @@ export const UserDetail: FC<Props> = ({ userResponse }: Props) => {
           />
         </div>
         <div className={style['user-info']}>
-          <p className={style['nickname']}>
-            {userResponse?.displayUserName ?? userResponse?.name}
-          </p>
+          {!!userResponse?.displayUserName && (
+            <p className={style['nickname']}>{userResponse.displayUserName}</p>
+          )}
           <div className={style['detail']}>
             <p className={style['name']}>{userResponse?.name}</p>
             <p className={style['email']}>{userResponse?.email}</p>

@@ -1,12 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
+import { SnackbarContext } from '@/context/snackbarContext';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
 
 import style from './index.module.scss';
@@ -18,11 +19,14 @@ type Props = {
 export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
   const { push } = useRouter();
 
+  const { addSnackbar } = useContext(SnackbarContext);
+
   const navigateToUserDetail = () => {
     push(PAGE_URL.USER);
   };
 
   const handleEditUser = () => {
+    addSnackbar('編集が完了しました');
     navigateToUserDetail();
   };
 
