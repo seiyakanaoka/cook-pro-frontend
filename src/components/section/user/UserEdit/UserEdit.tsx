@@ -11,6 +11,7 @@ import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
+import { USER_FORM_VALUES } from '@/constants/validation/user';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { useFormText } from '@/hooks/useFormText';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
@@ -33,12 +34,25 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
   const defaultValues = {
     userImage: { value: userResponse?.image ?? '' },
-    nickname: { value: userResponse?.displayUserName ?? '' },
-    email: { value: userResponse?.email ?? '' },
-    telNumber: { value: userResponse?.telNumber ?? '' },
+    nickname: {
+      value: userResponse?.displayUserName ?? '',
+      validate: USER_FORM_VALUES.nickname?.validate,
+    },
+    email: {
+      value: userResponse?.email ?? '',
+      validate: USER_FORM_VALUES.email?.validate,
+    },
+    telNumber: {
+      value: userResponse?.telNumber ?? '',
+      validate: USER_FORM_VALUES.telNumber?.validate,
+    },
   };
 
-  const { fieldValue, onChange } = useFormText<UserFormValues>({
+  const {
+    fieldValue,
+    fieldState: { errors, isValid },
+    onChange,
+  } = useFormText<UserFormValues>({
     defaultValues,
   });
 
@@ -117,18 +131,21 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
           title="ニックネーム"
           value={fieldValue.nickname ?? ''}
           isRequired={false}
+          errorMessage={errors?.nickname}
           onChange={(e) => onChange('nickname', e)}
         />
         <FormText
           title="Eメール"
           value={fieldValue.email ?? ''}
           isRequired={false}
+          errorMessage={errors?.email}
           onChange={(e) => onChange('email', e)}
         />
         <FormText
           title="電話番号"
           value={fieldValue.telNumber ?? ''}
           isRequired={false}
+          errorMessage={errors?.telNumber}
           onChange={(e) => onChange('telNumber', e)}
         />
       </div>
@@ -136,6 +153,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
         <Button
           color={BUTTON_COLOR.primary}
           text="完了"
+          isDisabled={!isValid}
           onClick={handleEditUser}
         />
         <Button
