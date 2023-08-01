@@ -16,7 +16,7 @@ type UseFormText<T extends FieldValues> = {
   fieldState: FieldState<T>;
   onChange: (
     key: keyof T,
-    value: ChangeEvent<HTMLInputElement>,
+    value: ChangeEvent<HTMLInputElement> | string,
     validate?: FieldValueValidate
   ) => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -39,11 +39,11 @@ export const useFormText = <T extends FieldValues>({
 
   const onChange = (
     key: FieldValueKey<T>,
-    evt: ChangeEvent<HTMLInputElement>
+    evt: ChangeEvent<HTMLInputElement> | string
   ) => {
-    const input = evt.currentTarget.value;
+    const input = typeof evt === 'string' ? evt : evt.currentTarget.value;
 
-    const newValue = { ...fieldValue, [key]: evt.currentTarget.value };
+    const newValue = { ...fieldValue, [key]: input };
     setFieldValue(newValue);
 
     if (mode !== 'onChange') return;
