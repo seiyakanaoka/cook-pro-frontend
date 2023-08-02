@@ -40,8 +40,6 @@ export const Login: FC<Props> = ({}: Props) => {
     addSnackbar('ログインしました');
   };
 
-  console.log('error : ', fieldState.errors);
-
   return (
     <div className={style['login-component']}>
       <h1 className={style['title']}>ログイン</h1>
