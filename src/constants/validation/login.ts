@@ -2,24 +2,16 @@ import { DefaultValues, FieldValueValidate } from '@/types/Form';
 import { LoginFormValues } from '@/types/login';
 
 export const LOGIN_VALIDATION: {
-  USER_NAME: FieldValueValidate;
-  EMAIL: FieldValueValidate;
+  USER_NAME_OR_EMAIL: FieldValueValidate;
   PASSWORD: FieldValueValidate;
 } = {
-  USER_NAME: {
-    required: { value: false },
-  },
-  EMAIL: {
-    required: { value: false },
-    regex: {
-      value: /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
-      message: 'メールアドレスの形式が正しくありません。',
-    },
+  USER_NAME_OR_EMAIL: {
+    required: { value: true, message: '必須項目です' },
   },
   PASSWORD: {
-    required: { value: true, message: '入力してください。' },
-    minLength: { value: 8, message: '8文字から30文字の間で入力してください。' },
-    maxLength: { value: 30, message: '8文字から30文字の間で入力してください' },
+    required: { value: true, message: '必須項目です' },
+    minLength: { value: 8, message: '8文字から30文字まで入力可能です' },
+    maxLength: { value: 30, message: '8文字から30文字まで入力可能です' },
     regex: {
       value:
         /^[0-9a-zA-Z\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`\+\=]+$/,
@@ -29,12 +21,9 @@ export const LOGIN_VALIDATION: {
 } as const;
 
 export const LOGIN_FORM_VALUES: DefaultValues<LoginFormValues> = {
-  userName: {
+  userNameOrEmail: {
     value: '',
-  },
-  email: {
-    value: '',
-    validate: LOGIN_VALIDATION.EMAIL,
+    validate: LOGIN_VALIDATION.USER_NAME_OR_EMAIL,
   },
   password: {
     value: '',

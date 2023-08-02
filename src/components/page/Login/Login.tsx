@@ -29,7 +29,7 @@ export const Login: FC<Props> = ({}: Props) => {
   });
 
   const handleLogin = async () => {
-    const userName = fieldValue.userName || fieldValue.email || '';
+    const userName = fieldValue.userNameOrEmail || '';
 
     const password = fieldValue.password;
 
@@ -40,21 +40,17 @@ export const Login: FC<Props> = ({}: Props) => {
     addSnackbar('ログインしました');
   };
 
+  console.log('error : ', fieldState.errors);
+
   return (
     <div className={style['login-component']}>
       <h1 className={style['title']}>ログイン</h1>
       <div className={style['login-field']}>
         <FormText
-          title="ユーザー名"
-          value={fieldValue.userName ?? ''}
-          errorMessage={fieldState.errors?.userName}
-          onChange={(e) => onChange('userName', e)}
-        />
-        <FormText
-          title="Email"
-          value={fieldValue.email ?? ''}
-          errorMessage={fieldState.errors?.email}
-          onChange={(e) => onChange('email', e)}
+          title="ユーザー名 もしくは Email"
+          value={fieldValue.userNameOrEmail}
+          errorMessage={fieldState.errors?.userNameOrEmail}
+          onChange={(e) => onChange('userNameOrEmail', e)}
         />
         <FormText
           title="パスワード"
@@ -67,9 +63,7 @@ export const Login: FC<Props> = ({}: Props) => {
         text="ログイン"
         color={BUTTON_COLOR.primary}
         onClick={handleLogin}
-        isDisabled={
-          !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
-        }
+        isDisabled={!fieldState.isValid}
       />
     </div>
   );
