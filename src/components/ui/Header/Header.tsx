@@ -7,7 +7,7 @@ import { ChangeEventHandler, FC } from 'react';
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
 import { PAGE_URL } from '@/constants/route';
-import { useAuth } from '@/hooks/useAuth';
+import { useCognito } from '@/hooks/aws/useCognito';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import { FormSuggest } from '../form/FormSuggest';
@@ -27,7 +27,7 @@ export const Header: FC<Props> = ({
   onSearch,
   onClear,
 }: Props) => {
-  const { logout } = useAuth();
+  const { logout } = useCognito();
 
   const { push, back } = useRouter();
 

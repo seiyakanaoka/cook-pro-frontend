@@ -9,7 +9,7 @@ import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { SnackbarContext } from '@/context/snackbarContext';
-import { useAuth } from '@/hooks/useAuth';
+import { useCognito } from '@/hooks/aws/useCognito';
 import { useFormText } from '@/hooks/useFormText';
 import { LoginFormValues } from '@/types/login';
 
@@ -22,7 +22,7 @@ export const Login: FC<Props> = ({}: Props) => {
 
   const { push } = useRouter();
 
-  const { login } = useAuth();
+  const { login } = useCognito();
 
   const { fieldValue, fieldState, onChange } = useFormText<LoginFormValues>({
     defaultValues: LOGIN_FORM_VALUES,

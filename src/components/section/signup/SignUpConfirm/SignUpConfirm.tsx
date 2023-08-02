@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
 import { LOGIN_STATUS } from '@/constants/auth';
 import { PAGE_URL } from '@/constants/route';
-import { useAuth } from '@/hooks/useAuth';
-import { SignUpFormValues } from '@/types/signup';
+import { useCognito } from '@/hooks/aws/useCognito';
+import { SignUpAttributeKeyValue, SignUpFormValues } from '@/types/signup';
 
 import style from './index.module.scss';
 
@@ -21,15 +21,20 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
 
   const { push, back } = useRouter();
 
-  const { signUp, login } = useAuth();
+  const { signUp, login } = useCognito<SignUpAttributeKeyValue>();
 
   const handleRegister = async () => {
+    const signUpAttributeKeyValue: SignUpAttributeKeyValue = {
+      email: signUpFormValues.email,
+      phone_number: `+${signUpFormValues.telephone}`,
+    };
+
     await signUp(
       signUpFormValues.userName,
-      signUpFormValues.email,
-      signUpFormValues.telephone,
-      signUpFormValues.password
+      signUpFormValues.password,
+      signUpAttributeKeyValue
     );
+
     const loginStatus = await login(
       signUpFormValues.userName,
       signUpFormValues.password

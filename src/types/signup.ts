@@ -6,3 +6,8 @@ export type SignUpFormValues = {
   passwordConfirm: string;
   telephone: string;
 };
+
+export type SignUpAttributeKeyValue = {
+  email: string;
+  phone_number: `+${string}`;
+};
