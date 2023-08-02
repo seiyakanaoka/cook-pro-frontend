@@ -95,7 +95,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     try {
       await updateUser(requestBody);
       if (userResponse?.name) {
-        await updateCognitoUser(userResponse.name, attribute);
+        await updateCognitoUser(attribute);
       }
       await mutate();
       addSnackbar('編集が完了しました');

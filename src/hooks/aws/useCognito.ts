@@ -60,7 +60,6 @@ type UseCognito<T extends AttributeKeyValue> = {
   confirmUser: (userName: string, confirmationCode: string) => Promise<any>;
   logout: () => Promise<LogoutStatus>;
   updateCognitoUser: (
-    userName: string,
     attribute: CognitoUserAttributeKeyValue<T>
   ) => Promise<string>;
 };
@@ -211,15 +210,19 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
    * @returns
    */
   const updateCognitoUser = (
-    userName: string,
     attribute: CognitoUserAttributeKeyValue<T>
   ): Promise<string> => {
     const attributes = createAttributes(attribute);
-    const cognitoUser = createCognitoUser(userName);
-    return new Promise((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
+    return new Promise(async (resolve, reject) => {
+      if (cognitoUser == null) {
+        return;
+      }
+      // 更新の際は、getSessionを行う必要がある(下記参考)
+      // https://github.com/aws-amplify/amplify-js/issues/8064
+      await new Promise((res) => cognitoUser.getSession(res));
       cognitoUser.updateAttributes(attributes, (err, result) => {
         if (err) {
-          alert(err.message || JSON.stringify(err));
           reject(err);
           return;
         }
