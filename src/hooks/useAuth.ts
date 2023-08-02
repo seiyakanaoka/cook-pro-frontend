@@ -4,7 +4,7 @@ import {
   CognitoUserPool,
   CognitoUserAttribute,
 } from 'amazon-cognito-identity-js';
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie } from 'nookies';
 
 import { LOGIN_STATUS, LOGOUT_STATUS, LogoutStatus } from '@/constants/auth';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
@@ -139,12 +139,12 @@ export const useAuth = (): UseAuth => {
     return new Promise<LogoutStatus>((resolve, reject) => {
       const userPool = new CognitoUserPool(poolData);
       const cognitoUser = userPool.getCurrentUser();
-      if (cognitoUser !== null) {
-        cognitoUser.signOut();
-        destroyCookie(null, ID_TOKEN_KEY);
-        resolve(LOGOUT_STATUS.SUCCESS);
+      if (cognitoUser == null) {
+        reject(LOGOUT_STATUS.FAILURE);
+        return;
       }
-      reject(LOGOUT_STATUS.FAILURE);
+      cognitoUser.signOut();
+      resolve(LOGOUT_STATUS.SUCCESS);
     });
   };
 
