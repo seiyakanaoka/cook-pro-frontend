@@ -6,6 +6,7 @@ import {
   CognitoUserAttribute,
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js';
+import { destroyCookie, setCookie } from 'nookies';
 
 import {
   LOGIN_STATUS,
@@ -14,6 +15,7 @@ import {
   SIGN_UP_STATUS,
   SignUpStatus,
 } from '@/constants/aws/cognito';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import {
   AttributeKeyValue,
   CognitoUserAttributeKeyValue,
@@ -123,6 +125,7 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
             idToken,
             status: LOGIN_STATUS.SUCCESS,
           };
+          setCookie(null, ID_TOKEN_KEY, idToken);
           resolve(successResponse);
         },
         // 失敗した場合の処理
@@ -196,6 +199,7 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
         return;
       }
       cognitoUser.signOut();
+      destroyCookie(null, ID_TOKEN_KEY);
       resolve(LOGOUT_STATUS.SUCCESS);
     });
   };

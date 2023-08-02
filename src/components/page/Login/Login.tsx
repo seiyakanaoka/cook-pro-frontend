@@ -1,13 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { setCookie } from 'nookies';
 import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
-import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -35,9 +33,7 @@ export const Login: FC<Props> = ({}: Props) => {
 
     const password = fieldValue.password;
 
-    const { idToken } = await login(userName, password);
-
-    setCookie(null, ID_TOKEN_KEY, idToken);
+    await login(userName, password);
 
     push(PAGE_URL.HOME);
 
