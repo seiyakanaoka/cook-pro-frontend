@@ -4,9 +4,7 @@ import { SignUpFormValues } from '@/types/signup';
 export const SIGN_UP_VALIDATION: {
   USER_NAME: FieldValueValidate;
   EMAIL: FieldValueValidate;
-  EMAIL_CONFIRM: FieldValueValidate;
   PASSWORD: FieldValueValidate;
-  PASSWORD_CONFIRM: FieldValueValidate;
   TELEPHONE: FieldValueValidate;
 } = {
   USER_NAME: {
@@ -24,24 +22,7 @@ export const SIGN_UP_VALIDATION: {
       message: 'メールアドレスの形式が正しくありません。',
     },
   },
-  EMAIL_CONFIRM: {
-    required: { value: true, message: '入力してください。' },
-    regex: {
-      value: /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
-      message: 'メールアドレスの形式が正しくありません。',
-    },
-  },
   PASSWORD: {
-    required: { value: true, message: '入力してください。' },
-    minLength: { value: 8, message: '8文字から30文字の間で入力してください。' },
-    maxLength: { value: 30, message: '8文字から30文字の間で入力してください' },
-    regex: {
-      value:
-        /^[0-9a-zA-Z\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`\+\=]+$/,
-      message: '半角英数字と記号のみ入力できます。',
-    },
-  },
-  PASSWORD_CONFIRM: {
     required: { value: true, message: '入力してください。' },
     minLength: { value: 8, message: '8文字から30文字の間で入力してください。' },
     maxLength: { value: 30, message: '8文字から30文字の間で入力してください' },
@@ -66,17 +47,9 @@ export const SIGN_UP_FORM_VALUES: DefaultValues<SignUpFormValues> = {
     value: '',
     validate: SIGN_UP_VALIDATION.EMAIL,
   },
-  emailConfirm: {
-    value: '',
-    validate: SIGN_UP_VALIDATION.EMAIL_CONFIRM,
-  },
   password: {
     value: '',
     validate: SIGN_UP_VALIDATION.PASSWORD,
-  },
-  passwordConfirm: {
-    value: '',
-    validate: SIGN_UP_VALIDATION.PASSWORD_CONFIRM,
   },
   telephone: {
     value: '',
