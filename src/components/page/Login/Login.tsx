@@ -6,6 +6,7 @@ import { FC, useContext } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -53,6 +54,7 @@ export const Login: FC<Props> = ({}: Props) => {
         <FormText
           title="パスワード"
           value={fieldValue.password}
+          type={FORM_TEXT_FIELD_TYPE.PASSWORD}
           errorMessage={fieldState.errors?.password}
           onChange={(e) => onChange('password', e)}
         />
