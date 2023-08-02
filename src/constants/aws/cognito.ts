@@ -1,3 +1,10 @@
+export const SIGN_UP_STATUS = {
+  SUCCESS: 'success',
+  FAILURE: 'failure',
+} as const;
+
+export type SignUpStatus = (typeof SIGN_UP_STATUS)[keyof typeof SIGN_UP_STATUS];
+
 export const LOGIN_STATUS = {
   SUCCESS: 'success',
   FAILURE: 'failure',

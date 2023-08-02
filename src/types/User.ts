@@ -4,3 +4,8 @@ export type UserFormValues = {
   email?: string | undefined;
   telNumber?: string | undefined;
 };
+
+export type UserEditAttributeKeyValue = {
+  email: string;
+  phone_number: `+${string}`;
+};

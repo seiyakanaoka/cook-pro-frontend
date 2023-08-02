@@ -13,9 +13,15 @@ import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { USER_FORM_VALUES } from '@/constants/validation/user';
 import { SnackbarContext } from '@/context/snackbarContext';
+import { useImageRequest } from '@/hooks/api/image/useImageRequest';
+import { useUser } from '@/hooks/api/user/useUser';
+import { useUserRequest } from '@/hooks/api/user/useUserRequest';
+import { useCognito } from '@/hooks/aws/useCognito';
 import { useFormText } from '@/hooks/useFormText';
+import { PutUserRequest } from '@/types/codegen/user/PutUserRequest';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
-import { UserFormValues } from '@/types/User';
+import { UserEditAttributeKeyValue, UserFormValues } from '@/types/User';
+import { base64ToBlob } from '@/utils/image';
 
 import style from './index.module.scss';
 
@@ -27,6 +33,14 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
   const { push } = useRouter();
 
   const { addSnackbar } = useContext(SnackbarContext);
+
+  const { updateCognitoUser } = useCognito<UserEditAttributeKeyValue>();
+
+  const { updateUser } = useUserRequest();
+
+  const { mutate } = useUser();
+
+  const { uploadImage } = useImageRequest();
 
   const navigateToUserDetail = () => {
     push(PAGE_URL.USER);
@@ -58,10 +72,59 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
   const hasNotUserImage = !fieldValue.userImage;
 
-  const handleEditUser = () => {
-    console.log('fieldValue : ', fieldValue);
-    addSnackbar('編集が完了しました');
-    navigateToUserDetail();
+  const handleEditUser = async (
+    displayName?: string | undefined,
+    imageId?: string | undefined
+  ) => {
+    const requestBody: PutUserRequest = {
+      email: fieldValue.email ?? '',
+      telNumber: fieldValue.telNumber ?? '',
+    };
+    if (!!displayName) {
+      requestBody.displayName = displayName;
+    }
+    if (!!imageId) {
+      requestBody.imageId = imageId;
+    }
+
+    const attribute: UserEditAttributeKeyValue = {
+      email: fieldValue.email ?? '',
+      phone_number: `+${fieldValue.telNumber ?? ''}`,
+    };
+
+    try {
+      await updateUser(requestBody);
+      if (userResponse?.name) {
+        await updateCognitoUser(attribute);
+      }
+      await mutate();
+      addSnackbar('編集が完了しました');
+      navigateToUserDetail();
+    } catch (err) {
+      addSnackbar('編集できませんでした', SNACKBAR_STATUS.ABNORMAL);
+      console.error(err);
+    }
+  };
+
+  const handleClick = async () => {
+    const userImage = fieldValue.userImage;
+
+    const displayName = fieldValue.nickname;
+
+    if (typeof userImage === 'undefined' || !userImage.includes('image/png')) {
+      handleEditUser(displayName, userImage);
+      return;
+    }
+
+    let imageId: string;
+
+    const blob = base64ToBlob(userImage, 'image/png');
+
+    if (typeof blob === 'undefined') return;
+
+    imageId = await uploadImage(blob);
+
+    await handleEditUser(displayName, imageId);
   };
 
   const handleClearUserImage = () => {
@@ -154,7 +217,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
           color={BUTTON_COLOR.primary}
           text="完了"
           isDisabled={!isValid}
-          onClick={handleEditUser}
+          onClick={handleClick}
         />
         <Button
           color={BUTTON_COLOR.secondary}
