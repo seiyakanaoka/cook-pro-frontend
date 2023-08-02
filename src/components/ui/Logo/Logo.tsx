@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 
 import LogoIcon from '@/assets/icons/cook-pro.svg';

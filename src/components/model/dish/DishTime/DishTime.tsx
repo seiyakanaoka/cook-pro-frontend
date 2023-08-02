@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 
 import TimeIcon from '@/assets/icons/time.svg';

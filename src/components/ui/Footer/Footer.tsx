@@ -1,5 +1,3 @@
-'use client';
-
 import clsx from 'clsx';
 import { useRouter, usePathname } from 'next/navigation';
 import { FC } from 'react';
