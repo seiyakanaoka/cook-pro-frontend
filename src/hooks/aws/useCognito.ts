@@ -13,7 +13,7 @@ import {
   LogoutStatus,
   SIGN_UP_STATUS,
   SignUpStatus,
-} from '@/constants/auth';
+} from '@/constants/aws/cognito';
 import {
   AttributeKeyValue,
   CognitoUserAttributeKeyValue,
