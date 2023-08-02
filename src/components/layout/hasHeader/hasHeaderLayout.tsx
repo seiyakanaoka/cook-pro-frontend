@@ -1,6 +1,6 @@
 import { Header } from '@/components/ui/Header';
 
-import style from './layout.module.scss';
+import style from './index.module.scss';
 
 export default function HasHeaderLayout({
   children,

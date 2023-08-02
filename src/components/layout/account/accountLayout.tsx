@@ -1,18 +1,15 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
-import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type Props = {
+  children: ReactNode;
+};
+
+export const AccountLayout = ({ children }: Props) => {
   const { push } = useRouter();
 
   const cookie = parseCookies();
@@ -25,9 +22,9 @@ export default function HomeLayout({
     }
   }, [hasToken, push]);
 
-  if (hasToken) {
-    return <Loading />;
-  }
+  // if (hasToken) {
+  //   return <Loading />;
+  // }
 
   return <>{children}</>;
-}
+};

@@ -1,5 +1,3 @@
-'use client';
-
 import { FC } from 'react';
 
 import FilterIcon from '@/assets/icons/filter.svg';

@@ -1,5 +1,3 @@
-'use client';
-
 import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 
 import { FORM_TEXT_FIELD_TYPE, FormTextFieldType } from '@/constants/form';

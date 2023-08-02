@@ -1,20 +1,18 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
 import { parseCookies } from 'nookies';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { Footer } from '@/components/ui/Footer';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 
-import style from './layout.module.scss';
+import style from './index.module.scss';
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type Props = {
+  children: ReactNode;
+};
+
+export default function DefaultLayout({ children }: Props) {
   const { push } = useRouter();
 
   const cookie = parseCookies();
