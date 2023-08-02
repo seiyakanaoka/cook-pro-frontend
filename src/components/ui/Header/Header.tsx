@@ -2,10 +2,12 @@
 
 import clsx from 'clsx';
 import { useRouter, usePathname } from 'next/navigation';
+import { destroyCookie } from 'nookies';
 import { ChangeEventHandler, FC } from 'react';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 import { useCognito } from '@/hooks/aws/useCognito';
 import LogoImage from 'public/twitter_profile_image.png';
@@ -43,6 +45,7 @@ export const Header: FC<Props> = ({
 
   const handleLogout = async () => {
     await logout();
+    destroyCookie(null, ID_TOKEN_KEY);
     push(PAGE_URL.BEFORE);
   };
 

@@ -7,6 +7,6 @@ export type LoginFormValues = {
 };
 
 export type LoginResponse = {
-  idToken?: string;
+  idToken: string;
   status: LoginStatus;
 };

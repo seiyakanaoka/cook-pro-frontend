@@ -25,6 +25,7 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
 
   const handleRegister = async () => {
     const signUpAttributeKeyValue: SignUpAttributeKeyValue = {
+      name: signUpFormValues.userName,
       email: signUpFormValues.email,
       phone_number: `+${signUpFormValues.telephone}`,
     };

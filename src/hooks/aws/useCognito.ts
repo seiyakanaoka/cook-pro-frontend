@@ -130,6 +130,7 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
           // ユーザーが未検証の場合は、ログイン成功判定にする
           if (err.code === 'UserNotConfirmedException') {
             const confirmResponse: LoginResponse = {
+              idToken: '',
               status: LOGIN_STATUS.CONFIRM,
             };
             resolve(confirmResponse);
@@ -137,6 +138,7 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
           }
           console.error('err : ', err);
           const failureResponse: LoginResponse = {
+            idToken: '',
             status: LOGIN_STATUS.FAILURE,
           };
           reject(failureResponse);
@@ -144,6 +146,7 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
         // 新しいパスワードを要求する場合の処理
         newPasswordRequired: () => {
           const passwordResponse: LoginResponse = {
+            idToken: '',
             status: LOGIN_STATUS.NEW_PASSWORD,
           };
           // TODO: 新しいパスワードの処理を追加する

@@ -1,10 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { setCookie } from 'nookies';
 import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -55,16 +57,18 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
       telNumber: signUpFormValues.telephone,
     };
 
-    const status = await login(
+    const { idToken } = await login(
       signUpFormValues.userName,
       signUpFormValues.password
     );
 
     const headers = {
-      Authorization: `Bearer ${status.idToken}`,
+      Authorization: `Bearer ${idToken}`,
     };
 
     await createUser(requestBody, { headers });
+
+    setCookie(null, ID_TOKEN_KEY, idToken);
     push(PAGE_URL.HOME);
     addSnackbar('Cook Proへようこそ');
   };
