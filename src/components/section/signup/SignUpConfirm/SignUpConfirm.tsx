@@ -4,7 +4,7 @@ import { FC, useEffect } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
-import { LOGIN_STATUS } from '@/constants/auth';
+import { LOGIN_STATUS } from '@/constants/aws/cognito';
 import { PAGE_URL } from '@/constants/route';
 import { useCognito } from '@/hooks/aws/useCognito';
 import { SignUpAttributeKeyValue, SignUpFormValues } from '@/types/signup';

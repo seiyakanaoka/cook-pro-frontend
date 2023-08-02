@@ -1,4 +1,4 @@
-import { LoginStatus } from '@/constants/auth';
+import { LoginStatus } from '@/constants/aws/cognito';
 
 export type LoginFormValues = {
   userName?: string;
