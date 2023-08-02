@@ -11,6 +11,10 @@ export const LOGIN_VALIDATION: {
   },
   EMAIL: {
     required: { value: false },
+    regex: {
+      value: /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
+      message: 'メールアドレスの形式が正しくありません。',
+    },
   },
   PASSWORD: {
     required: { value: true, message: '入力してください。' },
@@ -30,6 +34,7 @@ export const LOGIN_FORM_VALUES: DefaultValues<LoginFormValues> = {
   },
   email: {
     value: '',
+    validate: LOGIN_VALIDATION.EMAIL,
   },
   password: {
     value: '',

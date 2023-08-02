@@ -67,9 +67,9 @@ export const Login: FC<Props> = ({}: Props) => {
         text="ログイン"
         color={BUTTON_COLOR.primary}
         onClick={handleLogin}
-        // isDisabled={
-        //   !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
-        // }
+        isDisabled={
+          !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
+        }
       />
     </div>
   );
