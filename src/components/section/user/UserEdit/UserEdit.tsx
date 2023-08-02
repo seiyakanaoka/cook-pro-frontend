@@ -20,7 +20,7 @@ import { useCognito } from '@/hooks/aws/useCognito';
 import { useFormText } from '@/hooks/useFormText';
 import { PutUserRequest } from '@/types/codegen/user/PutUserRequest';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
-import { UserFormValues } from '@/types/User';
+import { UserEditAttributeKeyValue, UserFormValues } from '@/types/User';
 import { base64ToBlob } from '@/utils/image';
 
 import style from './index.module.scss';
@@ -34,7 +34,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
 
   const { addSnackbar } = useContext(SnackbarContext);
 
-  const { updateCognitoUser } = useCognito();
+  const { updateCognitoUser } = useCognito<UserEditAttributeKeyValue>();
 
   const { updateUser } = useUserRequest();
 
@@ -87,9 +87,9 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
       requestBody.imageId = imageId;
     }
 
-    const attribute = {
+    const attribute: UserEditAttributeKeyValue = {
       email: fieldValue.email ?? '',
-      phone_number: fieldValue.telNumber ?? '',
+      phone_number: `+${fieldValue.telNumber ?? ''}`,
     };
 
     try {

@@ -6,7 +6,11 @@ import {
 } from 'amazon-cognito-identity-js';
 import { setCookie } from 'nookies';
 
-import { LOGIN_STATUS, LOGOUT_STATUS, LogoutStatus } from '@/constants/auth';
+import {
+  LOGIN_STATUS,
+  LOGOUT_STATUS,
+  LogoutStatus,
+} from '@/constants/aws/cognito';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { LoginResponse } from '@/types/login';
 
