@@ -25,7 +25,7 @@ export const FormText: FC<Props> = ({
   title,
   value,
   type = FORM_TEXT_FIELD_TYPE.TEXT,
-  placeholder = '入力してください',
+  placeholder,
   isRequired = true,
   errorMessage,
   onChange,
