@@ -6,6 +6,7 @@ import { FC, useContext } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 import { PAGE_URL } from '@/constants/route';
 import { LOGIN_FORM_VALUES } from '@/constants/validation/login';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -29,7 +30,7 @@ export const Login: FC<Props> = ({}: Props) => {
   });
 
   const handleLogin = async () => {
-    const userName = fieldValue.userName || fieldValue.email || '';
+    const userName = fieldValue.userNameOrEmail || '';
 
     const password = fieldValue.password;
 
@@ -45,20 +46,15 @@ export const Login: FC<Props> = ({}: Props) => {
       <h1 className={style['title']}>ログイン</h1>
       <div className={style['login-field']}>
         <FormText
-          title="ユーザー名"
-          value={fieldValue.userName ?? ''}
-          errorMessage={fieldState.errors?.userName}
-          onChange={(e) => onChange('userName', e)}
-        />
-        <FormText
-          title="Email"
-          value={fieldValue.email ?? ''}
-          errorMessage={fieldState.errors?.email}
-          onChange={(e) => onChange('email', e)}
+          title="ユーザー名 もしくは Email"
+          value={fieldValue.userNameOrEmail}
+          errorMessage={fieldState.errors?.userNameOrEmail}
+          onChange={(e) => onChange('userNameOrEmail', e)}
         />
         <FormText
           title="パスワード"
           value={fieldValue.password}
+          type={FORM_TEXT_FIELD_TYPE.PASSWORD}
           errorMessage={fieldState.errors?.password}
           onChange={(e) => onChange('password', e)}
         />
@@ -67,9 +63,7 @@ export const Login: FC<Props> = ({}: Props) => {
         text="ログイン"
         color={BUTTON_COLOR.primary}
         onClick={handleLogin}
-        // isDisabled={
-        //   !fieldState.isValid || (!fieldValue.email && !fieldValue.userName)
-        // }
+        isDisabled={!fieldState.isValid}
       />
     </div>
   );

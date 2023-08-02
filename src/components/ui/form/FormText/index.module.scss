@@ -1,12 +1,16 @@
 @import '../../../../assets/styles/resources';
 
 .form-text-component {
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
   width: 100%;
 
   > .message {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
     font-size: $font-size-13;
     color: $color-required-red;
   }

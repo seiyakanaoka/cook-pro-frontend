@@ -1,8 +1,7 @@
 import { LoginStatus } from '@/constants/aws/cognito';
 
 export type LoginFormValues = {
-  userName?: string;
-  email?: string;
+  userNameOrEmail: string;
   password: string;
 };
 

@@ -16,7 +16,7 @@ type Props = {
   type?: FormTextFieldType;
   placeholder?: string;
   isRequired?: boolean;
-  errorMessage?: ErrorMessage;
+  errorMessage?: ErrorMessage | string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
 };
@@ -25,12 +25,29 @@ export const FormText: FC<Props> = ({
   title,
   value,
   type = FORM_TEXT_FIELD_TYPE.TEXT,
-  placeholder = '入力してください',
+  placeholder,
   isRequired = true,
   errorMessage,
   onChange,
   onBlur,
 }: Props) => {
+  const errorMessages = () => {
+    if (typeof errorMessage === 'string') {
+      return errorMessage;
+    } else if (!!errorMessage?.required) {
+      return errorMessage.required;
+    } else if (!!errorMessage?.maxLength) {
+      return errorMessage.maxLength;
+    } else if (!!errorMessage?.minLength) {
+      return errorMessage.minLength;
+    } else if (!!errorMessage?.regex) {
+      return errorMessage.regex;
+    }
+    return undefined;
+  };
+
+  const message = errorMessages();
+
   return (
     <div className={style['form-text-component']}>
       <FormTitle title={title} isRequired={isRequired} />
@@ -41,18 +58,7 @@ export const FormText: FC<Props> = ({
         onChange={onChange}
         onBlur={onBlur}
       />
-      {!!errorMessage?.required && (
-        <p className={style['message']}>{errorMessage.required}</p>
-      )}
-      {!!errorMessage?.maxLength && (
-        <p className={style['message']}>{errorMessage.maxLength}</p>
-      )}
-      {!!errorMessage?.minLength && (
-        <p className={style['message']}>{errorMessage.minLength}</p>
-      )}
-      {!!errorMessage?.regex && (
-        <p className={style['message']}>{errorMessage.regex}</p>
-      )}
+      {!!message && <p className={style['message']}>{message}</p>}
     </div>
   );
 };

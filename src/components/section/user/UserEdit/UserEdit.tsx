@@ -200,14 +200,14 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
         <FormText
           title="Eメール"
           value={fieldValue.email ?? ''}
-          isRequired={false}
+          isRequired
           errorMessage={errors?.email}
           onChange={(e) => onChange('email', e)}
         />
         <FormText
           title="電話番号"
           value={fieldValue.telNumber ?? ''}
-          isRequired={false}
+          isRequired
           errorMessage={errors?.telNumber}
           onChange={(e) => onChange('telNumber', e)}
         />

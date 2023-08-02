@@ -52,28 +52,11 @@ export const SignUpField: FC<Props> = ({
         </div>
         <div className={style['field']}>
           <FormText
-            title="Email確認"
-            value={signUpFormValues.emailConfirm}
-            errorMessage={fieldState.errors?.emailConfirm}
-            onChange={(e) => onChange('emailConfirm', e)}
-          />
-        </div>
-        <div className={style['field']}>
-          <FormText
             title="パスワード"
             value={signUpFormValues.password}
             type={FORM_TEXT_FIELD_TYPE.PASSWORD}
             errorMessage={fieldState.errors?.password}
             onChange={(e) => onChange('password', e)}
-          />
-        </div>
-        <div className={style['field']}>
-          <FormText
-            title="パスワード確認"
-            value={signUpFormValues.passwordConfirm}
-            type={FORM_TEXT_FIELD_TYPE.PASSWORD}
-            errorMessage={fieldState.errors?.passwordConfirm}
-            onChange={(e) => onChange('passwordConfirm', e)}
           />
         </div>
         <FormText

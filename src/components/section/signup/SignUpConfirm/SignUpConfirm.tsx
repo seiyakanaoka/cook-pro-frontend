@@ -16,6 +16,8 @@ type Props = {
 };
 
 export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
+  const passwordMask = signUpFormValues.password.replace(/./g, '*');
+
   const isSignUpFormValuesEmpty =
     Object.values(signUpFormValues).filter((value) => !!value).length === 0;
 
@@ -87,7 +89,7 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       <div className={style['sign-up-confirm-field']}>
         <FormResult title="姓" result={signUpFormValues.userName} />
         <FormResult title="Email" result={signUpFormValues.email} />
-        <FormResult title="パスワード" result={signUpFormValues.password} />
+        <FormResult title="パスワード" result={passwordMask} />
         <FormResult title="電話番号" result={signUpFormValues.telephone} />
       </div>
       <div className={style['actions']}>
