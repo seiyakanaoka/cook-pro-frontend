@@ -14,9 +14,10 @@ export const LOGIN_STATUS = {
 
 export type LoginStatus = (typeof LOGIN_STATUS)[keyof typeof LOGIN_STATUS];
 
-export const LOGOUT_STATUS = {
-  SUCCESS: 'success',
-  FAILURE: 'failure',
+export const LOGOUT_RESPONSE = {
+  SUCCESS: { status: 'success', message: 'ログアウトしました' },
+  FAILURE: { status: 'failure', message: 'ログアウトできませんでした' },
 } as const;
 
-export type LogoutStatus = (typeof LOGOUT_STATUS)[keyof typeof LOGOUT_STATUS];
+export type LogoutResponse =
+  (typeof LOGOUT_RESPONSE)[keyof typeof LOGOUT_RESPONSE];

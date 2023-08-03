@@ -34,6 +34,12 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
     error: Error,
     info: { componentStack: string }
   ) => {
+    if (!!error.message) {
+      console.log(error, info);
+      addSnackbar(error.message, SNACKBAR_STATUS.ABNORMAL);
+      return;
+    }
+
     if (!isAxiosError(error)) {
       console.log(error, info);
       addSnackbar('予期せぬエラーが発生しました', SNACKBAR_STATUS.ABNORMAL);

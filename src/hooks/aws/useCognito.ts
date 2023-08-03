@@ -7,11 +7,12 @@ import {
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js';
 import { destroyCookie, setCookie } from 'nookies';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import {
   LOGIN_STATUS,
-  LOGOUT_STATUS,
-  LogoutStatus,
+  LOGOUT_RESPONSE,
+  LogoutResponse,
   SIGN_UP_STATUS,
   SignUpStatus,
 } from '@/constants/aws/cognito';
@@ -58,7 +59,7 @@ type UseCognito<T extends AttributeKeyValue> = {
   ) => Promise<SignUpStatus>;
   login: (userName: string, password: string) => Promise<LoginResponse>;
   confirmUser: (userName: string, confirmationCode: string) => Promise<any>;
-  logout: () => Promise<LogoutStatus>;
+  logout: () => Promise<LogoutResponse>;
   updateCognitoUser: (
     attribute: CognitoUserAttributeKeyValue<T>
   ) => Promise<string>;
@@ -66,6 +67,8 @@ type UseCognito<T extends AttributeKeyValue> = {
 
 /** AWS Cognitoと接続するHooks */
 export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
+  const { showBoundary } = useErrorBoundary();
+
   /**
    * サインアップ
    * @param userName ユーザー名
@@ -143,6 +146,11 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
             idToken: '',
             status: LOGIN_STATUS.FAILURE,
           };
+          const error = {
+            message: 'ログインできませんでした',
+            status: failureResponse.status,
+          };
+          showBoundary(error);
           reject(failureResponse);
         },
         // 新しいパスワードを要求する場合の処理
@@ -190,16 +198,17 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
    * ログアウト
    * @returns ログアウトステータス
    */
-  const logout = (): Promise<LogoutStatus> => {
-    return new Promise<LogoutStatus>((resolve, reject) => {
+  const logout = (): Promise<LogoutResponse> => {
+    return new Promise<LogoutResponse>((resolve, reject) => {
       const cognitoUser = userPool.getCurrentUser();
       if (cognitoUser == null) {
-        reject(LOGOUT_STATUS.FAILURE);
+        reject(LOGOUT_RESPONSE.FAILURE);
+        showBoundary(LOGOUT_RESPONSE.FAILURE);
         return;
       }
       cognitoUser.signOut();
       destroyCookie(null, ID_TOKEN_KEY);
-      resolve(LOGOUT_STATUS.SUCCESS);
+      resolve(LOGOUT_RESPONSE.SUCCESS);
     });
   };
 
