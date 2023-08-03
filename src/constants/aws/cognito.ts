@@ -14,9 +14,25 @@ export const LOGIN_STATUS = {
 
 export type LoginStatus = (typeof LOGIN_STATUS)[keyof typeof LOGIN_STATUS];
 
-export const LOGOUT_STATUS = {
+export const COGNITO_SIGN_UP_MESSAGE = {
+  message: 'サインアップできませんでした',
+  options: { cause: { status: 'failure' } },
+} as const;
+
+export const COGNITO_LOGIN_MESSAGE = {
+  message: 'ログインできませんでした',
+  options: { cause: { status: 'failure' } },
+} as const;
+
+export const COGNITO_LOGOUT_MESSAGE = {
+  message: 'ログアウトできませんでした',
+  options: { cause: { status: 'failure' } },
+} as const;
+
+export const LOGOUT_RESPONSE = {
   SUCCESS: 'success',
   FAILURE: 'failure',
 } as const;
 
-export type LogoutStatus = (typeof LOGOUT_STATUS)[keyof typeof LOGOUT_STATUS];
+export type LogoutResponse =
+  (typeof LOGOUT_RESPONSE)[keyof typeof LOGOUT_RESPONSE];
