@@ -1,6 +1,7 @@
 import { InternalAxiosRequestConfig } from 'axios';
 import { parseCookies } from 'nookies';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { axiosClient } from '@/utils/axios';
@@ -10,13 +11,27 @@ type Props = {
 };
 
 export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
+  const { showBoundary } = useErrorBoundary();
+
   const cookie = parseCookies();
   const idToken = cookie[ID_TOKEN_KEY];
 
-  axiosClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    if (typeof config.headers === 'undefined' || !idToken) return config;
-    config.headers.Authorization = `Bearer ${idToken}`;
-    return config;
+  useEffect(() => {
+    axiosClient.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        if (typeof config.headers === 'undefined' || !idToken) return config;
+        config.headers.Authorization = `Bearer ${idToken}`;
+        return config;
+      }
+    );
+
+    axiosClient.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        showBoundary(error);
+        throw error;
+      }
+    );
   });
 
   return <>{children}</>;
