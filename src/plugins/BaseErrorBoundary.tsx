@@ -13,7 +13,7 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
 
   const handleError = (error: Error, info: { componentStack: string }) => {
     console.log(error, info);
-    addSnackbar('エラーが発生しました', SNACKBAR_STATUS.ABNORMAL);
+    addSnackbar('予期せぬエラーが発生しました', SNACKBAR_STATUS.ABNORMAL);
   };
 
   return (
