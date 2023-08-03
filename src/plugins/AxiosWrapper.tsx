@@ -2,6 +2,7 @@ import { InternalAxiosRequestConfig } from 'axios';
 import { parseCookies } from 'nookies';
 import { FC, ReactNode, useEffect } from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
+import { SWRConfig } from 'swr';
 
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { axiosClient } from '@/utils/axios';
@@ -16,6 +17,12 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
   const cookie = parseCookies();
   const idToken = cookie[ID_TOKEN_KEY];
 
+  const sendError = async (error: any) => {
+    showBoundary(error);
+    // Promiseを拒否しないと、関数が再度実行されてもshowBoundaryに、2回目以降からshowBoundaryにerrorが送信されない
+    return Promise.reject(error);
+  };
+
   useEffect(() => {
     axiosClient.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
@@ -25,15 +32,16 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
       }
     );
 
-    axiosClient.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        showBoundary(error);
-        // Promiseを拒否しないと、関数が再度実行されてもshowBoundaryに、2回目以降からshowBoundaryにerrorが送信されない
-        return Promise.reject(error);
-      }
-    );
+    axiosClient.interceptors.response.use((response) => response, sendError);
   });
 
-  return <>{children}</>;
+  return (
+    <SWRConfig
+      value={{
+        onError: sendError,
+      }}
+    >
+      {children}
+    </SWRConfig>
+  );
 };

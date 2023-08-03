@@ -22,16 +22,15 @@ export const SnackbarWrapper: FC<Props> = ({ children }: Props) => {
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
   const addSnackbar = (text: string, status?: SnackbarStatus) => {
-    setSnackbarEvents(
-      snackbarEvents.concat([
-        {
-          id: crypto.randomUUID(),
-          text,
-          status: status ?? SNACKBAR_STATUS.NORMAL,
-          ref: createRef<HTMLDivElement>(),
-        },
-      ])
-    );
+    const newSnackbarEvents = snackbarEvents.concat([
+      {
+        id: crypto.randomUUID(),
+        text,
+        status: status ?? SNACKBAR_STATUS.NORMAL,
+        ref: createRef<HTMLDivElement>(),
+      },
+    ]);
+    setSnackbarEvents(newSnackbarEvents);
   };
 
   const deleteSnackbar = useCallback(
