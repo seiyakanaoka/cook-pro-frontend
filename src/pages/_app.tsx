@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import React, { ReactElement, ReactNode } from 'react';
 
 import { useAxiosConfig } from '@/hooks/useAxiosConfig';
+import { BaseErrorBoundary } from '@/plugins/BaseErrorBoundary';
 import { SnackbarWrapper } from '@/plugins/snackbarWrapper';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -22,7 +23,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <SnackbarWrapper>
-      <Component {...pageProps} />
+      <BaseErrorBoundary>
+        <Component {...pageProps} />
+      </BaseErrorBoundary>
     </SnackbarWrapper>
   );
 }
