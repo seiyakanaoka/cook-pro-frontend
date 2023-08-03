@@ -21,9 +21,24 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
   const sendApiError = async (apiError: ApiError) => {
     const httpStatus = apiError.status;
     switch (httpStatus) {
+      // 400エラーの場合
+      case 400: {
+        addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
+        return;
+      }
       // 401エラーの場合
       case 401: {
         await push(PAGE_URL.LOGIN);
+        addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
+        return;
+      }
+      // 403エラーの場合
+      case 403: {
+        addSnackbar('権限がないため、操作できません', SNACKBAR_STATUS.ABNORMAL);
+        return;
+      }
+      // 500エラーの場合
+      case 500: {
         addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
         return;
       }
