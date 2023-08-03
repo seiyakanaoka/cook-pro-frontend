@@ -12,7 +12,7 @@ import { Snackbar } from '@/components/ui/Snackbar';
 import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
 import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
 
-import style from './snackbarWrapper.module.scss';
+import style from './SnackbarWrapper.module.scss';
 
 type Props = {
   children: ReactNode;
