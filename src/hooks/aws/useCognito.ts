@@ -10,6 +10,9 @@ import { destroyCookie, setCookie } from 'nookies';
 import { useErrorBoundary } from 'react-error-boundary';
 
 import {
+  COGNITO_LOGIN_MESSAGE,
+  COGNITO_LOGOUT_MESSAGE,
+  COGNITO_SIGN_UP_MESSAGE,
   LOGIN_STATUS,
   LOGOUT_RESPONSE,
   LogoutResponse,
@@ -87,13 +90,21 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
       userPool.signUp(userName, password, attributes, [], (err, result) => {
         if (err) {
           console.error('err : ', err);
-          reject(SIGN_UP_STATUS.FAILURE);
+          const error = new Error(
+            COGNITO_SIGN_UP_MESSAGE.message,
+            COGNITO_SIGN_UP_MESSAGE.options
+          );
+          reject(error);
           return;
         }
         const cognitoUser = result?.user;
         if (typeof cognitoUser == 'undefined') {
           console.error('user undefined : ', cognitoUser);
-          reject(SIGN_UP_STATUS.FAILURE);
+          const error = new Error(
+            COGNITO_SIGN_UP_MESSAGE.message,
+            COGNITO_SIGN_UP_MESSAGE.options
+          );
+          reject(error);
           return;
         }
         resolve(SIGN_UP_STATUS.SUCCESS);
@@ -142,16 +153,12 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
             return;
           }
           console.error('err : ', err);
-          const failureResponse: LoginResponse = {
-            idToken: '',
-            status: LOGIN_STATUS.FAILURE,
-          };
-          const error = {
-            message: 'ログインできませんでした',
-            status: failureResponse.status,
-          };
+          const error = new Error(
+            COGNITO_LOGIN_MESSAGE.message,
+            COGNITO_LOGIN_MESSAGE.options
+          );
+          reject(error);
           showBoundary(error);
-          reject(failureResponse);
         },
         // 新しいパスワードを要求する場合の処理
         newPasswordRequired: () => {
@@ -202,8 +209,12 @@ export const useCognito = <T extends AttributeKeyValue>(): UseCognito<T> => {
     return new Promise<LogoutResponse>((resolve, reject) => {
       const cognitoUser = userPool.getCurrentUser();
       if (cognitoUser == null) {
-        reject(LOGOUT_RESPONSE.FAILURE);
-        showBoundary(LOGOUT_RESPONSE.FAILURE);
+        const error = new Error(
+          COGNITO_LOGOUT_MESSAGE.message,
+          COGNITO_LOGOUT_MESSAGE.options
+        );
+        reject(error);
+        showBoundary(error);
         return;
       }
       cognitoUser.signOut();
