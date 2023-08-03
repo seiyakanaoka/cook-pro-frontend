@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { ChangeEventHandler, FC, useState } from 'react';
 
 import { DishItem } from '@/components/model/dish/DishItem';

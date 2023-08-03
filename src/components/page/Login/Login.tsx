@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';

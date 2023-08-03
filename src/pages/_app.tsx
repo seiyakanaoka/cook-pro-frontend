@@ -2,8 +2,9 @@ import '../assets/styles/globals.css';
 
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, useState } from 'react';
 
+import { SnackbarEvent } from '@/context/snackbarContext';
 import { AxiosWrapper } from '@/plugins/AxiosWrapper';
 import { BaseErrorBoundary } from '@/plugins/BaseErrorBoundary';
 import { SnackbarWrapper } from '@/plugins/SnackbarWrapper';
@@ -17,10 +18,17 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
+
+  console.log('snackbarEvents APP : ', snackbarEvents);
+
   const getLayout = Component.getLayout || ((page) => page);
 
   return getLayout(
-    <SnackbarWrapper>
+    <SnackbarWrapper
+      snackbarEvents={snackbarEvents}
+      setSnackbarEvents={setSnackbarEvents}
+    >
       <BaseErrorBoundary>
         <AxiosWrapper>
           <Component {...pageProps} />

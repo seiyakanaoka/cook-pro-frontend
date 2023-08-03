@@ -1,10 +1,11 @@
 import {
+  Dispatch,
   FC,
   ReactNode,
+  SetStateAction,
   createRef,
   useCallback,
   useEffect,
-  useState,
 } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -15,12 +16,16 @@ import { SnackbarContext, SnackbarEvent } from '@/context/snackbarContext';
 import style from './SnackbarWrapper.module.scss';
 
 type Props = {
+  snackbarEvents: SnackbarEvent[];
+  setSnackbarEvents: Dispatch<SetStateAction<SnackbarEvent[]>>;
   children: ReactNode;
 };
 
-export const SnackbarWrapper: FC<Props> = ({ children }: Props) => {
-  const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
-
+export const SnackbarWrapper: FC<Props> = ({
+  snackbarEvents,
+  setSnackbarEvents,
+  children,
+}: Props) => {
   const addSnackbar = (text: string, status?: SnackbarStatus) => {
     const newSnackbarEvents = snackbarEvents.concat([
       {
@@ -38,7 +43,7 @@ export const SnackbarWrapper: FC<Props> = ({ children }: Props) => {
       const news = snackbarEvents.filter((_, index) => index !== snackbarIndex);
       setSnackbarEvents(news);
     },
-    [snackbarEvents]
+    [setSnackbarEvents, snackbarEvents]
   );
 
   useEffect(() => {

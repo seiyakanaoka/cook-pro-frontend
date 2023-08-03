@@ -1,7 +1,9 @@
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 import { FC, ReactNode, useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { ApiError } from '@/types/codegen/Error';
@@ -11,6 +13,8 @@ type Props = {
 };
 
 export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
+  const { push } = useRouter();
+
   const { addSnackbar } = useContext(SnackbarContext);
 
   const isAxiosError = (error: any): error is AxiosError => {
@@ -28,6 +32,19 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
     );
   };
 
+  /** HttpStatusごとに処理を変更する */
+  const sendApiError = async (apiError: ApiError) => {
+    const httpStatus = apiError.status;
+    switch (httpStatus) {
+      // 401エラーの場合
+      case 401: {
+        await push(PAGE_URL.LOGIN);
+        addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
+        return;
+      }
+    }
+  };
+
   const handleError = async (
     error: Error,
     info: { componentStack: string }
@@ -38,15 +55,16 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
       return;
     }
 
-    const axiosError = error.response?.data;
+    const apiError = error.response?.data;
 
-    if (!isApiError(axiosError)) {
+    if (!isApiError(apiError)) {
       console.log(error, info);
       addSnackbar('予期せぬエラーが発生しました', SNACKBAR_STATUS.ABNORMAL);
       return;
     }
 
-    addSnackbar(axiosError.message, SNACKBAR_STATUS.ABNORMAL);
+    addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
+    await sendApiError(apiError);
   };
 
   return (
