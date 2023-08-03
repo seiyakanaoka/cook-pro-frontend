@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default function DefaultLayout({ children }: Props) {
+export const DefaultLayout = ({ children }: Props) => {
   // TODO: childrenの量が少ない時はスクロールさせないようにする
   return (
     <div className={style['home-layout']}>
@@ -18,4 +18,4 @@ export default function DefaultLayout({ children }: Props) {
       </footer>
     </div>
   );
-}
+};

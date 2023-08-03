@@ -1,14 +1,13 @@
 import clsx from 'clsx';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { ChangeEventHandler, FC } from 'react';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import LogoutIcon from '@/assets/icons/logout.svg';
+import { FormSuggest } from '@/components/ui/form/FormSuggest';
 import { PAGE_URL } from '@/constants/route';
 import { useCognito } from '@/hooks/aws/useCognito';
 import LogoImage from 'public/twitter_profile_image.png';
-
-import { FormSuggest } from '../form/FormSuggest';
 
 import style from './index.module.scss';
 
@@ -27,13 +26,11 @@ export const Header: FC<Props> = ({
 }: Props) => {
   const { logout } = useCognito();
 
-  const { push, back } = useRouter();
+  const { asPath, push, back } = useRouter();
 
   const navigateToDish = (dishId: string) => {
     push(PAGE_URL.DISH + '/' + dishId);
   };
-
-  const pathname = usePathname();
 
   const handleBack = () => {
     back();
@@ -44,10 +41,10 @@ export const Header: FC<Props> = ({
     push(PAGE_URL.BEFORE);
   };
 
-  const isHome = pathname === PAGE_URL.HOME;
+  const isHome = asPath === PAGE_URL.HOME;
 
   const isShowBackAction =
-    pathname === PAGE_URL.USER || pathname?.includes(PAGE_URL.DISH);
+    asPath === PAGE_URL.USER || asPath?.includes(PAGE_URL.DISH);
 
   return (
     <div className={style['header-component']}>

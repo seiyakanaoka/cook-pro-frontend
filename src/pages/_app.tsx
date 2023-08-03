@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import React, { ReactElement, ReactNode, useState } from 'react';
 
+import { HasHeaderLayout } from '@/components/layout/hasHeader';
 import { SnackbarEvent } from '@/context/snackbarContext';
 import { AxiosWrapper } from '@/plugins/AxiosWrapper';
 import { BaseErrorBoundary } from '@/plugins/BaseErrorBoundary';
@@ -20,7 +21,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
-  const getLayout = Component.getLayout || ((page) => page);
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(
     <SnackbarWrapper
@@ -29,7 +30,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     >
       <BaseErrorBoundary>
         <AxiosWrapper>
-          <Component {...pageProps} />
+          <HasHeaderLayout>
+            <Component {...pageProps} />
+          </HasHeaderLayout>
         </AxiosWrapper>
       </BaseErrorBoundary>
     </SnackbarWrapper>
