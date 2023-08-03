@@ -1,7 +1,7 @@
-export default function Custom404() {
-  return (
-    <div>
-      <h1>ページが見つかりませんでした</h1>
-    </div>
-  );
-}
+import { NotFound } from '@/components/page/NotFound';
+
+const Custom404 = () => {
+  return <NotFound />;
+};
+
+export default Custom404;
