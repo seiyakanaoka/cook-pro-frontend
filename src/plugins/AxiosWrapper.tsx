@@ -29,7 +29,8 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
       (response) => response,
       (error) => {
         showBoundary(error);
-        throw error;
+        // Promiseを拒否しないと、関数が再度実行されてもshowBoundaryに、2回目以降からshowBoundaryにerrorが送信されない
+        return Promise.reject(error);
       }
     );
   });
