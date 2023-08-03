@@ -20,8 +20,6 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
-  console.log('snackbarEvents APP : ', snackbarEvents);
-
   const getLayout = Component.getLayout || ((page) => page);
 
   return getLayout(
