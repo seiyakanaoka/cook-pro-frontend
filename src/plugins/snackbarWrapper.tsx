@@ -21,7 +21,7 @@ type Props = {
 export const SnackbarWrapper: FC<Props> = ({ children }: Props) => {
   const [snackbarEvents, setSnackbarEvents] = useState<SnackbarEvent[]>([]);
 
-  const addSnackbar = async (text: string, status?: SnackbarStatus) => {
+  const addSnackbar = (text: string, status?: SnackbarStatus) => {
     setSnackbarEvents(
       snackbarEvents.concat([
         {

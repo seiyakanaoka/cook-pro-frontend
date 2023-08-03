@@ -32,6 +32,14 @@ input {
   height: 100%;
 }
 
+/**
+* Next.js独自のエラーモーダルを非表示にする設定
+* 参考（https://stackoverflow.com/questions/71297130/i-want-to-hide-the-error-overlay-in-nextjs）
+*/
+nextjs-portal {
+  display: none;
+}
+
 /** ダークモードか判定してcssを変更できるが、今回はしない */
 
 /* @media (prefers-color-scheme: dark) {
