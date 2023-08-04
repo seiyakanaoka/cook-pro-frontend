@@ -1,4 +1,4 @@
-export enum MaterialUnit {
+export enum MaterialResponse {
   // グラム
   GRAMS = 'GRAMS',
   // 大さじ

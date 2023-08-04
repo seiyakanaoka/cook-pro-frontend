@@ -3,69 +3,39 @@ import { FC } from 'react';
 
 import { DishDetail } from '@/components/section/dish/DishDetail';
 import { useDish } from '@/hooks/api/dish/useDish';
+import { DishMaterialResponse } from '@/types/codegen/dish/DishMaterialResponse';
+import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 
-enum MaterialUnit {
-  // グラム
-  GRAMS = 'GRAMS',
-  // 大さじ
-  TABLESPOON = 'TABLESPOON',
-  // 小さじ
-  TEASPOON = 'TEASPOON',
-  // cc
-  CC = 'CC',
-  // ml
-  ML = 'ML',
-  // 個
-  PIECE = 'PIECE',
-  // 束
-  BUNCH = 'BUNCH',
-  // 丁
-  CHO = 'CHO',
-  // パック
-  PACK = 'PACK',
-  // 枚
-  SHEET = 'SHEET',
-  // 本
-  UNIT = 'UNIT',
-}
-
-interface MaterialResponse {
-  materialId: string;
-  materialName: string;
-  quantity: number;
-  unit: MaterialUnit;
-}
-
-const materials: MaterialResponse[] = [
+const dishMaterialResponse: DishMaterialResponse[] = [
   {
     materialId: '1',
     materialName: 'にんじん',
     quantity: 2,
-    unit: MaterialUnit.UNIT,
+    unit: MaterialResponse.UNIT,
   },
   {
     materialId: '2',
     materialName: '玉ねぎ',
     quantity: 2,
-    unit: MaterialUnit.PIECE,
+    unit: MaterialResponse.PIECE,
   },
   {
     materialId: '3',
     materialName: '白菜',
     quantity: 2,
-    unit: MaterialUnit.BUNCH,
+    unit: MaterialResponse.BUNCH,
   },
   {
     materialId: '4',
     materialName: '塩',
     quantity: 2,
-    unit: MaterialUnit.GRAMS,
+    unit: MaterialResponse.GRAMS,
   },
   {
     materialId: '5',
     materialName: 'ジャガイモ',
     quantity: 1,
-    unit: MaterialUnit.UNIT,
+    unit: MaterialResponse.PIECE,
   },
 ];
 
@@ -76,5 +46,10 @@ export const Dish: FC = () => {
 
   const { dishDetailResponse } = useDish(dishId ?? '');
 
-  return <DishDetail dishDetailResponse={dishDetailResponse} />;
+  return (
+    <DishDetail
+      dishDetailResponse={dishDetailResponse}
+      dishMaterialResponse={dishMaterialResponse}
+    />
+  );
 };
