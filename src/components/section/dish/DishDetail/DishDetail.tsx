@@ -74,11 +74,15 @@ export const DishDetail: FC<Props> = ({
           <ul className={style['material-list']}>
             {dishMaterialResponse.map((material) => (
               <li key={material.materialId} className={style['material']}>
-                {material.materialName + ' '}
-                {material.unit == MaterialResponse.TABLESPOON ||
-                material.unit == MaterialResponse.TEASPOON
-                  ? MATERIAL[material.unit] + material.quantity
-                  : material.quantity + MATERIAL[material.unit]}
+                <div className={style['material-content']}>
+                  <span className={style['name']}>{material.materialName}</span>
+                  <span className={style['unit']}>
+                    {material.unit == MaterialResponse.TABLESPOON ||
+                    material.unit == MaterialResponse.TEASPOON
+                      ? MATERIAL[material.unit] + material.quantity
+                      : material.quantity + MATERIAL[material.unit]}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>

@@ -18,7 +18,7 @@
     flex-direction: column;
     row-gap: 20px;
     width: 100%;
-    padding: 0 12px;
+    padding: 0 24px 32px;
   }
 }
 
@@ -56,10 +56,28 @@
 .material-field {
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  row-gap: 12px;
   width: 100%;
 
   > .title {
     font-weight: bold;
   }
+}
+
+.material-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  padding-left: 24px;
+
+  > .material {
+    list-style-type: disc;
+  }
+}
+
+.material-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
