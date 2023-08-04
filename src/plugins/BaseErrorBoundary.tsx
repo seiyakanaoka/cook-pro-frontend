@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
+import { destroyCookie } from 'nookies';
 import { FC, ReactNode, useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -28,6 +30,8 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
       }
       // 401エラーの場合
       case 401: {
+        // TODO: ログアウトを呼べるようにする
+        destroyCookie(null, ID_TOKEN_KEY);
         await push(PAGE_URL.LOGIN);
         addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
         return;

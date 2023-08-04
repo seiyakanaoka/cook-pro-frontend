@@ -4,15 +4,22 @@ import 'react-slideshow-image/dist/styles.css';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
+import { MATERIAL } from '@/constants/material';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
+import { DishMaterialResponse } from '@/types/codegen/dish/DishMaterialResponse';
+import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 
 import style from './index.module.scss';
 
 type Props = {
   dishDetailResponse: DishDetailResponse | undefined;
+  dishMaterialResponse: DishMaterialResponse[];
 };
 
-export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
+export const DishDetail: FC<Props> = ({
+  dishDetailResponse,
+  dishMaterialResponse,
+}: Props) => {
   const titles = dishDetailResponse?.name.split('\n');
 
   const images = dishDetailResponse?.images;
@@ -62,6 +69,24 @@ export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
         <DishTime
           time={dishDetailResponse?.createRequiredTime.toString() ?? ''}
         />
+        <div className={style['material-field']}>
+          <p className={style['title']}>【材料】</p>
+          <ul className={style['material-list']}>
+            {dishMaterialResponse.map((material) => (
+              <li key={material.materialId} className={style['material']}>
+                <div className={style['material-content']}>
+                  <span className={style['name']}>{material.materialName}</span>
+                  <span className={style['unit']}>
+                    {material.unit == MaterialResponse.TABLESPOON ||
+                    material.unit == MaterialResponse.TEASPOON
+                      ? MATERIAL[material.unit] + material.quantity
+                      : material.quantity + MATERIAL[material.unit]}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@
     flex-direction: column;
     row-gap: 20px;
     width: 100%;
-    padding: 0 12px;
+    padding: 0 24px 32px;
   }
 }
 
@@ -35,21 +35,6 @@
   }
 }
 
-// .image-dot {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 4px;
-//   cursor: pointer;
-
-//   > .dot {
-//     width: 10px;
-//     height: 10px;
-//     background-color: $color-secondary-gray-2;
-//     border-radius: 50%;
-//   }
-// }
-
 .title-field {
   display: flex;
   flex-direction: column;
@@ -65,5 +50,34 @@
 .category-field {
   display: flex;
   column-gap: 8px;
+  width: 100%;
+}
+
+.material-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+
+  > .title {
+    font-weight: bold;
+  }
+}
+
+.material-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  padding-left: 24px;
+
+  > .material {
+    list-style-type: disc;
+  }
+}
+
+.material-content {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
