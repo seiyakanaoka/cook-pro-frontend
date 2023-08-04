@@ -5,6 +5,7 @@ import { DishesParams } from '@/types/codegen/dish/DishesParams';
 import { DishesResponse } from '@/types/codegen/dish/DishesResponse';
 import { DishesSearchParams } from '@/types/codegen/dish/DishesSearchParams';
 import { DishesSearchResponse } from '@/types/codegen/dish/DishesSearchResponse';
+import { DishMaterialResponse } from '@/types/codegen/dish/DishMaterialResponse';
 import { axiosClient } from '@/utils/axios';
 
 export const getDishes = async (
@@ -30,5 +31,12 @@ export const getDishesSearch = async (
 
 export const getDish = async (url: string): Promise<DishDetailResponse> => {
   const response = await axiosClient.get<DishDetailResponse>(url);
+  return response.data;
+};
+
+export const getDishMaterials = async (
+  url: string
+): Promise<DishMaterialResponse> => {
+  const response = await axiosClient.get<DishMaterialResponse>(url);
   return response.data;
 };
