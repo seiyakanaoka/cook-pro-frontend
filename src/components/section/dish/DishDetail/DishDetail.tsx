@@ -62,6 +62,10 @@ export const DishDetail: FC<Props> = ({ dishDetailResponse }: Props) => {
         <DishTime
           time={dishDetailResponse?.createRequiredTime.toString() ?? ''}
         />
+        <div className={style['material-field']}>
+          <p className={style['title']}>【材料】</p>
+          <ul></ul>
+        </div>
       </div>
     </div>
   );

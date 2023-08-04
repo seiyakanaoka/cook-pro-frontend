@@ -35,21 +35,6 @@
   }
 }
 
-// .image-dot {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 4px;
-//   cursor: pointer;
-
-//   > .dot {
-//     width: 10px;
-//     height: 10px;
-//     background-color: $color-secondary-gray-2;
-//     border-radius: 50%;
-//   }
-// }
-
 .title-field {
   display: flex;
   flex-direction: column;
@@ -66,4 +51,15 @@
   display: flex;
   column-gap: 8px;
   width: 100%;
+}
+
+.material-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  width: 100%;
+
+  > .title {
+    font-weight: bold;
+  }
 }
