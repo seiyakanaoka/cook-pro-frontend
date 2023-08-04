@@ -6,14 +6,14 @@ import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
 import { MATERIAL } from '@/constants/material';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
-import { DishMaterialResponse } from '@/types/codegen/dish/DishMaterialResponse';
 import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
+import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
 
 import style from './index.module.scss';
 
 type Props = {
   dishDetailResponse: DishDetailResponse | undefined;
-  dishMaterialResponse: DishMaterialResponse[];
+  dishMaterialResponse: MaterialResponse[];
 };
 
 export const DishDetail: FC<Props> = ({
@@ -73,12 +73,12 @@ export const DishDetail: FC<Props> = ({
           <p className={style['title']}>【材料】</p>
           <ul className={style['material-list']}>
             {dishMaterialResponse.map((material) => (
-              <li key={material.materialId} className={style['material']}>
+              <li key={material.id} className={style['material']}>
                 <div className={style['material-content']}>
-                  <span className={style['name']}>{material.materialName}</span>
+                  <span className={style['name']}>{material.name}</span>
                   <span className={style['unit']}>
-                    {material.unit == MaterialResponse.TABLESPOON ||
-                    material.unit == MaterialResponse.TEASPOON
+                    {material.unit == MaterialUnitResponse.TABLESPOON ||
+                    material.unit == MaterialUnitResponse.TEASPOON
                       ? MATERIAL[material.unit] + material.quantity
                       : material.quantity + MATERIAL[material.unit]}
                   </span>
