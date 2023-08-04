@@ -28,6 +28,7 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
       }
       // 401エラーの場合
       case 401: {
+        console.log('通っている');
         await push(PAGE_URL.LOGIN);
         addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
         return;
@@ -49,23 +50,23 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
     error: Error,
     info: { componentStack: string }
   ) => {
-    if (!!error.message) {
-      console.log(error, info);
-      addSnackbar(error.message, SNACKBAR_STATUS.ABNORMAL);
-      return;
-    }
-
     if (!isAxiosError(error)) {
       console.log(error, info);
-      addSnackbar('予期せぬエラーが発生しました', SNACKBAR_STATUS.ABNORMAL);
+      const snackbarText = !!error.message
+        ? error.message
+        : '予期せぬエラーが発生しました';
+      addSnackbar(snackbarText, SNACKBAR_STATUS.ABNORMAL);
       return;
     }
 
     const apiError = error.response?.data;
 
     if (!isApiError(apiError)) {
+      const snackbarText = !!error.message
+        ? error.message
+        : '予期せぬエラーが発生しました';
       console.log(error, info);
-      addSnackbar('予期せぬエラーが発生しました', SNACKBAR_STATUS.ABNORMAL);
+      addSnackbar(snackbarText, SNACKBAR_STATUS.ABNORMAL);
       return;
     }
 
