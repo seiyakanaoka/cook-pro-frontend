@@ -12,7 +12,7 @@ export const useDishMaterials = (
   dishId: string | undefined
 ): UseDishMaterials => {
   const { data: dishMaterialResponse } = useSWR(
-    !!dishId ? API_URL.DISH.DISH.replace(':dishId', dishId) : null,
+    !!dishId ? API_URL.DISH.DISH_MATERIALS.replace(':dishId', dishId) : null,
     getDishMaterials
   );
 

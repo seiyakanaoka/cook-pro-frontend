@@ -1,5 +1,10 @@
 import { API_URL_CATEGORIES } from './category';
-import { API_URL_DISH, API_URL_DISHES, API_URL_DISHES_SEARCH } from './dish';
+import {
+  API_URL_DISH,
+  API_URL_DISHES,
+  API_URL_DISHES_SEARCH,
+  API_URL_DISH_MATERIALS,
+} from './dish';
 import { API_URL_IMAGE_UPLOAD } from './image';
 import { API_URL_USER, API_URL_USER_SIGN_UP } from './user';
 
@@ -12,6 +17,7 @@ export const API_URL = {
     DISHES: API_URL_DISHES,
     DISH: API_URL_DISH,
     DISHES_SEARCH: API_URL_DISHES_SEARCH,
+    DISH_MATERIALS: API_URL_DISH_MATERIALS,
   },
   CATEGORY: {
     CATEGORIES: API_URL_CATEGORIES,
