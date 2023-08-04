@@ -8,9 +8,9 @@ type UseDish = {
   dishDetailResponse: DishDetailResponse | undefined;
 };
 
-export const useDish = (dishId: string): UseDish => {
+export const useDish = (dishId: string | undefined): UseDish => {
   const { data: dishDetailResponse } = useSWR(
-    API_URL.DISH.DISH.replace(':dishId', dishId),
+    !!dishId ? API_URL.DISH.DISH.replace(':dishId', dishId) : null,
     getDish
   );
 

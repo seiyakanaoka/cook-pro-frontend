@@ -1,13 +1,13 @@
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { DishDetail } from '@/components/section/dish/DishDetail';
 import { useDish } from '@/hooks/api/dish/useDish';
 
 export const Dish: FC = () => {
-  const params = useParams();
+  const { query } = useRouter();
 
-  const dishId = params?.dishId as string | null;
+  const dishId = query['dishId'] as string | undefined;
 
   const { dishDetailResponse } = useDish(dishId ?? '');
 

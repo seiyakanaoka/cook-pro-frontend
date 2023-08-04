@@ -28,7 +28,6 @@ export const BaseErrorBoundary: FC<Props> = ({ children }: Props) => {
       }
       // 401エラーの場合
       case 401: {
-        console.log('通っている');
         await push(PAGE_URL.LOGIN);
         addSnackbar(apiError.message, SNACKBAR_STATUS.ABNORMAL);
         return;
