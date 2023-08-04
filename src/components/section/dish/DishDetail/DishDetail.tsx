@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import './dot.scss';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';

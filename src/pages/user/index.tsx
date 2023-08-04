@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { DefaultLayout } from '@/components/layout/default/defaultLayout';
+import { HasHeaderLayout } from '@/components/layout/hasHeader';
 import { User } from '@/components/page/User';
 
 import { NextPageWithLayout } from '../_app';
@@ -10,7 +11,11 @@ const UserPage: NextPageWithLayout = () => {
 };
 
 UserPage.getLayout = function getLayout(page: ReactElement) {
-  return <DefaultLayout>{page}</DefaultLayout>;
+  return (
+    <DefaultLayout>
+      <HasHeaderLayout>{page}</HasHeaderLayout>
+    </DefaultLayout>
+  );
 };
 
 export default UserPage;

@@ -26,6 +26,41 @@ input {
   outline: 0;
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+/**
+* Next.js独自のエラーモーダルを非表示にする設定
+* 参考（https://stackoverflow.com/questions/71297130/i-want-to-hide-the-error-overlay-in-nextjs）
+*/
+nextjs-portal {
+  display: none;
+}
+
+.image-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+
+  > .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #999;
+    border-radius: 50%;
+  }
+
+  &.active {
+    > .dot {
+      background-color: #1a1a1a;
+    }
+  }
+}
+
 /** ダークモードか判定してcssを変更できるが、今回はしない */
 
 /* @media (prefers-color-scheme: dark) {
