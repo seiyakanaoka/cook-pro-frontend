@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { ChangeEventHandler, FC } from 'react';
 
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 
 import { FormSearch } from '../FormSearch';
+import { FormSelectPlate } from '../formSelect/FormSelectPlate';
 
 import style from './index.module.scss';
 
@@ -24,8 +24,6 @@ export const FormSuggest: FC<Props> = ({
   onClear,
   onClick,
 }: Props) => {
-  const isEmpty = items.length === 0;
-
   return (
     <div className={style['form-suggest-component']}>
       <FormSearch
@@ -36,22 +34,8 @@ export const FormSuggest: FC<Props> = ({
         onClear={onClear}
       />
       {!!value && (
-        <div className={clsx(style['panel'], isEmpty && style['-empty'])}>
-          {isEmpty ? (
-            <div className={style['message']}>結果がありません</div>
-          ) : (
-            <ul className={style['panel-list']}>
-              {items.map((item) => (
-                <li
-                  key={item.id}
-                  className={style['item']}
-                  onClick={() => onClick(item.id)}
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          )}
+        <div className={style['panel']}>
+          <FormSelectPlate items={items} onClick={onClick} />
         </div>
       )}
     </div>
