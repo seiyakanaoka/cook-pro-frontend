@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
+import { PullDownItem } from '@/types/PullDown';
+
 import style from './index.module.scss';
 
 type Props = {
-  items: { id: string; name: string }[];
+  items: PullDownItem[];
   onClick: (id: string) => void;
 };
 
