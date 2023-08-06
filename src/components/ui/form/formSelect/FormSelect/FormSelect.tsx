@@ -17,6 +17,8 @@ export const FormSelect: FC<Props> = ({
   placeholder = '入力してください',
   onClick,
 }: Props) => {
+  const selectedItem = items.find((item) => item.id === selectedValue)?.name;
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onOpen = () => {
@@ -35,7 +37,7 @@ export const FormSelect: FC<Props> = ({
   return (
     <div className={style['form-select-component']}>
       <div className={style['field']} onClick={onOpen}>
-        {selectedValue || placeholder}
+        {selectedItem || placeholder}
         <span className={style['icon']}></span>
       </div>
       {isOpen && (

@@ -5,7 +5,6 @@ import { ChangeEventHandler, FC, useState } from 'react';
 import { DishItem } from '@/components/model/dish/DishItem';
 import { FilterAction } from '@/components/ui/filter/FilterAction';
 import { FilterPanel } from '@/components/ui/filter/FilterPanel';
-import { FormSelect } from '@/components/ui/form/formSelect/FormSelect';
 import { Header } from '@/components/ui/Header';
 import { CATEGORY } from '@/constants/category';
 import { PAGE_URL } from '@/constants/route';
@@ -72,12 +71,6 @@ export const Home: FC = () => {
           onClear={handleClear}
         />
       </div>
-      <br />
-      <FormSelect
-        items={dishesSearchResponse}
-        selectedValue={undefined}
-        onClick={() => {}}
-      />
       <ul className={style['dish-list']}>
         {dishesResponse?.map((dish) => (
           <li
