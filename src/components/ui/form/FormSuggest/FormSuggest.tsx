@@ -1,6 +1,7 @@
 import { ChangeEventHandler, FC } from 'react';
 
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
+import { PullDownItem } from '@/types/PullDown';
 
 import { FormSearch } from '../FormSearch';
 import { FormSelectPlate } from '../formSelect/FormSelectPlate';
@@ -8,7 +9,7 @@ import { FormSelectPlate } from '../formSelect/FormSelectPlate';
 import style from './index.module.scss';
 
 type Props = {
-  items: { id: string; name: string }[];
+  items: PullDownItem[];
   value: string;
   placeholder?: string;
   onSearch: ChangeEventHandler<HTMLInputElement>;

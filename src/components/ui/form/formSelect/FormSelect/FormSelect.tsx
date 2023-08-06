@@ -1,11 +1,13 @@
 import { FC, useState } from 'react';
 
+import { PullDownItem } from '@/types/PullDown';
+
 import { FormSelectPlate } from '../FormSelectPlate';
 
 import style from './index.module.scss';
 
 type Props = {
-  items: { id: string; name: string }[];
+  items: PullDownItem[];
   selectedValue: string | undefined;
   placeholder?: string;
   onClick: (id: string) => void;
