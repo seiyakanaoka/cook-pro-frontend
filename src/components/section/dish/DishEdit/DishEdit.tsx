@@ -22,7 +22,7 @@ import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
-import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
+import { PutDishRequest } from '@/types/codegen/dish/PutDishRequest';
 import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
 import { DishFormValues } from '@/types/Dish';
@@ -41,15 +41,17 @@ export const DishEdit: FC<Props> = ({
   dishDetailResponse,
   dishMaterialResponse,
 }: Props) => {
-  const { push, back } = useRouter();
+  const { query, push, back } = useRouter();
 
   const { uploadImage } = useImageRequest();
 
-  const { createDish } = useDishRequest();
+  const { editDish } = useDishRequest();
 
   const { addSnackbar } = useContext(SnackbarContext);
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+  const dishId = query['dishId'] as string | undefined;
 
   const { fieldValue, onChange } = useFormText<DishFormValues>({
     defaultValues: {
@@ -177,28 +179,17 @@ export const DishEdit: FC<Props> = ({
     ).length > 0;
 
   const handleEdit = async () => {
-    if (hasNotImage || hasNotCategories || hasNotMaterials) {
+    if (hasNotImage || hasNotCategories || hasNotMaterials || !dishId) {
       setIsSubmit(true);
       return;
     }
 
-    const newImageIds = await Promise.all(
-      imageIds
-        .filter((image) => !!image)
-        .map(async (image) => {
-          const blob = base64ToBlob(image, 'image/png');
-          if (typeof blob === 'undefined') return;
-          return await uploadImage(blob);
-        })
-        .filter(
-          (image): image is Promise<string> => typeof image !== 'undefined'
-        )
-    );
+    const filterImageIds = imageIds.filter((image) => !!image);
 
-    const postDishRequest: PostDishRequest = {
+    const postDishRequest: PutDishRequest = {
       dishName: fieldValue.dishName,
       createRequiredTime: Number(fieldValue.createRequiredTime),
-      imageIds: newImageIds,
+      imageIds: filterImageIds,
       materials: selectedMaterials.map((selectedMaterial) => ({
         materialName: selectedMaterial.materialName,
         quantity: Number(selectedMaterial.quantity),
@@ -209,14 +200,34 @@ export const DishEdit: FC<Props> = ({
         categoryType: selectedCategory,
       })),
     };
-    const response = await createDish(postDishRequest);
+
+    if (!!filterImageIds.find((imageId) => !imageId.includes('image/png'))) {
+      editDish(dishId, postDishRequest);
+      return;
+    }
+
+    const uploadImageIds = await Promise.all(
+      filterImageIds
+        .map(async (image) => {
+          console.log('image  :  ', image);
+          const blob = base64ToBlob(image, 'image/png');
+          if (typeof blob === 'undefined') return;
+          return await uploadImage(blob);
+        })
+        .filter(
+          (image): image is Promise<string> => typeof image !== 'undefined'
+        )
+    );
+    postDishRequest.imageIds = uploadImageIds;
+    const response = await editDish(dishId, postDishRequest);
     await push(PAGE_URL.DISH + '/' + response.id);
-    addSnackbar('料理が追加されました');
+    addSnackbar('料理の編集が完了しました');
   };
 
   const handleBack = () => {
     back();
   };
+
   return (
     <div className={style['dish-edit-component']}>
       <h1 className={style['title']}>料理編集</h1>

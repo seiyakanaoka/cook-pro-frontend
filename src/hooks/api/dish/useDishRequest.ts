@@ -7,7 +7,10 @@ import { PutDishResponse } from '@/types/codegen/dish/PutDishResponse';
 
 type UseDishRequest = {
   createDish: (requestBody: PostDishRequest) => Promise<PostDishResponse>;
-  editDish: (requestBody: PutDishRequest) => Promise<PutDishResponse>;
+  editDish: (
+    dishId: string,
+    requestBody: PutDishRequest
+  ) => Promise<PutDishResponse>;
   deleteDish: (dishId: string) => Promise<void>;
 };
 
@@ -20,9 +23,13 @@ export const useDishRequest = (): UseDishRequest => {
   };
 
   const editDish = async (
+    dishId: string,
     requestBody: PutDishRequest
   ): Promise<PutDishResponse> => {
-    const response = await putDish(API_URL.DISH.POST_DISH, requestBody);
+    const response = await putDish(
+      API_URL.DISH.PUT_DISH.replace(':dishId', dishId),
+      requestBody
+    );
     return response;
   };
 
