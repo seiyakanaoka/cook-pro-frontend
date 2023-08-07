@@ -110,7 +110,7 @@ export const FilterPanel: FC<Props> = ({
             </div>
             <Button
               text="閉じる"
-              color={BUTTON_COLOR.green}
+              color={BUTTON_COLOR.SECONDARY_GREEN}
               onClick={handleClose}
             />
           </div>

@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
 import { LOGIN_STATUS } from '@/constants/aws/cognito';
+import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { useCognito } from '@/hooks/aws/useCognito';
 import { SignUpAttributeKeyValue, SignUpFormValues } from '@/types/signup';
@@ -92,8 +93,12 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
         <FormResult title="電話番号" result={signUpFormValues.telephone} />
       </div>
       <div className={style['actions']}>
-        <Button text="登録" color="primary" onClick={handleRegister} />
-        <Button text="戻る" color="secondary" onClick={back} />
+        <Button
+          text="登録"
+          color={BUTTON_COLOR.PRIMARY}
+          onClick={handleRegister}
+        />
+        <Button text="戻る" color={BUTTON_COLOR.SECONDARY} onClick={back} />
       </div>
     </div>
   );

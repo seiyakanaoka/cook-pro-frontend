@@ -1,10 +1,17 @@
-import { FC } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useContext, useState } from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
+import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
+import { BUTTON_COLOR } from '@/constants/button';
 import { MATERIAL } from '@/constants/material';
+import { PAGE_URL } from '@/constants/route';
+import { SnackbarContext } from '@/context/snackbarContext';
+import { useDishRequest } from '@/hooks/api/dish/useDishRequest';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
 import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
@@ -20,6 +27,12 @@ export const DishDetail: FC<Props> = ({
   dishDetailResponse,
   dishMaterialResponse,
 }: Props) => {
+  const { addSnackbar } = useContext(SnackbarContext);
+
+  const { push } = useRouter();
+
+  const { deleteDish } = useDishRequest();
+
   const titles = dishDetailResponse?.name.split('\n');
 
   const images = dishDetailResponse?.images;
@@ -38,6 +51,23 @@ export const DishDetail: FC<Props> = ({
         <div className="dot"></div>
       </div>
     ),
+  };
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleDelete = async () => {
+    if (!dishDetailResponse?.id) return;
+    await deleteDish(dishDetailResponse.id);
+    await push(PAGE_URL.HOME);
+    addSnackbar('削除が完了しました');
   };
 
   return (
@@ -87,7 +117,16 @@ export const DishDetail: FC<Props> = ({
             ))}
           </ul>
         </div>
+        <div className={style['action']}>
+          <Button text="削除" color={BUTTON_COLOR.RED} onClick={handleOpen} />
+        </div>
       </div>
+      <Modal
+        title={dishDetailResponse?.name ?? ''}
+        isOpen={isOpen}
+        onClick={handleDelete}
+        onClose={handleClose}
+      />
     </div>
   );
 };

@@ -31,7 +31,7 @@ export const SignUpLoginBefore: FC = () => {
         <div className={style['account-actions']}>
           <Button
             text="ログイン"
-            color={BUTTON_COLOR.primary}
+            color={BUTTON_COLOR.PRIMARY}
             onClick={navigateToLogin}
           />
           <div className={style['guide']}>
@@ -41,7 +41,7 @@ export const SignUpLoginBefore: FC = () => {
           </div>
           <Button
             text="新規登録"
-            color={BUTTON_COLOR.secondary}
+            color={BUTTON_COLOR.SECONDARY}
             onClick={navigateToSignUp}
           />
         </div>

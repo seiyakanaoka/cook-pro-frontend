@@ -1,7 +1,9 @@
 export const BUTTON_COLOR = {
-  primary: 'primary',
-  secondary: 'secondary',
-  green: 'green',
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  PRIMARY_GREEN: 'primary-green',
+  SECONDARY_GREEN: 'secondary-green',
+  RED: 'red',
 } as const;
 
 export type ButtonColor = (typeof BUTTON_COLOR)[keyof typeof BUTTON_COLOR];

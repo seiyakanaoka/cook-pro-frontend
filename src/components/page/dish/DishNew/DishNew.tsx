@@ -248,7 +248,7 @@ export const DishNew: FC = () => {
           <p className={style['message']}>{isSubmit && '必須項目です'}</p>
           <Button
             text="材料を追加"
-            color={BUTTON_COLOR.secondary}
+            color={BUTTON_COLOR.SECONDARY}
             onClick={addMaterial}
           />
         </ul>
@@ -265,12 +265,12 @@ export const DishNew: FC = () => {
       <div className={style['actions']}>
         <Button
           text="料理を追加"
-          color={BUTTON_COLOR.primary}
+          color={BUTTON_COLOR.PRIMARY}
           onClick={handleRegister}
         />
         <Button
           text="戻る"
-          color={BUTTON_COLOR.secondary}
+          color={BUTTON_COLOR.SECONDARY}
           onClick={handleBack}
         />
       </div>
