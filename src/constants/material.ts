@@ -11,3 +11,12 @@ export const MATERIAL = {
   SHEET: '枚',
   UNIT: '本',
 } as const;
+
+export const MATERIAL_CHANGE_VALUE = {
+  NAME: 'name',
+  QUANTITY: 'quantity',
+  UNIT: 'unit',
+} as const;
+
+export type MaterialChangeValue =
+  (typeof MATERIAL_CHANGE_VALUE)[keyof typeof MATERIAL_CHANGE_VALUE];

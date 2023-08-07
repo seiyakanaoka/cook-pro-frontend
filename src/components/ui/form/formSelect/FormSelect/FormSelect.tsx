@@ -2,11 +2,14 @@ import { FC, useState } from 'react';
 
 import { PullDownItem } from '@/types/PullDown';
 
+import { FormTitle } from '../../FormTitle';
 import { FormSelectPlate } from '../FormSelectPlate';
 
 import style from './index.module.scss';
 
 type Props = {
+  title?: string;
+  isRequired?: boolean;
   items: PullDownItem[];
   selectedValue: string | undefined;
   placeholder?: string;
@@ -14,6 +17,8 @@ type Props = {
 };
 
 export const FormSelect: FC<Props> = ({
+  title,
+  isRequired = true,
   items,
   selectedValue,
   placeholder = '入力してください',
@@ -38,6 +43,7 @@ export const FormSelect: FC<Props> = ({
 
   return (
     <div className={style['form-select-component']}>
+      {!!title && <FormTitle title={title} isRequired={isRequired} />}
       <div className={style['field']} onClick={onOpen}>
         {selectedItem || placeholder}
         <span className={style['icon']}></span>
