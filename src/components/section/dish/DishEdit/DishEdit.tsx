@@ -15,22 +15,20 @@ import {
 } from '@/constants/material';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
-import {
-  DISH_NEW_FORM_VALUES,
-  DISH_NEW_VALIDATION,
-} from '@/constants/validation/dish';
+import { DISH_NEW_VALIDATION } from '@/constants/validation/dish';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { useDishRequest } from '@/hooks/api/dish/useDishRequest';
 import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
-import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
+import { PutDishRequest } from '@/types/codegen/dish/PutDishRequest';
 import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
-import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
 import { DishFormValues } from '@/types/Dish';
+import { MaterialFormValues } from '@/types/Material';
 import { base64ToBlob } from '@/utils/image';
+import { isNumberString } from '@/utils/string';
 
 import style from './index.module.scss';
 
@@ -39,22 +37,36 @@ type Props = {
   dishMaterialResponse: MaterialResponse[];
 };
 
-export const DishEdit: FC<Props> = ({}: Props) => {
-  const { push } = useRouter();
+export const DishEdit: FC<Props> = ({
+  dishDetailResponse,
+  dishMaterialResponse,
+}: Props) => {
+  const { query, push, back } = useRouter();
 
   const { uploadImage } = useImageRequest();
 
-  const { createDish } = useDishRequest();
+  const { editDish } = useDishRequest();
 
   const { addSnackbar } = useContext(SnackbarContext);
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
+  const dishId = query['dishId'] as string | undefined;
+
   const { fieldValue, onChange } = useFormText<DishFormValues>({
-    defaultValues: DISH_NEW_FORM_VALUES,
+    defaultValues: {
+      dishName: {
+        value: dishDetailResponse?.name ?? '',
+      },
+      createRequiredTime: {
+        value: dishDetailResponse?.createRequiredTime.toString() ?? '',
+      },
+    },
   });
 
-  const [imageIds, setImageIds] = useState<string[]>(new Array(3).fill(''));
+  const [imageIds, setImageIds] = useState<string[]>(
+    dishDetailResponse?.images.map((image) => image.url) ?? []
+  );
 
   const handleChangeImage = (index: number, value: string) => {
     const newImageIds = imageIds.map((image, imageIndex) => {
@@ -95,8 +107,14 @@ export const DishEdit: FC<Props> = ({}: Props) => {
   };
 
   const [selectedMaterials, setSelectedMaterials] = useState<
-    ({ id: string } & PostMaterialRequest)[]
-  >([defaultMaterial]);
+    MaterialFormValues[]
+  >(
+    dishMaterialResponse.map((dishMaterial) => ({
+      ...dishMaterial,
+      materialName: dishMaterial.name,
+      quantity: dishMaterial.quantity.toString(),
+    })) ?? []
+  );
 
   const addMaterial = () => {
     setSelectedMaterials(selectedMaterials.concat([defaultMaterial]));
@@ -130,7 +148,7 @@ export const DishEdit: FC<Props> = ({}: Props) => {
 
   const [selectedCategories, setSelectedCategories] = useState<
     CategoryResponse[]
-  >([]);
+  >(dishDetailResponse?.categories ?? []);
 
   const onChangeCategory = (id: string) => {
     if (
@@ -160,16 +178,38 @@ export const DishEdit: FC<Props> = ({}: Props) => {
         !selectedMaterial.unit
     ).length > 0;
 
-  const handleRegister = async () => {
-    if (hasNotImage || hasNotCategories || hasNotMaterials) {
+  const handleEdit = async () => {
+    if (hasNotImage || hasNotCategories || hasNotMaterials || !dishId) {
       setIsSubmit(true);
       return;
     }
 
-    const newImageIds = await Promise.all(
-      imageIds
-        .filter((image) => !!image)
+    const filterImageIds = imageIds.filter((image) => !!image);
+
+    const postDishRequest: PutDishRequest = {
+      dishName: fieldValue.dishName,
+      createRequiredTime: Number(fieldValue.createRequiredTime),
+      imageIds: filterImageIds,
+      materials: selectedMaterials.map((selectedMaterial) => ({
+        materialName: selectedMaterial.materialName,
+        quantity: Number(selectedMaterial.quantity),
+        unit: selectedMaterial.unit,
+      })),
+      category: selectedCategories.map((selectedCategory) => ({
+        categoryId: selectedCategory,
+        categoryType: selectedCategory,
+      })),
+    };
+
+    if (!!filterImageIds.find((imageId) => !imageId.includes('image/png'))) {
+      editDish(dishId, postDishRequest);
+      return;
+    }
+
+    const uploadImageIds = await Promise.all(
+      filterImageIds
         .map(async (image) => {
+          console.log('image  :  ', image);
           const blob = base64ToBlob(image, 'image/png');
           if (typeof blob === 'undefined') return;
           return await uploadImage(blob);
@@ -178,32 +218,19 @@ export const DishEdit: FC<Props> = ({}: Props) => {
           (image): image is Promise<string> => typeof image !== 'undefined'
         )
     );
-
-    const postDishRequest: PostDishRequest = {
-      dishName: fieldValue.dishName,
-      createRequiredTime: Number(fieldValue.createRequiredTime),
-      imageIds: newImageIds,
-      materials: selectedMaterials.map((selectedMaterial) => ({
-        materialName: selectedMaterial.materialName,
-        quantity: selectedMaterial.quantity,
-        unit: selectedMaterial.unit,
-      })),
-      category: selectedCategories.map((selectedCategory) => ({
-        categoryId: selectedCategory,
-        categoryType: selectedCategory,
-      })),
-    };
-    const response = await createDish(postDishRequest);
+    postDishRequest.imageIds = uploadImageIds;
+    const response = await editDish(dishId, postDishRequest);
     await push(PAGE_URL.DISH + '/' + response.id);
-    addSnackbar('料理が追加されました');
+    addSnackbar('料理の編集が完了しました');
   };
 
   const handleBack = () => {
-    push(PAGE_URL.HOME);
+    back();
   };
+
   return (
     <div className={style['dish-edit-component']}>
-      <h1 className={style['title']}>料理新規登録</h1>
+      <h1 className={style['title']}>料理編集</h1>
       <div className={style['field']}>
         <div className={style['image-field']}>
           <ul className={style['list']}>
@@ -232,7 +259,7 @@ export const DishEdit: FC<Props> = ({}: Props) => {
           onChange={(e) => onChange('dishName', e)}
         />
         <FormText
-          title="所要時間"
+          title="所要時間(分)"
           value={fieldValue.createRequiredTime}
           errorMessage={
             isSubmit
@@ -251,7 +278,14 @@ export const DishEdit: FC<Props> = ({}: Props) => {
               onChange={onChangeMaterial}
             />
           ))}
-          <p className={style['message']}>{isSubmit && '必須項目です'}</p>
+          <p className={style['message']}>
+            {isSubmit &&
+              (selectedMaterials.find(
+                (selectedMaterial) => !isNumberString(selectedMaterial.quantity)
+              )
+                ? '数字のみ入力できます'
+                : '必須項目です')}
+          </p>
           <Button
             text="材料を追加"
             color={BUTTON_COLOR.SECONDARY}
@@ -270,9 +304,9 @@ export const DishEdit: FC<Props> = ({}: Props) => {
       </div>
       <div className={style['actions']}>
         <Button
-          text="料理を追加"
+          text="修正完了"
           color={BUTTON_COLOR.PRIMARY}
-          onClick={handleRegister}
+          onClick={handleEdit}
         />
         <Button
           text="戻る"

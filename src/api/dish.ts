@@ -8,6 +8,8 @@ import { DishesSearchResponse } from '@/types/codegen/dish/DishesSearchResponse'
 import { DishMaterialResponse } from '@/types/codegen/dish/DishMaterialResponse';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
 import { PostDishResponse } from '@/types/codegen/dish/PostDishResponse';
+import { PutDishRequest } from '@/types/codegen/dish/PutDishRequest';
+import { PutDishResponse } from '@/types/codegen/dish/PutDishResponse';
 import { axiosClient } from '@/utils/axios';
 
 export const getDishes = async (
@@ -41,6 +43,14 @@ export const getDishesSearch = async (
 
 export const getDish = async (url: string): Promise<DishDetailResponse> => {
   const response = await axiosClient.get<DishDetailResponse>(url);
+  return response.data;
+};
+
+export const putDish = async (
+  url: string,
+  requestBody: PutDishRequest
+): Promise<PutDishResponse> => {
+  const response = await axiosClient.put<PutDishResponse>(url, requestBody);
   return response.data;
 };
 

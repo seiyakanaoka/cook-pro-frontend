@@ -224,7 +224,7 @@ export const DishNew: FC = () => {
           onChange={(e) => onChange('dishName', e)}
         />
         <FormText
-          title="所要時間"
+          title="所要時間(分)"
           value={fieldValue.createRequiredTime}
           errorMessage={isSubmit ? errors?.createRequiredTime : undefined}
           onChange={(e) => onChange('createRequiredTime', e)}
