@@ -3,6 +3,7 @@ import { FC, useContext } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { SnackbarContext } from '@/context/snackbarContext';
@@ -78,7 +79,7 @@ export const SignUpCode: FC<Props> = ({ signUpFormValues }: Props) => {
           onChange={(e) => onChange('code', e)}
         />
       </div>
-      <Button text="送信" onClick={handleSubmit} color="primary" />
+      <Button text="送信" onClick={handleSubmit} color={BUTTON_COLOR.PRIMARY} />
     </div>
   );
 };

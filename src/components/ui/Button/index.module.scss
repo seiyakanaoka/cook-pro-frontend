@@ -47,13 +47,36 @@
     border: 1px solid $color-secondary-gray-3;
   }
 
-  &.-green {
+  &.-primary-green {
+    color: $color-white;
+    background-color: $color-green;
+    border: 1px solid $color-green;
+  }
+
+  &.-primary-green:hover,
+  &.-primary-green:active {
+    opacity: 0.7;
+  }
+
+  &.-secondary-green {
     color: $color-green;
     background-color: $color-white;
     border: 1px solid $color-green;
   }
 
-  &.-green:hover {
+  &.-secondary-green:hover,
+  &.-secondary-green:active {
+    opacity: 0.7;
+  }
+
+  &.-red {
+    color: $color-white;
+    background-color: $color-red;
+    border: 1px solid $color-red;
+  }
+
+  &.-red:hover,
+  &.-red:active {
     opacity: 0.7;
   }
 }

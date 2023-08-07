@@ -3,6 +3,7 @@ import { ChangeEvent, FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormText } from '@/components/ui/form/FormText';
+import { BUTTON_COLOR } from '@/constants/button';
 import { FORM_TEXT_FIELD_TYPE } from '@/constants/form';
 import { PAGE_URL } from '@/constants/route';
 import { FieldState, FieldValueValidate } from '@/types/Form';
@@ -68,11 +69,15 @@ export const SignUpField: FC<Props> = ({
       <div className={style['actions']}>
         <Button
           text="進む"
-          color="primary"
+          color={BUTTON_COLOR.PRIMARY}
           onClick={navigateToSignUpConfirm}
           isDisabled={!fieldState.isValid}
         />
-        <Button text="キャンセル" color="secondary" onClick={back} />
+        <Button
+          text="キャンセル"
+          color={BUTTON_COLOR.SECONDARY}
+          onClick={back}
+        />
       </div>
     </div>
   );

@@ -168,13 +168,13 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
       </div>
       <div className={style['actions']}>
         <Button
-          color={BUTTON_COLOR.primary}
+          color={BUTTON_COLOR.PRIMARY}
           text="完了"
           isDisabled={!isValid}
           onClick={handleClick}
         />
         <Button
-          color={BUTTON_COLOR.secondary}
+          color={BUTTON_COLOR.SECONDARY}
           text="戻る"
           onClick={navigateToUserDetail}
         />

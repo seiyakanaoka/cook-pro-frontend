@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/components/ui/Button';
+import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
 import { UserResponse } from '@/types/codegen/user/UserResponse';
 import NoImage from 'public/no-image.png';
@@ -45,7 +46,7 @@ export const UserDetail: FC<Props> = ({ userResponse }: Props) => {
         </div>
       </div>
       <Button
-        color="primary"
+        color={BUTTON_COLOR.PRIMARY}
         text="プロフィール編集"
         onClick={navigateToEdit}
       />

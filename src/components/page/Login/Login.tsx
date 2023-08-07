@@ -59,7 +59,7 @@ export const Login: FC<Props> = ({}: Props) => {
       </div>
       <Button
         text="ログイン"
-        color={BUTTON_COLOR.primary}
+        color={BUTTON_COLOR.PRIMARY}
         onClick={handleLogin}
         isDisabled={!fieldState.isValid}
       />
