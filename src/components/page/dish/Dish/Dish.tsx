@@ -14,8 +14,6 @@ export const Dish: FC = () => {
 
   const { dishMaterialResponse } = useDishMaterials(dishId ?? '');
 
-  console.log('dishMaterialResponse : ', dishMaterialResponse);
-
   return (
     <DishDetail
       dishDetailResponse={dishDetailResponse}
