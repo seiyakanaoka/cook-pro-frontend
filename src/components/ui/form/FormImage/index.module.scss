@@ -1,0 +1,72 @@
+@import '../../../../assets/styles/resources';
+
+.form-image-component {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  &.-not-selected {
+    border: 1px dashed $color-green;
+  }
+
+  > .field {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed $color-green;
+  }
+
+  > .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 24px;
+    height: 24px;
+    color: $color-green;
+    cursor: pointer;
+    background-color: $color-white;
+    border-radius: 50%;
+  }
+
+  > .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    > .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: 32px;
+      height: 32px;
+      color: $color-green;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+
+    > .field {
+      display: none;
+    }
+  }
+
+  &.-circle {
+    border-radius: 50%;
+
+    > .field {
+      border-radius: 50%;
+    }
+  }
+
+  &.-square {
+    border-radius: 4px;
+
+    > .field {
+      border-radius: 4px;
+    }
+  }
+}

@@ -27,6 +27,21 @@
   }
 }
 
+.image-field {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow-x: auto;
+
+  > .image {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+  }
+}
+
 .material-field {
   display: flex;
   flex-direction: column;
