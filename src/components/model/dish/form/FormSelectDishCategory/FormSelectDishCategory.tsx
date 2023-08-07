@@ -15,7 +15,7 @@ type Props = {
   categories: CategoryResponse[];
   selectedCategories: CategoryResponse[];
   placeholder?: string;
-  onClick: (ids: string[]) => void;
+  onClick: (id: string) => void;
 };
 
 export const FormSelectDishCategory: FC<Props> = ({
@@ -31,6 +31,11 @@ export const FormSelectDishCategory: FC<Props> = ({
     name: CATEGORY[category],
   }));
 
+  const selectedItems = selectedCategories.map((category) => ({
+    id: category,
+    name: CATEGORY[category],
+  }));
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onOpen = () => {
@@ -42,28 +47,36 @@ export const FormSelectDishCategory: FC<Props> = ({
   };
 
   const handleClick = (id: string) => {
-    const newCategories = selectedCategories.concat(id as CategoryResponse);
-    onClick(newCategories);
+    onClick(id);
     onClose();
   };
 
   return (
     <div className={style['form-select-dish-category-component']}>
       {!!title && <FormTitle title={title} isRequired={isRequired} />}
-      <div className={style['field']} onClick={onOpen}>
+      <div className={style['field']}>
         <ul className={style['category-list']}>
-          {categories.length === 0
+          {selectedCategories.length === 0
             ? placeholder
-            : categories.map((category) => (
-                <li key={category} className={style['category']}>
-                  <DishCategory category={category} />
+            : selectedCategories.map((selectedCategory) => (
+                <li key={selectedCategory} className={style['category']}>
+                  <DishCategory category={selectedCategory} />
                 </li>
               ))}
         </ul>
-        <span className={style['icon']}></span>
+        <div className={style['line']} />
+        <div className={style['add-action']}>
+          <button className={style['action']} onClick={onOpen}>
+            追加
+          </button>
+        </div>
         {isOpen && (
           <div className={style['panel']}>
-            <FormSelectPlate items={items} onClick={handleClick} />
+            <FormSelectPlate
+              items={items}
+              selectedItems={selectedItems}
+              onClick={handleClick}
+            />
           </div>
         )}
       </div>
