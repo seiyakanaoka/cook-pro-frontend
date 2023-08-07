@@ -9,7 +9,7 @@ import { FormTitle } from '../FormTitle';
 import style from './index.module.scss';
 
 type Props = {
-  title: string;
+  title?: string;
   value: string;
   type?: FormTextFieldType;
   placeholder?: string;
@@ -48,7 +48,7 @@ export const FormText: FC<Props> = ({
 
   return (
     <div className={style['form-text-component']}>
-      <FormTitle title={title} isRequired={isRequired} />
+      {!!title && <FormTitle title={title} isRequired={isRequired} />}
       <FormTextField
         value={value}
         type={type}

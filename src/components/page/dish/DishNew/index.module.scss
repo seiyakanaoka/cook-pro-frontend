@@ -3,10 +3,9 @@
 .dish-new-component {
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  row-gap: 40px;
   width: 100%;
-  height: 100%;
-  padding: 24px 24px 32px;
+  padding: 24px 24px 0;
 
   > .title {
     font-size: $font-size-27;
@@ -15,7 +14,7 @@
   > .field {
     display: flex;
     flex-direction: column;
-    row-gap: 24px;
+    row-gap: 32px;
     width: 100%;
     height: 100%;
   }
@@ -24,6 +23,28 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+    padding-bottom: 32px;
+  }
+}
+
+.material-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  width: 100%;
+
+  > .field {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    width: 100%;
+    height: 100%;
+
+    > .content {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
   }
 }
 

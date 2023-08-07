@@ -8,7 +8,7 @@ import { FormSelectPlate } from '../FormSelectPlate';
 import style from './index.module.scss';
 
 type Props = {
-  title: string;
+  title?: string;
   isRequired?: boolean;
   items: PullDownItem[];
   selectedValue: string | undefined;
@@ -43,7 +43,7 @@ export const FormSelect: FC<Props> = ({
 
   return (
     <div className={style['form-select-component']}>
-      <FormTitle title={title} isRequired={isRequired} />
+      {!!title && <FormTitle title={title} isRequired={isRequired} />}
       <div className={style['field']} onClick={onOpen}>
         {selectedItem || placeholder}
         <span className={style['icon']}></span>
