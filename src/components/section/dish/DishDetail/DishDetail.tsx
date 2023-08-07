@@ -29,7 +29,9 @@ export const DishDetail: FC<Props> = ({
 }: Props) => {
   const { addSnackbar } = useContext(SnackbarContext);
 
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+
+  const dishId = query['dishId'] as string | undefined;
 
   const { deleteDish } = useDishRequest();
 
@@ -61,6 +63,10 @@ export const DishDetail: FC<Props> = ({
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const handleNavigateEdit = () => {
+    push(PAGE_URL.DISH + '/' + dishId + '?status=edit');
   };
 
   const handleDelete = async () => {
@@ -118,6 +124,11 @@ export const DishDetail: FC<Props> = ({
           </ul>
         </div>
         <div className={style['action']}>
+          <Button
+            text="編集"
+            color={BUTTON_COLOR.PRIMARY_GREEN}
+            onClick={handleNavigateEdit}
+          />
           <Button text="削除" color={BUTTON_COLOR.RED} onClick={handleOpen} />
         </div>
       </div>
