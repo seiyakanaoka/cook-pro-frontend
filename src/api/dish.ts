@@ -44,6 +44,10 @@ export const getDish = async (url: string): Promise<DishDetailResponse> => {
   return response.data;
 };
 
+export const deleteDish = async (url: string): Promise<void> => {
+  await axiosClient.delete(url);
+};
+
 export const getDishMaterials = async (
   url: string
 ): Promise<DishMaterialResponse> => {
