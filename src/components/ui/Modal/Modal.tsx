@@ -21,10 +21,12 @@ export const Modal: FC<Props> = ({ title, isOpen, onClose }: Props) => {
       nodeRef={overlayRef}
       unmountOnExit
       in={isOpen}
-      timeout={{
-        appear: 0,
-        enter: 0,
-        exit: 450,
+      timeout={300}
+      classNames={{
+        enter: style['modal-enter'],
+        enterActive: style['modal-active-enter'],
+        exit: style['modal-exit'],
+        exitActive: style['modal-active-exit'],
       }}
     >
       <div

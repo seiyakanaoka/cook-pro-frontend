@@ -46,20 +46,20 @@
   border-radius: 16px;
 }
 
-.filter-enter {
-  transform: translateY(100%);
+.modal-enter {
+  opacity: 0;
 }
 
-.filter-active-enter {
-  transition: transform 300ms ease-out;
-  transform: translateY(0);
+.modal-active-enter {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
 }
 
-.filter-exit {
-  transform: translateY(0);
+.modal-exit {
+  opacity: 1;
 }
 
-.filter-active-exit {
-  transition: transform 400ms ease-out;
-  transform: translateY(100%);
+.modal-active-exit {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
 }
