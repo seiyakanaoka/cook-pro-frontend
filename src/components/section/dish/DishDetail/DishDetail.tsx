@@ -5,6 +5,7 @@ import 'react-slideshow-image/dist/styles.css';
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
 import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
 import { BUTTON_COLOR } from '@/constants/button';
 import { MATERIAL } from '@/constants/material';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
@@ -91,6 +92,7 @@ export const DishDetail: FC<Props> = ({
         </div>
         <Button text="削除" color={BUTTON_COLOR.RED} onClick={() => {}} />
       </div>
+      <Modal title={dishDetailResponse?.name ?? ''} isOpen onClose={() => {}} />
     </div>
   );
 };
