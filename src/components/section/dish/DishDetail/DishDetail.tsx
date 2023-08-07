@@ -107,6 +107,7 @@ export const DishDetail: FC<Props> = ({
       <Modal
         title={dishDetailResponse?.name ?? ''}
         isOpen={isOpen}
+        onClick={() => {}}
         onClose={onClose}
       />
     </div>

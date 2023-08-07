@@ -11,9 +11,15 @@ type Props = {
   title: string;
   isOpen: boolean;
   onClose: () => void;
+  onClick: () => void;
 };
 
-export const Modal: FC<Props> = ({ title, isOpen, onClose }: Props) => {
+export const Modal: FC<Props> = ({
+  title,
+  isOpen,
+  onClose,
+  onClick,
+}: Props) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   return (
@@ -46,7 +52,7 @@ export const Modal: FC<Props> = ({ title, isOpen, onClose }: Props) => {
             <Button
               text="削除"
               color={BUTTON_COLOR.PRIMARY}
-              onClick={() => {}}
+              onClick={onClick}
             />
             <Button
               text="閉じる"
