@@ -1,13 +1,13 @@
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
-import CameraIcon from '@/assets/icons/camera.svg';
 import { FormDishMaterial } from '@/components/model/dish/form/FormDishMaterial';
 import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
 import { Button } from '@/components/ui/Button';
+import { FormImage } from '@/components/ui/form/FormImage';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { IMAGE_TYPE } from '@/constants/image';
 import {
   MATERIAL,
   MATERIAL_CHANGE_VALUE,
@@ -129,23 +129,13 @@ export const DishNew: FC = () => {
       <h1 className={style['title']}>料理新規登録</h1>
       <div className={style['field']}>
         <div className={style['image']}>
-          <div
-            className={clsx(
-              style['dish-image-field'],
-              true && style['-not-selected']
-            )}
-          >
-            <label className={style['wrapper']}>
-              <span className={style['icon']}>
-                <CameraIcon />
-              </span>
-              <input
-                type="file"
-                className={style['field']}
-                onChange={() => {}}
-              />
-            </label>
-          </div>
+          <FormImage
+            image=""
+            type={IMAGE_TYPE.SQUARE}
+            onChange={() => {}}
+            onClear={() => {}}
+            onFailure={() => {}}
+          />
         </div>
         <FormText
           title="料理名"

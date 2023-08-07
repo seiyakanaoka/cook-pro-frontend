@@ -1,10 +1,8 @@
-import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { ChangeEventHandler, FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 
-import ClearIcon from '@/assets/icons/all-clear.svg';
-import CameraIcon from '@/assets/icons/camera.svg';
 import { Button } from '@/components/ui/Button';
+import { FormImage } from '@/components/ui/form/FormImage';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
@@ -68,8 +66,6 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     defaultValues,
   });
 
-  const hasNotUserImage = !fieldValue.userImage;
-
   const handleEditUser = async (
     displayName?: string | undefined,
     imageId?: string | undefined
@@ -125,68 +121,28 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     await handleEditUser(displayName, imageId);
   };
 
+  const handleChangeUserImage = (value: string) => {
+    onChange('userImage', value);
+  };
+
   const handleClearUserImage = () => {
     onChange('userImage', '');
   };
 
-  const handleChangeUserImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const blob = e.target.files?.[0];
-    if (typeof blob === 'undefined') {
-      addSnackbar(
-        '画像をアップロードできませんでした',
-        SNACKBAR_STATUS.ABNORMAL
-      );
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result !== 'string') {
-        addSnackbar(
-          '画像をアップロードできませんでした',
-          SNACKBAR_STATUS.ABNORMAL
-        );
-        return;
-      }
-      onChange('userImage', result);
-    };
-    reader.readAsDataURL(blob);
+  const handleFailure = () => {
+    addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
   };
 
   return (
     <div className={style['user-edit-component']}>
       <div className={style['field']}>
         <div className={style['image']}>
-          <div
-            className={clsx(
-              style['image-field'],
-              hasNotUserImage && style['-not-selected']
-            )}
-          >
-            {hasNotUserImage ? (
-              <label className={style['wrapper']}>
-                <span className={style['icon']}>
-                  <CameraIcon />
-                </span>
-                <input
-                  type="file"
-                  className={style['field']}
-                  onChange={handleChangeUserImage}
-                />
-              </label>
-            ) : (
-              <>
-                <div className={style['icon']} onClick={handleClearUserImage}>
-                  <ClearIcon />
-                </div>
-                <img
-                  src={fieldValue.userImage}
-                  alt=""
-                  className={style['field']}
-                />
-              </>
-            )}
-          </div>
+          <FormImage
+            image={fieldValue.userImage}
+            onChange={handleChangeUserImage}
+            onClear={handleClearUserImage}
+            onFailure={handleFailure}
+          />
         </div>
         <FormText
           title="ニックネーム"
