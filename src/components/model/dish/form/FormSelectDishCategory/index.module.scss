@@ -1,0 +1,25 @@
+@import '../../../../../assets/styles/resources';
+
+.form-select-dish-category-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  height: 100%;
+
+  > .panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+  }
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
