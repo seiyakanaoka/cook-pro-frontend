@@ -4,6 +4,8 @@ import 'react-slideshow-image/dist/styles.css';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
+import { Button } from '@/components/ui/Button';
+import { BUTTON_COLOR } from '@/constants/button';
 import { MATERIAL } from '@/constants/material';
 import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
 import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
@@ -87,6 +89,7 @@ export const DishDetail: FC<Props> = ({
             ))}
           </ul>
         </div>
+        <Button text="削除" color={BUTTON_COLOR.RED} onClick={() => {}} />
       </div>
     </div>
   );
