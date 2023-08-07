@@ -1,0 +1,15 @@
+@import '../../../../../assets/styles/resources';
+
+.form-dish-material-component {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  height: 100%;
+
+  > .content {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}

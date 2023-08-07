@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
+import { FormDishMaterial } from '@/components/model/dish/form/FormDishMaterial';
 import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
 import { Button } from '@/components/ui/Button';
-import { FormSelect } from '@/components/ui/form/formSelect/FormSelect';
 import { FormText } from '@/components/ui/form/FormText';
-import { FormTextField } from '@/components/ui/form/FormTextField';
 import { BUTTON_COLOR } from '@/constants/button';
 import {
   MATERIAL,
@@ -139,44 +138,13 @@ export const DishNew: FC = () => {
         />
         <ul className={style['material-field']}>
           {selectedMaterials.map((materialField, i) => (
-            <li key={materialField.id} className={style['field']}>
-              <FormText
-                title={i > 0 ? undefined : '材料'}
-                placeholder="材料名"
-                value={materialField.materialName}
-                onChange={(e) =>
-                  onChangeMaterial(
-                    materialField.id,
-                    e.currentTarget.value,
-                    MATERIAL_CHANGE_VALUE.NAME
-                  )
-                }
-              />
-              <div className={style['content']}>
-                <FormTextField
-                  placeholder="数量を指定"
-                  value={materialField.quantity}
-                  onChange={(e) =>
-                    onChangeMaterial(
-                      materialField.id,
-                      e.currentTarget.value,
-                      MATERIAL_CHANGE_VALUE.QUANTITY
-                    )
-                  }
-                />
-                <FormSelect
-                  items={materialUnits}
-                  selectedValue={materialField.unit}
-                  onClick={(id: string) =>
-                    onChangeMaterial(
-                      materialField.id,
-                      id,
-                      MATERIAL_CHANGE_VALUE.UNIT
-                    )
-                  }
-                />
-              </div>
-            </li>
+            <FormDishMaterial
+              key={materialField.id}
+              title={i === 0 ? '材料' : undefined}
+              materialField={materialField}
+              materialUnits={materialUnits}
+              onChange={onChangeMaterial}
+            />
           ))}
           <Button
             text="追加"
