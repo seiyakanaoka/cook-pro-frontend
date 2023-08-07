@@ -21,17 +21,21 @@ import {
 } from '@/constants/validation/dish';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { useDishRequest } from '@/hooks/api/dish/useDishRequest';
+import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
 import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
 import { DishFormValues } from '@/types/Dish';
+import { base64ToBlob } from '@/utils/image';
 
 import style from './index.module.scss';
 
 export const DishNew: FC = () => {
   const { push } = useRouter();
+
+  const { uploadImage } = useImageRequest();
 
   const { createDish } = useDishRequest();
 
@@ -154,10 +158,24 @@ export const DishNew: FC = () => {
       setIsSubmit(true);
       return;
     }
+
+    const newImageIds = await Promise.all(
+      imageIds
+        .filter((image) => !!image)
+        .map(async (image) => {
+          const blob = base64ToBlob(image, 'image/png');
+          if (typeof blob === 'undefined') return;
+          return await uploadImage(blob);
+        })
+        .filter(
+          (image): image is Promise<string> => typeof image !== 'undefined'
+        )
+    );
+
     const postDishRequest: PostDishRequest = {
       dishName: fieldValue.dishName,
       createRequiredTime: Number(fieldValue.createRequiredTime),
-      imageIds,
+      imageIds: newImageIds,
       materials: selectedMaterials.map((selectedMaterial) => ({
         materialName: selectedMaterial.materialName,
         quantity: selectedMaterial.quantity,
