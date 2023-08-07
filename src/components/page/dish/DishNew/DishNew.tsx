@@ -137,9 +137,10 @@ export const DishNew: FC = () => {
           onChange={(e) => onChange('createRequiredTime', e)}
         />
         <ul className={style['material-field']}>
-          {selectedMaterials.map((materialField) => (
+          {selectedMaterials.map((materialField, i) => (
             <FormDishMaterial
               key={materialField.id}
+              title={i === 0 ? '材料' : undefined}
               materialField={materialField}
               materialUnits={materialUnits}
               onChange={onChangeMaterial}

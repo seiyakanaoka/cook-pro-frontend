@@ -13,12 +13,14 @@ import { PullDownItem } from '@/types/PullDown';
 import style from './index.module.scss';
 
 type Props = {
+  title: string | undefined;
   materialField: { id: string } & PostMaterialRequest;
   materialUnits: PullDownItem[];
   onChange: (id: string, value: string, type: MaterialChangeValue) => void;
 };
 
 export const FormDishMaterial: FC<Props> = ({
+  title,
   materialField,
   materialUnits,
   onChange,
@@ -26,7 +28,7 @@ export const FormDishMaterial: FC<Props> = ({
   return (
     <div className={style['form-dish-material-component']}>
       <FormText
-        title="材料"
+        title={title}
         placeholder="材料名"
         value={materialField.materialName}
         onChange={(e) =>
