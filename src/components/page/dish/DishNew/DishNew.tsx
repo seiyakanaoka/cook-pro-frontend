@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
-import { DishCategory } from '@/components/model/dish/DishCategory';
+import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
 import { Button } from '@/components/ui/Button';
 import { FormSelect } from '@/components/ui/form/formSelect/FormSelect';
 import { FormText } from '@/components/ui/form/FormText';
 import { FormTextField } from '@/components/ui/form/FormTextField';
 import { BUTTON_COLOR } from '@/constants/button';
-import { CATEGORY } from '@/constants/category';
 import {
   MATERIAL,
   MATERIAL_CHANGE_VALUE,
@@ -16,7 +15,6 @@ import {
 import { PAGE_URL } from '@/constants/route';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
-import { PostCategoryRequest } from '@/types/codegen/category/PostCategoryRequest';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
 import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
@@ -80,22 +78,25 @@ export const DishNew: FC = () => {
     setSelectedMaterials(newSelectedMaterial);
   };
 
-  const categories = Object.values(CategoryResponse).map((category) => ({
-    id: category,
-    name: CATEGORY[category],
-  }));
+  const categories = Object.values(CategoryResponse);
 
   const [selectedCategories, setSelectedCategories] = useState<
-    PostCategoryRequest[]
+    CategoryResponse[]
   >([]);
 
   const onChangeCategory = (id: string) => {
-    const newSelectedCategories = selectedCategories.concat([
-      {
-        categoryId: id as CategoryResponse,
-        categoryType: id as CategoryResponse,
-      },
-    ]);
+    if (
+      selectedCategories.find((selectedCategory) => selectedCategory === id)
+    ) {
+      const newSelectedCategories = selectedCategories.filter(
+        (selectedCategory) => selectedCategory !== id
+      );
+      setSelectedCategories(newSelectedCategories);
+      return;
+    }
+    const newSelectedCategories = selectedCategories.concat(
+      id as CategoryResponse
+    );
     setSelectedCategories(newSelectedCategories);
   };
 
@@ -109,7 +110,10 @@ export const DishNew: FC = () => {
         quantity: selectedMaterial.quantity,
         unit: selectedMaterial.unit,
       })),
-      category: selectedCategories,
+      category: selectedCategories.map((selectedCategory) => ({
+        categoryId: selectedCategory,
+        categoryType: selectedCategory,
+      })),
     };
     // push('/');
     console.log(postDishRequest);
@@ -181,19 +185,12 @@ export const DishNew: FC = () => {
           />
         </ul>
         <div className={style['category-field']}>
-          <FormSelect
+          <FormSelectDishCategory
             title="カテゴリー"
-            items={categories}
-            selectedValue=""
+            categories={categories}
+            selectedCategories={selectedCategories}
             onClick={onChangeCategory}
           />
-          <ul className={style['list']}>
-            {selectedCategories.map((category) => (
-              <li key={category.categoryId} className={style['category']}>
-                <DishCategory category={category.categoryId} />
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
       <div className={style['actions']}>

@@ -1,0 +1,60 @@
+@import '../../../../../assets/styles/resources';
+
+.form-select-dish-category-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 100%;
+  height: 100%;
+
+  > .field {
+    position: relative;
+    display: flex;
+    column-gap: 16px;
+    width: 100%;
+    min-height: 70px;
+    padding: 8px;
+    font-size: $font-size-15;
+    border: 1px solid $color-border-gray;
+    border-radius: 4px;
+
+    > .line {
+      width: 1px;
+      background-color: $color-border-gray;
+    }
+
+    > .panel {
+      position: absolute;
+      top: -5px;
+      left: 0;
+      z-index: 999;
+      width: 100%;
+    }
+  }
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.add-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > .action {
+    height: fit-content;
+    padding: 8px 20px;
+    color: $color-white;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: $color-black;
+    border: 0;
+    border-radius: 16px;
+  }
+}
