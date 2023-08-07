@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
@@ -41,6 +41,16 @@ export const DishDetail: FC<Props> = ({
         <div className="dot"></div>
       </div>
     ),
+  };
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -90,9 +100,15 @@ export const DishDetail: FC<Props> = ({
             ))}
           </ul>
         </div>
-        <Button text="削除" color={BUTTON_COLOR.RED} onClick={() => {}} />
+        <div className={style['action']}>
+          <Button text="削除" color={BUTTON_COLOR.RED} onClick={onOpen} />
+        </div>
       </div>
-      <Modal title={dishDetailResponse?.name ?? ''} isOpen onClose={() => {}} />
+      <Modal
+        title={dishDetailResponse?.name ?? ''}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </div>
   );
 };

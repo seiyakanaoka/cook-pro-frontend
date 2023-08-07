@@ -20,7 +20,12 @@
     row-gap: 20px;
     width: 100%;
     height: 100%;
-    padding: 0 24px 32px;
+    padding: 0 24px;
+
+    > .action {
+      width: 100%;
+      padding-bottom: 32px;
+    }
   }
 }
 

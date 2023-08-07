@@ -32,7 +32,10 @@ export const Modal: FC<Props> = ({ title, isOpen, onClose }: Props) => {
         className={style['modal-overlay']}
         onClick={onClose}
       >
-        <div className={style['content-field']}>
+        <div
+          className={style['content-field']}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={style['content']}>
             <p className={style['title']}>{title}を削除しますか？</p>
             <p className={style['description']}>元に戻せません</p>
@@ -46,7 +49,7 @@ export const Modal: FC<Props> = ({ title, isOpen, onClose }: Props) => {
             <Button
               text="閉じる"
               color={BUTTON_COLOR.SECONDARY}
-              onClick={() => {}}
+              onClick={onClose}
             />
           </div>
         </div>
