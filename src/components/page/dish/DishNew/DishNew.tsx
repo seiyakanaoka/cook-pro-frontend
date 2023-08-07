@@ -20,17 +20,24 @@ import {
   DISH_NEW_VALIDATION,
 } from '@/constants/validation/dish';
 import { SnackbarContext } from '@/context/snackbarContext';
+import { useDishRequest } from '@/hooks/api/dish/useDishRequest';
+import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
 import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
 import { DishFormValues } from '@/types/Dish';
+import { base64ToBlob } from '@/utils/image';
 
 import style from './index.module.scss';
 
 export const DishNew: FC = () => {
   const { push } = useRouter();
+
+  const { uploadImage } = useImageRequest();
+
+  const { createDish } = useDishRequest();
 
   const { addSnackbar } = useContext(SnackbarContext);
 
@@ -146,15 +153,29 @@ export const DishNew: FC = () => {
         !selectedMaterial.unit
     ).length > 0;
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (hasNotImage || hasNotCategories || hasNotMaterials) {
       setIsSubmit(true);
       return;
     }
+
+    const newImageIds = await Promise.all(
+      imageIds
+        .filter((image) => !!image)
+        .map(async (image) => {
+          const blob = base64ToBlob(image, 'image/png');
+          if (typeof blob === 'undefined') return;
+          return await uploadImage(blob);
+        })
+        .filter(
+          (image): image is Promise<string> => typeof image !== 'undefined'
+        )
+    );
+
     const postDishRequest: PostDishRequest = {
       dishName: fieldValue.dishName,
       createRequiredTime: Number(fieldValue.createRequiredTime),
-      imageIds,
+      imageIds: newImageIds,
       materials: selectedMaterials.map((selectedMaterial) => ({
         materialName: selectedMaterial.materialName,
         quantity: selectedMaterial.quantity,
@@ -165,8 +186,9 @@ export const DishNew: FC = () => {
         categoryType: selectedCategory,
       })),
     };
-    // push('/');
-    console.log(postDishRequest);
+    const response = await createDish(postDishRequest);
+    await push(PAGE_URL.DISH + '/' + response.id);
+    addSnackbar('料理が追加されました');
   };
 
   const handleBack = () => {
@@ -225,7 +247,7 @@ export const DishNew: FC = () => {
           ))}
           <p className={style['message']}>{isSubmit && '必須項目です'}</p>
           <Button
-            text="追加"
+            text="材料を追加"
             color={BUTTON_COLOR.secondary}
             onClick={addMaterial}
           />
@@ -242,7 +264,7 @@ export const DishNew: FC = () => {
       </div>
       <div className={style['actions']}>
         <Button
-          text="追加"
+          text="料理を追加"
           color={BUTTON_COLOR.primary}
           onClick={handleRegister}
         />
