@@ -15,22 +15,31 @@ import {
 } from '@/constants/material';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
-import { DISH_NEW_FORM_VALUES } from '@/constants/validation/dish';
+import {
+  DISH_NEW_FORM_VALUES,
+  DISH_NEW_VALIDATION,
+} from '@/constants/validation/dish';
 import { SnackbarContext } from '@/context/snackbarContext';
 import { useDishRequest } from '@/hooks/api/dish/useDishRequest';
 import { useImageRequest } from '@/hooks/api/image/useImageRequest';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
+import { DishDetailResponse } from '@/types/codegen/dish/DishDetailResponse';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
+import { MaterialResponse } from '@/types/codegen/material/MaterialResponse';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
+import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
 import { DishFormValues } from '@/types/Dish';
-import { MaterialFormValues } from '@/types/Material';
 import { base64ToBlob } from '@/utils/image';
-import { isNumberString } from '@/utils/string';
 
 import style from './index.module.scss';
 
-export const DishNew: FC = () => {
+type Props = {
+  dishDetailResponse: DishDetailResponse | undefined;
+  dishMaterialResponse: MaterialResponse[];
+};
+
+export const DishEdit: FC<Props> = ({}: Props) => {
   const { push } = useRouter();
 
   const { uploadImage } = useImageRequest();
@@ -41,11 +50,7 @@ export const DishNew: FC = () => {
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  const {
-    fieldValue,
-    fieldState: { errors },
-    onChange,
-  } = useFormText<DishFormValues>({
+  const { fieldValue, onChange } = useFormText<DishFormValues>({
     defaultValues: DISH_NEW_FORM_VALUES,
   });
 
@@ -90,7 +95,7 @@ export const DishNew: FC = () => {
   };
 
   const [selectedMaterials, setSelectedMaterials] = useState<
-    MaterialFormValues[]
+    ({ id: string } & PostMaterialRequest)[]
   >([defaultMaterial]);
 
   const addMaterial = () => {
@@ -180,7 +185,7 @@ export const DishNew: FC = () => {
       imageIds: newImageIds,
       materials: selectedMaterials.map((selectedMaterial) => ({
         materialName: selectedMaterial.materialName,
-        quantity: Number(selectedMaterial.quantity),
+        quantity: selectedMaterial.quantity,
         unit: selectedMaterial.unit,
       })),
       category: selectedCategories.map((selectedCategory) => ({
@@ -196,9 +201,8 @@ export const DishNew: FC = () => {
   const handleBack = () => {
     push(PAGE_URL.HOME);
   };
-
   return (
-    <div className={style['dish-new-component']}>
+    <div className={style['dish-edit-component']}>
       <h1 className={style['title']}>料理新規登録</h1>
       <div className={style['field']}>
         <div className={style['image-field']}>
@@ -220,13 +224,21 @@ export const DishNew: FC = () => {
         <FormText
           title="料理名"
           value={fieldValue.dishName}
-          errorMessage={isSubmit ? errors?.dishName : undefined}
+          errorMessage={
+            isSubmit
+              ? DISH_NEW_VALIDATION.DISH_NAME.required?.message
+              : undefined
+          }
           onChange={(e) => onChange('dishName', e)}
         />
         <FormText
           title="所要時間"
           value={fieldValue.createRequiredTime}
-          errorMessage={isSubmit ? errors?.createRequiredTime : undefined}
+          errorMessage={
+            isSubmit
+              ? DISH_NEW_VALIDATION.CREATE_REQUIRED_TIME.required?.message
+              : undefined
+          }
           onChange={(e) => onChange('createRequiredTime', e)}
         />
         <ul className={style['material-field']}>
@@ -239,14 +251,7 @@ export const DishNew: FC = () => {
               onChange={onChangeMaterial}
             />
           ))}
-          <p className={style['message']}>
-            {isSubmit &&
-              (selectedMaterials.find(
-                (selectedMaterial) => !isNumberString(selectedMaterial.quantity)
-              )
-                ? '数字のみ入力できます'
-                : '必須項目です')}
-          </p>
+          <p className={style['message']}>{isSubmit && '必須項目です'}</p>
           <Button
             text="材料を追加"
             color={BUTTON_COLOR.SECONDARY}

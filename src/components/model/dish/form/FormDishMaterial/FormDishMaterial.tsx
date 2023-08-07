@@ -7,14 +7,14 @@ import {
   MATERIAL_CHANGE_VALUE,
   MaterialChangeValue,
 } from '@/constants/material';
-import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
+import { MaterialFormValues } from '@/types/Material';
 import { PullDownItem } from '@/types/PullDown';
 
 import style from './index.module.scss';
 
 type Props = {
   title: string | undefined;
-  materialField: { id: string } & PostMaterialRequest;
+  materialField: MaterialFormValues;
   materialUnits: PullDownItem[];
   onChange: (id: string, value: string, type: MaterialChangeValue) => void;
 };
