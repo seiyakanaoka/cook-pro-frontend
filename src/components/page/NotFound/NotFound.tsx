@@ -34,7 +34,7 @@ export const NotFound: FC<Props> = ({}: Props) => {
       </div>
       <Button
         text={buttonText}
-        color={BUTTON_COLOR.secondary}
+        color={BUTTON_COLOR.SECONDARY}
         onClick={buttonAction}
       />
     </div>
