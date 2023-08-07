@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import AddIcon from '@/assets/icons/add.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import HomeIcon from '@/assets/icons/home.svg';
 import HumanIcon from '@/assets/icons/human.svg';
@@ -12,11 +13,11 @@ import style from './index.module.scss';
 type Props = {};
 
 export const Footer: FC<Props> = ({}: Props) => {
-  const { push } = useRouter();
+  const { asPath, push } = useRouter();
 
-  const pathName = usePathname();
-
-  const handleNavigation = (path: 'home' | 'favorite' | 'user') => {
+  const handleNavigation = (
+    path: 'home' | 'favorite' | 'user' | 'dish-new'
+  ) => {
     switch (path) {
       case 'home':
         push(PAGE_URL.HOME);
@@ -27,6 +28,9 @@ export const Footer: FC<Props> = ({}: Props) => {
       case 'user':
         push(PAGE_URL.USER);
         return;
+      case 'dish-new':
+        push(PAGE_URL.DISH_NEW);
+        return;
     }
   };
 
@@ -34,15 +38,27 @@ export const Footer: FC<Props> = ({}: Props) => {
     <div className={style['footer-component']}>
       <button
         onClick={() => handleNavigation('home')}
-        className={clsx(style['icon'], pathName === '/' && style['-selected'])}
+        className={clsx(
+          style['icon'],
+          asPath === PAGE_URL.HOME && style['-selected']
+        )}
       >
         <HomeIcon />
+      </button>
+      <button
+        onClick={() => handleNavigation('dish-new')}
+        className={clsx(
+          style['icon'],
+          asPath === PAGE_URL.DISH_NEW && style['-selected']
+        )}
+      >
+        <AddIcon />
       </button>
       <button
         onClick={() => handleNavigation('favorite')}
         className={clsx(
           style['icon'],
-          pathName === '/favorite' && style['-selected']
+          asPath === PAGE_URL.FAVORITE && style['-selected']
         )}
       >
         <HeartIcon />
@@ -51,7 +67,7 @@ export const Footer: FC<Props> = ({}: Props) => {
         onClick={() => handleNavigation('user')}
         className={clsx(
           style['icon'],
-          pathName === '/user' && style['-selected']
+          asPath === PAGE_URL.USER && style['-selected']
         )}
       >
         <HumanIcon />
