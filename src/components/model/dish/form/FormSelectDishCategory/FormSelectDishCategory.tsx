@@ -15,6 +15,7 @@ type Props = {
   categories: CategoryResponse[];
   selectedCategories: CategoryResponse[];
   placeholder?: string;
+  errorMessage?: string | undefined;
   onClick: (id: string) => void;
 };
 
@@ -24,6 +25,7 @@ export const FormSelectDishCategory: FC<Props> = ({
   categories,
   selectedCategories,
   placeholder = '入力してください',
+  errorMessage,
   onClick,
 }: Props) => {
   const items = categories.map((category) => ({
@@ -80,6 +82,7 @@ export const FormSelectDishCategory: FC<Props> = ({
           </div>
         )}
       </div>
+      {!!errorMessage && <p className={style['message']}>{errorMessage}</p>}
     </div>
   );
 };
