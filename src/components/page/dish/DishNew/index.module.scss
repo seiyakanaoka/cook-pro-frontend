@@ -17,6 +17,12 @@
     row-gap: 32px;
     width: 100%;
     height: 100%;
+
+    > .image {
+      flex-shrink: 0;
+      width: 100px;
+      height: 100px;
+    }
   }
 
   > .actions {
@@ -24,6 +30,61 @@
     flex-direction: column;
     row-gap: 8px;
     padding-bottom: 32px;
+  }
+}
+
+.dish-image-field {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  &.-not-selected {
+    border: 1px dashed $color-green;
+    border-radius: 4px;
+  }
+
+  > .field {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed $color-green;
+    border-radius: 4px;
+  }
+
+  > .icon {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    z-index: 0;
+    width: 24px;
+    height: 24px;
+    color: $color-green;
+    cursor: pointer;
+  }
+
+  > .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    > .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: 32px;
+      height: 32px;
+      color: $color-green;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+
+    > .field {
+      display: none;
+    }
   }
 }
 
