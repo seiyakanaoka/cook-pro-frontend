@@ -10,6 +10,7 @@ export const DISH_NEW_VALIDATION: {
   },
   CREATE_REQUIRED_TIME: {
     required: { value: true, message: '必須項目です' },
+    regex: { value: /^[0-9]+/, message: '数字のみ入力できます' },
   },
 } as const;
 

@@ -1,5 +1,5 @@
 export interface PostMaterialRequest {
   materialName: string;
-  quantity: string;
+  quantity: number;
   unit: string;
 }
