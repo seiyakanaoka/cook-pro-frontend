@@ -2,10 +2,9 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { DishDetail } from '@/components/section/dish/DishDetail';
+import { DishEdit } from '@/components/section/dish/DishEdit';
 import { useDish } from '@/hooks/api/dish/useDish';
 import { useDishMaterials } from '@/hooks/api/dish/useDishMaterials';
-
-import { DishEdit } from '../DishEdit';
 
 export const Dish: FC = () => {
   const { query } = useRouter();
