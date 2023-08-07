@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
@@ -7,42 +8,25 @@ import { FormText } from '@/components/ui/form/FormText';
 import { FormTextField } from '@/components/ui/form/FormTextField';
 import { BUTTON_COLOR } from '@/constants/button';
 import { CATEGORY } from '@/constants/category';
-import { MATERIAL } from '@/constants/material';
+import {
+  MATERIAL,
+  MATERIAL_CHANGE_VALUE,
+  MaterialChangeValue,
+} from '@/constants/material';
+import { PAGE_URL } from '@/constants/route';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
+import { PostCategoryRequest } from '@/types/codegen/category/PostCategoryRequest';
+import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
 import { MaterialUnitResponse } from '@/types/codegen/material/MaterialUnitResponse';
+import { PostMaterialRequest } from '@/types/codegen/material/PostMaterialRequest';
+import { DishFormValues } from '@/types/Dish';
 
 import style from './index.module.scss';
 
-type Props = {};
+export const DishNew: FC = () => {
+  const { push } = useRouter();
 
-type DishFormValues = {
-  dishName: string;
-  createRequiredTime: string;
-};
-
-type Materials = {
-  id: string;
-  materialName: string;
-  quantity: string;
-  unit: string;
-}[];
-
-type Categories = {
-  categoryId: CategoryResponse;
-  categoryType: CategoryResponse;
-}[];
-
-const MATERIAL_CHANGE_VALUE = {
-  NAME: 'name',
-  QUANTITY: 'quantity',
-  UNIT: 'unit',
-} as const;
-
-type MaterialChangeValue =
-  (typeof MATERIAL_CHANGE_VALUE)[keyof typeof MATERIAL_CHANGE_VALUE];
-
-export const DishNew: FC<Props> = ({}: Props) => {
   const { fieldValue, onChange } = useFormText<DishFormValues>({
     defaultValues: {
       dishName: { value: '' },
@@ -64,9 +48,9 @@ export const DishNew: FC<Props> = ({}: Props) => {
     unit: '',
   };
 
-  const [selectedMaterials, setSelectedMaterials] = useState<Materials>([
-    defaultMaterial,
-  ]);
+  const [selectedMaterials, setSelectedMaterials] = useState<
+    ({ id: string } & PostMaterialRequest)[]
+  >([defaultMaterial]);
 
   const addMaterial = () => {
     setSelectedMaterials(selectedMaterials.concat([defaultMaterial]));
@@ -101,7 +85,9 @@ export const DishNew: FC<Props> = ({}: Props) => {
     name: CATEGORY[category],
   }));
 
-  const [selectedCategories, setSelectedCategories] = useState<Categories>([]);
+  const [selectedCategories, setSelectedCategories] = useState<
+    PostCategoryRequest[]
+  >([]);
 
   const onChangeCategory = (id: string) => {
     const newSelectedCategories = selectedCategories.concat([
@@ -111,6 +97,26 @@ export const DishNew: FC<Props> = ({}: Props) => {
       },
     ]);
     setSelectedCategories(newSelectedCategories);
+  };
+
+  const handleRegister = () => {
+    const postDishRequest: PostDishRequest = {
+      dishName: fieldValue.dishName,
+      createRequiredTime: Number(fieldValue.createRequiredTime),
+      imageIds: [],
+      materials: selectedMaterials.map((selectedMaterial) => ({
+        materialName: selectedMaterial.materialName,
+        quantity: selectedMaterial.quantity,
+        unit: selectedMaterial.unit,
+      })),
+      category: selectedCategories,
+    };
+    // push('/');
+    console.log(postDishRequest);
+  };
+
+  const handleBack = () => {
+    push(PAGE_URL.HOME);
   };
 
   return (
@@ -191,8 +197,16 @@ export const DishNew: FC<Props> = ({}: Props) => {
         </div>
       </div>
       <div className={style['actions']}>
-        <Button text="追加" color={BUTTON_COLOR.primary} onClick={() => {}} />
-        <Button text="戻る" color={BUTTON_COLOR.secondary} onClick={() => {}} />
+        <Button
+          text="追加"
+          color={BUTTON_COLOR.primary}
+          onClick={handleRegister}
+        />
+        <Button
+          text="戻る"
+          color={BUTTON_COLOR.secondary}
+          onClick={handleBack}
+        />
       </div>
     </div>
   );
