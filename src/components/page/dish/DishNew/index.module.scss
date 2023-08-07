@@ -17,12 +17,6 @@
     row-gap: 32px;
     width: 100%;
     height: 100%;
-
-    > .image {
-      flex-shrink: 0;
-      width: 100px;
-      height: 100px;
-    }
   }
 
   > .actions {
@@ -30,6 +24,21 @@
     flex-direction: column;
     row-gap: 8px;
     padding-bottom: 32px;
+  }
+}
+
+.image-field {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow-x: auto;
+
+  > .image {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
   }
 }
 

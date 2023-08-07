@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 
 import { FormDishMaterial } from '@/components/model/dish/form/FormDishMaterial';
 import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
@@ -14,6 +14,8 @@ import {
   MaterialChangeValue,
 } from '@/constants/material';
 import { PAGE_URL } from '@/constants/route';
+import { SNACKBAR_STATUS } from '@/constants/snackbar';
+import { SnackbarContext } from '@/context/snackbarContext';
 import { useFormText } from '@/hooks/useFormText';
 import { CategoryResponse } from '@/types/codegen/category/CategoryResponse';
 import { PostDishRequest } from '@/types/codegen/dish/PostDishRequest';
@@ -26,12 +28,40 @@ import style from './index.module.scss';
 export const DishNew: FC = () => {
   const { push } = useRouter();
 
+  const { addSnackbar } = useContext(SnackbarContext);
+
   const { fieldValue, onChange } = useFormText<DishFormValues>({
     defaultValues: {
       dishName: { value: '' },
       createRequiredTime: { value: '' },
     },
   });
+
+  const [imageIds, setImageIds] = useState<string[]>(new Array(3).fill(''));
+
+  const handleChangeImage = (index: number, value: string) => {
+    const newImageIds = imageIds.map((image, imageIndex) => {
+      if (index === imageIndex) {
+        return value;
+      }
+      return image;
+    });
+    setImageIds(newImageIds);
+  };
+
+  const handleClearImage = (index: number) => {
+    const newImageIds = imageIds.map((image, imageIndex) => {
+      if (index === imageIndex) {
+        return '';
+      }
+      return image;
+    });
+    setImageIds(newImageIds);
+  };
+
+  const handleFailure = () => {
+    addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
+  };
 
   const materialUnits = Object.values(MaterialUnitResponse).map(
     (materialUnit) => ({
@@ -105,7 +135,7 @@ export const DishNew: FC = () => {
     const postDishRequest: PostDishRequest = {
       dishName: fieldValue.dishName,
       createRequiredTime: Number(fieldValue.createRequiredTime),
-      imageIds: [],
+      imageIds,
       materials: selectedMaterials.map((selectedMaterial) => ({
         materialName: selectedMaterial.materialName,
         quantity: selectedMaterial.quantity,
@@ -128,15 +158,19 @@ export const DishNew: FC = () => {
     <div className={style['dish-new-component']}>
       <h1 className={style['title']}>料理新規登録</h1>
       <div className={style['field']}>
-        <div className={style['image']}>
-          <FormImage
-            image=""
-            type={IMAGE_TYPE.SQUARE}
-            onChange={() => {}}
-            onClear={() => {}}
-            onFailure={() => {}}
-          />
-        </div>
+        <ul className={style['image-field']}>
+          {imageIds.map((image, i) => (
+            <li key={i} className={style['image']}>
+              <FormImage
+                image={image}
+                type={IMAGE_TYPE.SQUARE}
+                onChange={(value: string) => handleChangeImage(i, value)}
+                onClear={() => handleClearImage(i)}
+                onFailure={handleFailure}
+              />
+            </li>
+          ))}
+        </ul>
         <FormText
           title="料理名"
           value={fieldValue.dishName}
