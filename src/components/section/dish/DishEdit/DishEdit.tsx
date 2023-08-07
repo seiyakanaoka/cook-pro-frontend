@@ -41,7 +41,7 @@ export const DishEdit: FC<Props> = ({
   dishDetailResponse,
   dishMaterialResponse,
 }: Props) => {
-  const { push } = useRouter();
+  const { push, back } = useRouter();
 
   const { uploadImage } = useImageRequest();
 
@@ -176,7 +176,7 @@ export const DishEdit: FC<Props> = ({
         !selectedMaterial.unit
     ).length > 0;
 
-  const handleRegister = async () => {
+  const handleEdit = async () => {
     if (hasNotImage || hasNotCategories || hasNotMaterials) {
       setIsSubmit(true);
       return;
@@ -215,7 +215,7 @@ export const DishEdit: FC<Props> = ({
   };
 
   const handleBack = () => {
-    push(PAGE_URL.HOME);
+    back();
   };
   return (
     <div className={style['dish-edit-component']}>
@@ -293,9 +293,9 @@ export const DishEdit: FC<Props> = ({
       </div>
       <div className={style['actions']}>
         <Button
-          text="料理を追加"
+          text="修正完了"
           color={BUTTON_COLOR.PRIMARY}
-          onClick={handleRegister}
+          onClick={handleEdit}
         />
         <Button
           text="戻る"
