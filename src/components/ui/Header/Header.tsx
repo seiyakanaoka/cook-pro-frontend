@@ -26,14 +26,14 @@ export const Header: FC<Props> = ({
 }: Props) => {
   const { logout } = useCognito();
 
-  const { asPath, push, back } = useRouter();
+  const { asPath, push } = useRouter();
 
   const navigateToDish = (dishId: string) => {
     push(PAGE_URL.DISH + '/' + dishId);
   };
 
   const handleBack = () => {
-    back();
+    push(PAGE_URL.HOME);
   };
 
   const handleLogout = async () => {
