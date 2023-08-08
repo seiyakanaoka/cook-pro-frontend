@@ -71,24 +71,30 @@ export const Home: FC = () => {
           onClear={handleClear}
         />
       </div>
-      <ul className={style['dish-list']}>
-        {dishesResponse?.map((dish) => (
-          <li
-            key={dish.id}
-            className={clsx(
-              style['dish'],
-              dishesResponse?.length % 2 === 0 && style['-even']
-            )}
-            onClick={() => navigateToDish(dish.id)}
-          >
-            <DishItem
-              image={dish.image.url}
-              title={dish.name}
-              time={dish.createRequiredTime.toString()}
-            />
-          </li>
-        ))}
-      </ul>
+      {dishesResponse.length === 0 ? (
+        <div className={style['empty']}>
+          <p className={style['message']}>表示する料理がありません</p>
+        </div>
+      ) : (
+        <ul className={style['dish-list']}>
+          {dishesResponse?.map((dish) => (
+            <li
+              key={dish.id}
+              className={clsx(
+                style['dish'],
+                dishesResponse?.length % 2 === 0 && style['-even']
+              )}
+              onClick={() => navigateToDish(dish.id)}
+            >
+              <DishItem
+                image={dish.image.url}
+                title={dish.name}
+                time={dish.createRequiredTime.toString()}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
       {/* TODO: 統一できないか考える */}
       <div className={style['icon']}>
         <FilterAction onClick={onOpen} />

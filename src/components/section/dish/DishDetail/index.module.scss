@@ -4,13 +4,28 @@
   width: 100%;
   height: 100%;
 
-  > .dots {
+  > .edit {
+    position: relative;
     display: flex;
     column-gap: 4px;
-    align-items: center;
     justify-content: flex-end;
-    width: 100%;
-    padding: 12px 20px 12px 0;
+
+    > .dots {
+      display: flex;
+      column-gap: 4px;
+      align-items: center;
+      width: fit-content;
+      padding: 12px 20px 12px 0;
+      cursor: pointer;
+    }
+
+    > .panel {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      width: 200px;
+    }
   }
 
   > .content {
@@ -32,7 +47,6 @@
 .dots-field {
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   > .dot {
     width: 5px;
@@ -116,4 +130,97 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.dish-edit-panel-component {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $color-white;
+  border-radius: 16px;
+  box-shadow: $shadow-filter-action 0 1px 3px 1px;
+
+  > .edit {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid $color-border-gray;
+
+    > .text {
+      font-size: $font-size-15;
+    }
+
+    > .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  > .delete {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    color: $color-snackbar-red;
+    cursor: pointer;
+
+    > .text {
+      font-size: $font-size-15;
+    }
+
+    > .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@keyframes bound {
+  /** 開始時は１倍の大きさ */
+  0% {
+    transform: scale(1);
+  }
+
+  /** 0%～25%にかけて1.15倍する */
+  25% {
+    transform: scale(1.15);
+  }
+
+  // /** 25%～50%にかけて0.95倍する */
+  // 50% {
+  //   transform: scale(0.95);
+  // }
+
+  // /** 50%～75%にかけて1.05倍する */
+  // 75% {
+  //   transform: scale(1.05);
+  // }
+
+  /** 終了時は元の大きさに戻す */
+  100% {
+    transform: scale(1);
+  }
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-active-enter {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+  animation: bound 1s ease-in;
+}
+
+.modal-exit {
+  opacity: 1;
+}
+
+.modal-active-exit {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
 }

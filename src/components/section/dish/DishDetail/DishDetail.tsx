@@ -1,8 +1,12 @@
+import { useOutsideClick } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { FC, useContext, useState } from 'react';
-import { Slide } from 'react-slideshow-image';
+import { FC, useContext, useRef, useState } from 'react';
 import 'react-slideshow-image/dist/styles.css';
+import { Slide } from 'react-slideshow-image';
+import { CSSTransition } from 'react-transition-group';
 
+import DeleteIcon from '@/assets/icons/delete.svg';
+import EditIcon from '@/assets/icons/edit.svg';
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishTime } from '@/components/model/dish/DishTime';
 import { Button } from '@/components/ui/Button';
@@ -76,17 +80,37 @@ export const DishDetail: FC<Props> = ({
     addSnackbar('削除が完了しました');
   };
 
+  const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false);
+
+  const handlePanelOpen = () => {
+    setIsPanelOpen(true);
+  };
+
+  const handlePanelClose = () => {
+    setIsPanelOpen(false);
+  };
+
   return (
     <div className={style['dish-detail-component']}>
-      <div className={style['dots']}>
-        <div className={style['dots-field']}>
-          <div className={style['dot']}></div>
+      <div className={style['edit']}>
+        <div className={style['dots']} onClick={handlePanelOpen}>
+          <div className={style['dots-field']}>
+            <div className={style['dot']}></div>
+          </div>
+          <div className={style['dots-field']}>
+            <div className={style['dot']}></div>
+          </div>
+          <div className={style['dots-field']}>
+            <div className={style['dot']}></div>
+          </div>
         </div>
-        <div className={style['dots-field']}>
-          <div className={style['dot']}></div>
-        </div>
-        <div className={style['dots-field']}>
-          <div className={style['dot']}></div>
+        <div className={style['panel']}>
+          <DishEditPanel
+            isOpen={isPanelOpen}
+            onClose={handlePanelClose}
+            onClickEdit={handleNavigateEdit}
+            onClickDelete={handleOpen}
+          />
         </div>
       </div>
       <div className={style['content']}>
@@ -152,5 +176,73 @@ export const DishDetail: FC<Props> = ({
         onClose={handleClose}
       />
     </div>
+  );
+};
+
+type DishEditPanelProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onClickEdit: () => void;
+  onClickDelete: () => void;
+};
+
+const DishEditPanel: FC<DishEditPanelProps> = ({
+  isOpen,
+  onClose,
+  onClickEdit,
+  onClickDelete,
+}: DishEditPanelProps) => {
+  const nodeRef = useRef<HTMLDivElement | null>(null);
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  useOutsideClick({
+    ref: ref,
+    handler: onClose,
+  });
+
+  const handleClickEdit = () => {
+    onClose();
+    onClickEdit();
+  };
+
+  const handleClickDelete = () => {
+    onClose();
+    onClickDelete();
+  };
+
+  return (
+    <CSSTransition
+      nodeRef={nodeRef}
+      unmountOnExit
+      in={isOpen}
+      timeout={300}
+      classNames={{
+        enter: style['modal-enter'],
+        enterActive: style['modal-active-enter'],
+        exit: style['modal-exit'],
+        exitActive: style['modal-active-exit'],
+      }}
+    >
+      <div
+        className={style['dish-edit-panel-component']}
+        ref={(e) => {
+          nodeRef.current = e;
+          ref.current = e;
+        }}
+      >
+        <div className={style['edit']} onClick={handleClickEdit}>
+          <p className={style['text']}>編集</p>
+          <div className={style['icon']}>
+            <EditIcon />
+          </div>
+        </div>
+        <div className={style['delete']} onClick={handleClickDelete}>
+          <p className={style['text']}>削除</p>
+          <div className={style['icon']}>
+            <DeleteIcon />
+          </div>
+        </div>
+      </div>
+    </CSSTransition>
   );
 };
