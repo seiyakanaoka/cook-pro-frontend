@@ -5,6 +5,7 @@
   flex-direction: column;
   row-gap: 12px;
   width: fit-content;
+  height: 100%;
 
   > .title {
     width: 100%;
@@ -16,17 +17,22 @@
 }
 
 .image-field {
-  position: relative;
   width: fit-content;
+  height: 100%;
 
-  > .image {
-    width: 100%;
-    border-radius: 8px;
-  }
+  > .field {
+    position: relative;
+    width: fit-content;
 
-  > .time {
-    position: absolute;
-    right: 3%;
-    bottom: 5%;
+    > .image {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    > .time {
+      position: absolute;
+      right: 3%;
+      bottom: 5%;
+    }
   }
 }

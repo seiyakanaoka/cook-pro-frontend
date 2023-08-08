@@ -78,58 +78,71 @@ export const DishDetail: FC<Props> = ({
 
   return (
     <div className={style['dish-detail-component']}>
-      <div className={style['top']}>
-        <Slide {...properties}>
-          {images?.map((image) => (
-            <div key={image.id} className={style['image-item']}>
-              <img src={image.url} alt="" className={style['image']} />
-            </div>
-          ))}
-        </Slide>
-      </div>
-      <div className={style['bottom']}>
-        <div className={style['title-field']}>
-          {titles?.map((text, i) => (
-            <p className={style['title']} key={`${i}-${text}`}>
-              {text}
-            </p>
-          ))}
+      <div className={style['dots']}>
+        <div className={style['dots-field']}>
+          <div className={style['dot']}></div>
         </div>
-        <ul className={style['category-field']}>
-          {dishDetailResponse?.categories.map((category) => (
-            <li key={category} className={style['category']}>
-              <DishCategory category={category} />
-            </li>
-          ))}
-        </ul>
-        <DishTime
-          time={dishDetailResponse?.createRequiredTime.toString() ?? ''}
-        />
-        <div className={style['material-field']}>
-          <p className={style['title']}>【材料】</p>
-          <ul className={style['material-list']}>
-            {dishMaterialResponse.map((material) => (
-              <li key={material.id} className={style['material']}>
-                <div className={style['material-content']}>
-                  <span className={style['name']}>{material.name}</span>
-                  <span className={style['unit']}>
-                    {material.unit == MaterialUnitResponse.TABLESPOON ||
-                    material.unit == MaterialUnitResponse.TEASPOON
-                      ? MATERIAL[material.unit] + material.quantity
-                      : material.quantity + MATERIAL[material.unit]}
-                  </span>
-                </div>
+        <div className={style['dots-field']}>
+          <div className={style['dot']}></div>
+        </div>
+        <div className={style['dots-field']}>
+          <div className={style['dot']}></div>
+        </div>
+      </div>
+      <div className={style['content']}>
+        <div className={style['top']}>
+          <Slide {...properties}>
+            {images?.map((image) => (
+              <div key={image.id} className={style['image-item']}>
+                <img src={image.url} alt="" className={style['image']} />
+              </div>
+            ))}
+          </Slide>
+        </div>
+        <div className={style['bottom-content']}>
+          <div className={style['title-field']}>
+            {titles?.map((text, i) => (
+              <p className={style['title']} key={`${i}-${text}`}>
+                {text}
+              </p>
+            ))}
+          </div>
+          <ul className={style['category-field']}>
+            {dishDetailResponse?.categories.map((category) => (
+              <li key={category} className={style['category']}>
+                <DishCategory category={category} />
               </li>
             ))}
           </ul>
-        </div>
-        <div className={style['action']}>
-          <Button
-            text="編集"
-            color={BUTTON_COLOR.PRIMARY_GREEN}
-            onClick={handleNavigateEdit}
+          <DishTime
+            time={dishDetailResponse?.createRequiredTime.toString() ?? ''}
           />
-          <Button text="削除" color={BUTTON_COLOR.RED} onClick={handleOpen} />
+          <div className={style['material-field']}>
+            <p className={style['title']}>【材料】</p>
+            <ul className={style['material-list']}>
+              {dishMaterialResponse.map((material) => (
+                <li key={material.id} className={style['material']}>
+                  <div className={style['material-content']}>
+                    <span className={style['name']}>{material.name}</span>
+                    <span className={style['unit']}>
+                      {material.unit == MaterialUnitResponse.TABLESPOON ||
+                      material.unit == MaterialUnitResponse.TEASPOON
+                        ? MATERIAL[material.unit] + material.quantity
+                        : material.quantity + MATERIAL[material.unit]}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={style['action']}>
+            <Button
+              text="編集"
+              color={BUTTON_COLOR.PRIMARY_GREEN}
+              onClick={handleNavigateEdit}
+            />
+            <Button text="削除" color={BUTTON_COLOR.RED} onClick={handleOpen} />
+          </div>
         </div>
       </div>
       <Modal

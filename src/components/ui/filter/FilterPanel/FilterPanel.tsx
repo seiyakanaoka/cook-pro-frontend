@@ -108,11 +108,13 @@ export const FilterPanel: FC<Props> = ({
                 ))}
               </ul>
             </div>
-            <Button
-              text="閉じる"
-              color={BUTTON_COLOR.SECONDARY_GREEN}
-              onClick={handleClose}
-            />
+            <div className={style['action']}>
+              <Button
+                text="OK"
+                color={BUTTON_COLOR.PRIMARY_GREEN}
+                onClick={handleClose}
+              />
+            </div>
           </div>
         </div>
       </CSSTransition>
