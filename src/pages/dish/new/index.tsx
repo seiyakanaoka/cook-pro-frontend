@@ -4,7 +4,9 @@ import { DefaultLayout } from '@/components/layout/default';
 import { HasHeaderLayout } from '@/components/layout/hasHeader';
 import { DishNew } from '@/components/page/Dish/DishNew';
 
-const DishNewPage = () => {
+import { NextPageWithLayout } from '../../_app';
+
+const DishNewPage: NextPageWithLayout = () => {
   return <DishNew />;
 };
 
