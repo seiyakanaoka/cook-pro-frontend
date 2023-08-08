@@ -1,7 +1,8 @@
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
+import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
-import 'react-slideshow-image/dist/styles.css';
-import { Slide } from 'react-slideshow-image';
+import '@splidejs/splide/css';
 
 import { DishCategory } from '@/components/model/dish/DishCategory';
 import { DishEditPanel } from '@/components/model/dish/DishEditPanel';
@@ -37,22 +38,6 @@ export const DishDetail: FC<Props> = ({
   const titles = dishDetailResponse?.name.split('\n');
 
   const images = dishDetailResponse?.images;
-
-  // 画像の速さとスライド方法の指定
-  const properties = {
-    width: '100%',
-    autoplay: false,
-    transitionDuration: 300,
-    arrows: false,
-    infinite: true,
-    easing: 'ease',
-    // ドットを作成
-    indicators: () => (
-      <div className="image-dot">
-        <div className="dot"></div>
-      </div>
-    ),
-  };
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -110,18 +95,38 @@ export const DishDetail: FC<Props> = ({
       </div>
       <div className={style['content']}>
         <div className={style['top']}>
-          <Slide {...properties}>
-            {images?.map((image) => (
-              <div key={image.id} className={style['image-item']}>
-                <img
-                  src={image.url}
-                  alt=""
-                  loading="lazy"
-                  className={style['image']}
-                />
-              </div>
-            ))}
-          </Slide>
+          <Splide
+            hasTrack={false}
+            aria-label="私のお気に入りの画像集"
+            options={{
+              lazyLoad: true,
+              arrows: false,
+              paginationDirection: 'rtl',
+            }}
+          >
+            <SplideTrack>
+              {images?.map((image) => (
+                <SplideSlide key={image.id}>
+                  <div className={style['image-item']}>
+                    <img
+                      src={image.url}
+                      alt=""
+                      loading="lazy"
+                      className={style['image']}
+                    />
+                  </div>
+                </SplideSlide>
+              ))}
+            </SplideTrack>
+            <ul
+              className={clsx(
+                'splide__pagination splide__pagination--ltr',
+                style['splide-pagination']
+              )}
+              role="tablist"
+              aria-label="Select slide to show"
+            ></ul>
+          </Splide>
         </div>
         <div className={style['bottom-content']}>
           <div className={style['title-field']}>

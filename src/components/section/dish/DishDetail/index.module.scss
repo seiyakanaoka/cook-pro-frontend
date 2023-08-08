@@ -69,12 +69,13 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
   background-size: cover;
+  border-top: 1px solid $color-border-gray;
+  border-bottom: 1px solid $color-border-gray;
 
   > .image {
     width: 100%;
-    border-top: 1px solid $color-border-gray;
-    border-bottom: 1px solid $color-border-gray;
   }
 }
 
@@ -124,4 +125,14 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.splide-pagination {
+  > li > button {
+    background: $color-secondary-gray-2;
+  }
+
+  > li > button[aria-selected='true'] {
+    background: $color-loading-blue;
+  }
 }

@@ -40,27 +40,6 @@ nextjs-portal {
   display: none;
 }
 
-.image-dot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  cursor: pointer;
-
-  > .dot {
-    width: 10px;
-    height: 10px;
-    background-color: #999;
-    border-radius: 50%;
-  }
-
-  &.active {
-    > .dot {
-      background-color: #1e90ff;
-    }
-  }
-}
-
 /** ダークモードか判定してcssを変更できるが、今回はしない */
 
 /* @media (prefers-color-scheme: dark) {
