@@ -2,8 +2,7 @@ import { ReactElement } from 'react';
 
 import { DefaultLayout } from '@/components/layout/default/defaultLayout';
 import { Home } from '@/components/page/Home';
-
-import { NextPageWithLayout } from './_app';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 const HomePage: NextPageWithLayout = () => {
   return <Home />;

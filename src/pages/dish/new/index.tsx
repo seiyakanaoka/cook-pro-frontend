@@ -2,9 +2,10 @@ import { ReactElement } from 'react';
 
 import { DefaultLayout } from '@/components/layout/default';
 import { HasHeaderLayout } from '@/components/layout/hasHeader';
-import { DishNew } from '@/components/page/Dish/DishNew';
+import { DishNew } from '@/components/page/dish/DishNew';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
-const DishNewPage = () => {
+const DishNewPage: NextPageWithLayout = () => {
   return <DishNew />;
 };
 

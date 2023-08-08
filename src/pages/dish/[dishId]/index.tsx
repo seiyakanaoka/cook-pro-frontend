@@ -2,9 +2,8 @@ import { ReactElement } from 'react';
 
 import { DefaultLayout } from '@/components/layout/default/defaultLayout';
 import { HasHeaderLayout } from '@/components/layout/hasHeader';
-import { Dish } from '@/components/page/Dish';
-
-import { NextPageWithLayout } from '../../_app';
+import { Dish } from '@/components/page/dish/Dish';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 const DishPage: NextPageWithLayout = () => {
   return <Dish />;
