@@ -178,7 +178,27 @@ export const DishEdit: FC<Props> = ({
         !selectedMaterial.unit
     ).length > 0;
 
-  const handleEdit = async () => {
+  const handleUploadImages = async (imageIds: string[]) => {
+    return await Promise.all(
+      imageIds
+        .map(async (image) => {
+          const blob = base64ToBlob(image, 'image/png');
+          if (typeof blob === 'undefined') return;
+          return await uploadImage(blob);
+        })
+        .filter(
+          (image): image is Promise<string> => typeof image !== 'undefined'
+        )
+    );
+  };
+
+  const handleEdit = async (dishId: string, putDishRequest: PutDishRequest) => {
+    const response = await editDish(dishId, putDishRequest);
+    await push(PAGE_URL.DISH + '/' + response.id);
+    addSnackbar('料理の編集が完了しました');
+  };
+
+  const handleClick = async () => {
     if (hasNotImage || hasNotCategories || hasNotMaterials || !dishId) {
       setIsSubmit(true);
       return;
@@ -186,7 +206,7 @@ export const DishEdit: FC<Props> = ({
 
     const filterImageIds = imageIds.filter((image) => !!image);
 
-    const postDishRequest: PutDishRequest = {
+    const putDishRequest: PutDishRequest = {
       dishName: fieldValue.dishName,
       createRequiredTime: Number(fieldValue.createRequiredTime),
       imageIds: filterImageIds,
@@ -202,26 +222,12 @@ export const DishEdit: FC<Props> = ({
     };
 
     if (!!filterImageIds.find((imageId) => !imageId.includes('image/png'))) {
-      editDish(dishId, postDishRequest);
+      await handleEdit(dishId, putDishRequest);
       return;
     }
 
-    const uploadImageIds = await Promise.all(
-      filterImageIds
-        .map(async (image) => {
-          console.log('image  :  ', image);
-          const blob = base64ToBlob(image, 'image/png');
-          if (typeof blob === 'undefined') return;
-          return await uploadImage(blob);
-        })
-        .filter(
-          (image): image is Promise<string> => typeof image !== 'undefined'
-        )
-    );
-    postDishRequest.imageIds = uploadImageIds;
-    const response = await editDish(dishId, postDishRequest);
-    await push(PAGE_URL.DISH + '/' + response.id);
-    addSnackbar('料理の編集が完了しました');
+    putDishRequest.imageIds = await handleUploadImages(filterImageIds);
+    await handleEdit(dishId, putDishRequest);
   };
 
   const handleBack = () => {
@@ -306,7 +312,7 @@ export const DishEdit: FC<Props> = ({
         <Button
           text="修正完了"
           color={BUTTON_COLOR.PRIMARY}
-          onClick={handleEdit}
+          onClick={handleClick}
         />
         <Button
           text="戻る"
