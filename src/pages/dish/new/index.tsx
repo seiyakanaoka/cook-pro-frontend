@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { DefaultLayout } from '@/components/layout/default';
 import { HasHeaderLayout } from '@/components/layout/hasHeader';
-import { DishNew } from '@/components/page/dish/DishNew';
+import { DishNew } from '@/components/page/Dish/DishNew';
 
 const DishNewPage = () => {
   return <DishNew />;
