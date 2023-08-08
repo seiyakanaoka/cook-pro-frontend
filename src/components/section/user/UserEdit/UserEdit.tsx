@@ -130,11 +130,9 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     onChange('userImage', '');
   };
 
-  const handleFailure = () => {
-    addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
+  const handleFailure = (message: string) => {
+    addSnackbar(message, SNACKBAR_STATUS.ABNORMAL);
   };
-
-  console.log('fieldValue.userImage : ', fieldValue.userImage);
 
   return (
     <div className={style['user-edit-component']}>

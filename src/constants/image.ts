@@ -12,3 +12,5 @@ export const MIME_TYPE = {
 } as const;
 
 export type MimeType = (typeof MIME_TYPE)[keyof typeof MIME_TYPE];
+
+export const MAX_IMAGE_FILE_SIZE = 5242880 as const;
