@@ -72,8 +72,8 @@ export const DishNew: FC = () => {
     setImageIds(newImageIds);
   };
 
-  const handleFailure = () => {
-    addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
+  const handleFailure = (message: string) => {
+    addSnackbar(message, SNACKBAR_STATUS.ABNORMAL);
   };
 
   const materialUnits = Object.values(MaterialUnitResponse).map(
