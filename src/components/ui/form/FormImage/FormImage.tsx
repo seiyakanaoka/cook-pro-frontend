@@ -3,13 +3,13 @@ import { ChangeEventHandler, FC } from 'react';
 
 import ClearIcon from '@/assets/icons/all-clear.svg';
 import CameraIcon from '@/assets/icons/camera.svg';
-import { IMAGE_TYPE, ImageType } from '@/constants/image';
+import { IMAGE_FIELD_SHAPE, ImageFieldShape } from '@/constants/image';
 
 import style from './index.module.scss';
 
 type Props = {
   image: string | undefined;
-  type?: ImageType;
+  fieldShape?: ImageFieldShape;
   onChange: (value: string) => void;
   onClear: () => void;
   onFailure: () => void;
@@ -17,7 +17,7 @@ type Props = {
 
 export const FormImage: FC<Props> = ({
   image,
-  type = IMAGE_TYPE.CIRCLE,
+  fieldShape = IMAGE_FIELD_SHAPE.CIRCLE,
   onChange,
   onClear,
   onFailure,
@@ -46,7 +46,7 @@ export const FormImage: FC<Props> = ({
     <div
       className={clsx(
         style['form-image-component'],
-        style[`-${type}`],
+        style[`-${fieldShape}`],
         hasNotImage && style['-not-selected']
       )}
     >

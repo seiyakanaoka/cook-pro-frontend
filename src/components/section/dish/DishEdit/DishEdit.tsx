@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { FormImage } from '@/components/ui/form/FormImage';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
-import { IMAGE_TYPE } from '@/constants/image';
+import { IMAGE_FIELD_SHAPE } from '@/constants/image';
 import {
   MATERIAL,
   MATERIAL_CHANGE_VALUE,
@@ -245,7 +245,7 @@ export const DishEdit: FC<Props> = ({
               <li key={i} className={style['image']}>
                 <FormImage
                   image={image}
-                  type={IMAGE_TYPE.SQUARE}
+                  fieldShape={IMAGE_FIELD_SHAPE.SQUARE}
                   onChange={(value: string) => handleChangeImage(i, value)}
                   onClear={() => handleClearImage(i)}
                   onFailure={handleFailure}

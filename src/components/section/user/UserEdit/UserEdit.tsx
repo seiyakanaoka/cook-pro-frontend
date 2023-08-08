@@ -133,6 +133,8 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
   };
 
+  console.log('fieldValue.userImage : ', fieldValue.userImage);
+
   return (
     <div className={style['user-edit-component']}>
       <div className={style['field']}>
