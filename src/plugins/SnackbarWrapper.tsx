@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { Snackbar } from '@/components/ui/Snackbar';
 import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';

@@ -38,7 +38,7 @@ export const Header: FC<Props> = ({
 
   const handleLogout = async () => {
     await logout();
-    push(PAGE_URL.BEFORE);
+    await push(PAGE_URL.BEFORE);
   };
 
   const isHome = asPath === PAGE_URL.HOME;

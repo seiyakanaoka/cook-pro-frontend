@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { FormDishMaterial } from '@/components/model/dish/form/FormDishMaterial';
 import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
