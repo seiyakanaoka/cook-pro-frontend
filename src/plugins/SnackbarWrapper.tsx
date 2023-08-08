@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { uuid } from 'uuidv4';
 
 import { Snackbar } from '@/components/ui/Snackbar';
 import { SNACKBAR_STATUS, SnackbarStatus } from '@/constants/snackbar';
@@ -24,7 +25,7 @@ export const SnackbarWrapper: FC<Props> = ({ children }: Props) => {
   const addSnackbar = (text: string, status?: SnackbarStatus) => {
     const newSnackbarEvents = snackbarEvents.concat([
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         text,
         status: status ?? SNACKBAR_STATUS.NORMAL,
         ref: createRef<HTMLDivElement>(),

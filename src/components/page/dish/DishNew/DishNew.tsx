@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
+import { uuid } from 'uuidv4';
 
 import { FormDishMaterial } from '@/components/model/dish/form/FormDishMaterial';
 import { FormSelectDishCategory } from '@/components/model/dish/form/FormSelectDishCategory';
@@ -83,7 +84,7 @@ export const DishNew: FC = () => {
   );
 
   const defaultMaterial = {
-    id: crypto.randomUUID(),
+    id: uuid(),
     materialName: '',
     quantity: '',
     unit: '',

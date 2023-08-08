@@ -37,7 +37,6 @@ export const Header: FC<Props> = ({
   };
 
   const handleLogout = async () => {
-    console.log('押した');
     await logout();
     push(PAGE_URL.BEFORE);
   };
