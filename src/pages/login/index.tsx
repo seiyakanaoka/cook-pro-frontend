@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import { AccountLayout } from '@/components/layout/account/accountLayout';
 import { Login } from '@/components/page/Login';
-import { NextPageWithLayout } from '@/pages/_app';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 const LoginPage: NextPageWithLayout = () => {
   return <Login />;

@@ -2,8 +2,7 @@ import { ReactElement } from 'react';
 
 import { AccountLayout } from '@/components/layout/account/accountLayout';
 import { SignUpLoginBefore } from '@/components/page/signup/SignUpLoginBefore';
-
-import { NextPageWithLayout } from '../_app';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 const SignUpLoginBeforePage: NextPageWithLayout = () => {
   return <SignUpLoginBefore />;

@@ -1,16 +1,12 @@
 import '../assets/styles/globals.scss';
 
-import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import React, { ReactElement, ReactNode } from 'react';
+import React from 'react';
 
 import { AxiosWrapper } from '@/plugins/AxiosWrapper';
 import { BaseErrorBoundary } from '@/plugins/BaseErrorBoundary';
 import { SnackbarWrapper } from '@/plugins/SnackbarWrapper';
-
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { DefaultLayout } from '@/components/layout/default';
 import { HasHeaderLayout } from '@/components/layout/hasHeader';
 import { DishNew } from '@/components/page/Dish/DishNew';
-import { NextPageWithLayout } from '@/pages/_app';
+import { NextPageWithLayout } from '@/types/BuildIn';
 
 const DishNewPage: NextPageWithLayout = () => {
   return <DishNew />;
