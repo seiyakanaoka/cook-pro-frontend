@@ -113,7 +113,12 @@ export const DishDetail: FC<Props> = ({
           <Slide {...properties}>
             {images?.map((image) => (
               <div key={image.id} className={style['image-item']}>
-                <img src={image.url} alt="" className={style['image']} />
+                <img
+                  src={image.url}
+                  alt=""
+                  loading="lazy"
+                  className={style['image']}
+                />
               </div>
             ))}
           </Slide>

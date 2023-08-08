@@ -66,7 +66,7 @@ export const FormImage: FC<Props> = ({
           <div className={style['icon']} onClick={onClear}>
             <ClearIcon />
           </div>
-          <img src={image} alt="" className={style['field']} />
+          <img src={image} alt="" loading="lazy" className={style['field']} />
         </>
       )}
     </div>

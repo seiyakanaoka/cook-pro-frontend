@@ -28,6 +28,7 @@ export const UserDetail: FC<Props> = ({ userResponse }: Props) => {
           <img
             src={userResponse?.image ?? NoImage.src}
             alt=""
+            loading="lazy"
             className={clsx(
               style['image'],
               userResponse?.image == undefined && style['-not-image']

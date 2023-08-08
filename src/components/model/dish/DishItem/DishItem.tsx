@@ -11,7 +11,7 @@ export const DishItem: FC<Props> = ({ image, title, time }: Props) => {
     <div className={style['dish-component']}>
       <div className={style['image-field']}>
         <div className={style['field']}>
-          <img src={image} alt="" className={style['image']} />
+          <img src={image} alt="" loading="lazy" className={style['image']} />
           <div className={style['time']}>
             <DishTime time={time} />
           </div>

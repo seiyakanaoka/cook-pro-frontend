@@ -58,7 +58,12 @@ export const Header: FC<Props> = ({
           </div>
         )}
         <div className={style['field']}>
-          <img src={LogoImage.src} alt="" className={style['logo']} />
+          <img
+            src={LogoImage.src}
+            alt=""
+            loading="lazy"
+            className={style['logo']}
+          />
         </div>
         <div
           className={clsx(style['icon'], style['-logout'])}
