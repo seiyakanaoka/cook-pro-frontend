@@ -1,11 +1,14 @@
 import { InternalAxiosRequestConfig } from 'axios';
 import { parseCookies } from 'nookies';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
 import { SWRConfig } from 'swr';
 
+import { Loading } from '@/components/ui/Loading';
 import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { axiosClient } from '@/utils/axios';
+
+import style from './AxiosWrapper.module.scss';
 
 type Props = {
   children: ReactNode;
@@ -13,6 +16,8 @@ type Props = {
 
 export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
   const { showBoundary } = useErrorBoundary();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const cookie = parseCookies();
   const idToken = cookie[ID_TOKEN_KEY];
@@ -26,14 +31,33 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
   useEffect(() => {
     axiosClient.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
+        setIsLoading(true);
         if (typeof config.headers === 'undefined' || !idToken) return config;
         config.headers.Authorization = `Bearer ${idToken}`;
         return config;
       }
     );
 
-    axiosClient.interceptors.response.use((response) => response, sendError);
+    axiosClient.interceptors.response.use((response) => {
+      setIsLoading(false);
+      return response;
+    }, sendError);
   });
+
+  console.log('isLoading : ', isLoading);
+
+  if (isLoading) {
+    <SWRConfig
+      value={{
+        onError: sendError,
+      }}
+    >
+      <div className={style['loading-field']}>
+        <Loading isBlurred />
+      </div>
+      {children}
+    </SWRConfig>;
+  }
 
   return (
     <SWRConfig
