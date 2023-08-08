@@ -1,0 +1,84 @@
+@import '../../../../assets/styles/resources';
+
+@keyframes bound {
+  /** 開始時は１倍の大きさ */
+  0% {
+    transform: scale(1);
+  }
+
+  /** 0%～25%にかけて1.15倍する */
+  50% {
+    transform: scale(1.05);
+  }
+
+  /** 終了時は元の大きさに戻す */
+  100% {
+    transform: scale(1);
+  }
+}
+
+.dish-edit-panel-component {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $color-white;
+  border-radius: 16px;
+  box-shadow: $shadow-filter-action 0 1px 3px 1px;
+
+  > .edit {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid $color-border-gray;
+
+    > .text {
+      font-size: $font-size-15;
+    }
+
+    > .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  > .delete {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    color: $color-snackbar-red;
+    cursor: pointer;
+
+    > .text {
+      font-size: $font-size-15;
+    }
+
+    > .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.panel-enter {
+  opacity: 0;
+}
+
+.panel-active-enter {
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+  animation: bound 200ms ease-in;
+}
+
+.panel-exit {
+  opacity: 1;
+}
+
+.panel-active-exit {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
