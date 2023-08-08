@@ -3,13 +3,19 @@ import { ChangeEventHandler, FC } from 'react';
 
 import ClearIcon from '@/assets/icons/all-clear.svg';
 import CameraIcon from '@/assets/icons/camera.svg';
-import { IMAGE_FIELD_SHAPE, ImageFieldShape } from '@/constants/image';
+import {
+  IMAGE_FIELD_SHAPE,
+  ImageFieldShape,
+  MIME_TYPE,
+  MimeType,
+} from '@/constants/image';
 
 import style from './index.module.scss';
 
 type Props = {
   image: string | undefined;
   fieldShape?: ImageFieldShape;
+  mimeTypes?: MimeType[];
   onChange: (value: string) => void;
   onClear: () => void;
   onFailure: () => void;
@@ -18,11 +24,14 @@ type Props = {
 export const FormImage: FC<Props> = ({
   image,
   fieldShape = IMAGE_FIELD_SHAPE.CIRCLE,
+  mimeTypes = [MIME_TYPE.PNG],
   onChange,
   onClear,
   onFailure,
 }: Props) => {
   const hasNotImage = !image;
+
+  const acceptMimeTypes = mimeTypes.join(', ');
 
   const handleChangeUserImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     const blob = e.target.files?.[0];
@@ -57,6 +66,7 @@ export const FormImage: FC<Props> = ({
           </span>
           <input
             type="file"
+            accept={acceptMimeTypes}
             className={style['field']}
             onChange={handleChangeUserImage}
           />
