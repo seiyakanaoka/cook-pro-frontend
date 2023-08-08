@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import { useOutsideClick } from '@chakra-ui/react';
+import { FC, useRef, useState } from 'react';
 
 import { PullDownItem } from '@/types/PullDown';
 
@@ -41,6 +42,12 @@ export const FormSelect: FC<Props> = ({
     onClose();
   };
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  useOutsideClick({
+    ref: ref,
+    handler: onClose,
+  });
+
   return (
     <div className={style['form-select-component']}>
       {!!title && <FormTitle title={title} isRequired={isRequired} />}
@@ -49,7 +56,7 @@ export const FormSelect: FC<Props> = ({
         <span className={style['icon']}></span>
       </div>
       {isOpen && (
-        <div className={style['panel']}>
+        <div className={style['panel']} ref={ref}>
           <FormSelectPlate items={items} onClick={handleClick} />
         </div>
       )}

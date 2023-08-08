@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import { useOutsideClick } from '@chakra-ui/react';
+import { FC, useRef, useState } from 'react';
 
 import { FormSelectPlate } from '@/components/ui/form/formSelect/FormSelectPlate';
 import { FormTitle } from '@/components/ui/form/FormTitle';
@@ -53,6 +54,12 @@ export const FormSelectDishCategory: FC<Props> = ({
     onClose();
   };
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  useOutsideClick({
+    ref: ref,
+    handler: onClose,
+  });
+
   return (
     <div className={style['form-select-dish-category-component']}>
       {!!title && <FormTitle title={title} isRequired={isRequired} />}
@@ -73,7 +80,7 @@ export const FormSelectDishCategory: FC<Props> = ({
           </button>
         </div>
         {isOpen && (
-          <div className={style['panel']}>
+          <div className={style['panel']} ref={ref}>
             <FormSelectPlate
               items={items}
               selectedItems={selectedItems}
