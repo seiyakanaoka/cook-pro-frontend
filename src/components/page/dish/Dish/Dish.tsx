@@ -8,9 +8,7 @@ import { useDishMaterials } from '@/hooks/api/dish/useDishMaterials';
 
 export const Dish: FC = () => {
   const { query } = useRouter();
-
   const dishId = query['dishId'] as string | undefined;
-
   const status = query['status'] as string | undefined;
 
   const { dishDetailResponse } = useDish(dishId ?? '');
