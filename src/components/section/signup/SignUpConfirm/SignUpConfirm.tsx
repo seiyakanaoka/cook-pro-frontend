@@ -1,8 +1,9 @@
-import { useRouter } from 'next/navigation';
-import { FC, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { FormResult } from '@/components/ui/form/FormResult';
+import { Loading } from '@/components/ui/Loading';
 import { LOGIN_STATUS } from '@/constants/aws/cognito';
 import { BUTTON_COLOR } from '@/constants/button';
 import { PAGE_URL } from '@/constants/route';
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const passwordMask = signUpFormValues.password.replace(/./g, '*');
 
   const isSignUpFormValuesEmpty =
@@ -43,22 +46,28 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
       signUpFormValues.password
     );
 
+    setIsLoading(false);
     switch (loginStatus.status) {
       case LOGIN_STATUS.SUCCESS: {
-        push(PAGE_URL.HOME);
+        await push(PAGE_URL.HOME);
         return;
       }
       case LOGIN_STATUS.CONFIRM: {
-        push(`${PAGE_URL.SIGN_UP}?status=code`);
+        await push(`${PAGE_URL.SIGN_UP}?status=code`);
         return;
       }
       case LOGIN_STATUS.FAILURE: {
         // TODO: 仮のエラーハンドリング
         alert('入力内容が不正です。');
-        push(PAGE_URL.SIGN_UP);
+        await push(PAGE_URL.SIGN_UP);
         return;
       }
     }
+  };
+
+  const handleClick = async () => {
+    setIsLoading(true);
+    await handleRegister();
   };
 
   // 入力が空になっていた場合、新規登録画面にリダイレクトする（入力が空になるケースは以下）
@@ -96,10 +105,11 @@ export const SignUpConfirm: FC<Props> = ({ signUpFormValues }: Props) => {
         <Button
           text="登録"
           color={BUTTON_COLOR.PRIMARY}
-          onClick={handleRegister}
+          onClick={handleClick}
         />
         <Button text="戻る" color={BUTTON_COLOR.SECONDARY} onClick={back} />
       </div>
+      {isLoading && <Loading isBlurred />}
     </div>
   );
 };
