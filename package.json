@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build:dev": "env-cmd -f .env.development next build && next export",
     "build:prod": "env-cmd -f .env.production next build && next export",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lintjs": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lintjs:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
