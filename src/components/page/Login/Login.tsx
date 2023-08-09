@@ -22,7 +22,7 @@ export const Login: FC<Props> = ({}: Props) => {
 
   const { addSnackbar } = useContext(SnackbarContext);
 
-  const { push } = useRouter();
+  const { push, back } = useRouter();
 
   const { login } = useCognito();
 
@@ -67,12 +67,19 @@ export const Login: FC<Props> = ({}: Props) => {
           onChange={(e) => onChange('password', e)}
         />
       </div>
-      <Button
-        text="ログイン"
-        color={BUTTON_COLOR.PRIMARY}
-        onClick={handleClick}
-        isDisabled={!fieldState.isValid}
-      />
+      <div className={style['actions']}>
+        <Button
+          text="ログイン"
+          color={BUTTON_COLOR.PRIMARY}
+          onClick={handleClick}
+          isDisabled={!fieldState.isValid}
+        />
+        <Button
+          text="キャンセル"
+          color={BUTTON_COLOR.SECONDARY}
+          onClick={back}
+        />
+      </div>
       {isLoading && <Loading isBlurred />}
     </div>
   );
