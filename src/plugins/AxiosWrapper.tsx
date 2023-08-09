@@ -27,6 +27,7 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
       async (config: InternalAxiosRequestConfig) => {
         setIsLoading(true);
         const idToken = await getIdToken();
+        if (!idToken) return config;
         config.headers.Authorization = `Bearer ${idToken}`;
         return config;
       }
