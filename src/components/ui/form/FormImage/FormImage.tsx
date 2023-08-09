@@ -3,38 +3,61 @@ import { ChangeEventHandler, FC } from 'react';
 
 import ClearIcon from '@/assets/icons/all-clear.svg';
 import CameraIcon from '@/assets/icons/camera.svg';
-import { IMAGE_TYPE, ImageType } from '@/constants/image';
+import {
+  IMAGE_FIELD_SHAPE,
+  ImageFieldShape,
+  MAX_IMAGE_FILE_SIZE,
+  MIME_TYPE,
+  MimeType,
+} from '@/constants/image';
 
 import style from './index.module.scss';
 
 type Props = {
   image: string | undefined;
-  type?: ImageType;
+  fieldShape?: ImageFieldShape;
+  mimeTypes?: MimeType[];
   onChange: (value: string) => void;
   onClear: () => void;
-  onFailure: () => void;
+  onFailure: (message: string) => void;
 };
 
 export const FormImage: FC<Props> = ({
   image,
-  type = IMAGE_TYPE.CIRCLE,
+  fieldShape = IMAGE_FIELD_SHAPE.CIRCLE,
+  mimeTypes = [MIME_TYPE.PNG],
   onChange,
   onClear,
   onFailure,
 }: Props) => {
   const hasNotImage = !image;
 
+  const acceptMimeTypes = mimeTypes.join(', ');
+
   const handleChangeUserImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     const blob = e.target.files?.[0];
     if (typeof blob === 'undefined') {
-      onFailure();
+      onFailure('アップロードできませんでした');
+      return;
+    }
+    // 5MB以上だった場合、アップロードさせない
+    if (blob.size >= MAX_IMAGE_FILE_SIZE) {
+      onFailure('サイズは5MBまでです');
       return;
     }
     const reader = new FileReader();
     reader.onload = (event) => {
       const result = event.target?.result;
       if (typeof result !== 'string') {
-        onFailure();
+        onFailure('アップロードできませんでした');
+        return;
+      }
+      const isAcceptMimeType = !!mimeTypes.find((mimeType) =>
+        result.includes(mimeType)
+      );
+      // 拡張子チェック
+      if (!isAcceptMimeType) {
+        onFailure('jpeg・png拡張子のみアップロード可能です');
         return;
       }
       onChange(result);
@@ -46,7 +69,7 @@ export const FormImage: FC<Props> = ({
     <div
       className={clsx(
         style['form-image-component'],
-        style[`-${type}`],
+        style[`-${fieldShape}`],
         hasNotImage && style['-not-selected']
       )}
     >
@@ -57,6 +80,7 @@ export const FormImage: FC<Props> = ({
           </span>
           <input
             type="file"
+            accept={acceptMimeTypes}
             className={style['field']}
             onChange={handleChangeUserImage}
           />

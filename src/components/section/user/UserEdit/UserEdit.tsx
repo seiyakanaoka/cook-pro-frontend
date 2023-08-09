@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { FormImage } from '@/components/ui/form/FormImage';
 import { FormText } from '@/components/ui/form/FormText';
 import { BUTTON_COLOR } from '@/constants/button';
+import { MIME_TYPE } from '@/constants/image';
 import { PAGE_URL } from '@/constants/route';
 import { SNACKBAR_STATUS } from '@/constants/snackbar';
 import { USER_FORM_VALUES } from '@/constants/validation/user';
@@ -129,8 +130,8 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
     onChange('userImage', '');
   };
 
-  const handleFailure = () => {
-    addSnackbar('画像をアップロードできませんでした', SNACKBAR_STATUS.ABNORMAL);
+  const handleFailure = (message: string) => {
+    addSnackbar(message, SNACKBAR_STATUS.ABNORMAL);
   };
 
   return (
@@ -139,6 +140,7 @@ export const UserEdit: FC<Props> = ({ userResponse }: Props) => {
         <div className={style['image']}>
           <FormImage
             image={fieldValue.userImage}
+            mimeTypes={[MIME_TYPE.PNG, MIME_TYPE.JPEG]}
             onChange={handleChangeUserImage}
             onClear={handleClearUserImage}
             onFailure={handleFailure}

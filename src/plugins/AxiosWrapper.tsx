@@ -1,21 +1,20 @@
 import { InternalAxiosRequestConfig } from 'axios';
-import { parseCookies } from 'nookies';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
 import { SWRConfig } from 'swr';
 
-import { ID_TOKEN_KEY } from '@/constants/cookie';
+import { Loading } from '@/components/ui/Loading';
 import { axiosClient } from '@/utils/axios';
+import { getIdToken } from '@/utils/cookie';
 
 type Props = {
   children: ReactNode;
 };
 
 export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
-  const { showBoundary } = useErrorBoundary();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const cookie = parseCookies();
-  const idToken = cookie[ID_TOKEN_KEY];
+  const { showBoundary } = useErrorBoundary();
 
   const sendError = async (error: any) => {
     showBoundary(error);
@@ -25,15 +24,21 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
 
   useEffect(() => {
     axiosClient.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        if (typeof config.headers === 'undefined' || !idToken) return config;
+      async (config: InternalAxiosRequestConfig) => {
+        setIsLoading(true);
+        const idToken = await getIdToken();
         config.headers.Authorization = `Bearer ${idToken}`;
         return config;
       }
     );
 
-    axiosClient.interceptors.response.use((response) => response, sendError);
+    axiosClient.interceptors.response.use((response) => {
+      setIsLoading(false);
+      return response;
+    }, sendError);
   });
+
+  console.log('isLoading: ', isLoading);
 
   return (
     <SWRConfig
@@ -41,6 +46,7 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
         onError: sendError,
       }}
     >
+      {isLoading && <Loading isBlurred />}
       {children}
     </SWRConfig>
   );

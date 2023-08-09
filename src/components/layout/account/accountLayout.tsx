@@ -1,9 +1,8 @@
 import { useRouter } from 'next/navigation';
-import { parseCookies } from 'nookies';
 import { ReactNode, useEffect } from 'react';
 
-import { ID_TOKEN_KEY } from '@/constants/cookie';
 import { PAGE_URL } from '@/constants/route';
+import { getIdToken } from '@/utils/cookie';
 
 type Props = {
   children: ReactNode;
@@ -12,19 +11,16 @@ type Props = {
 export const AccountLayout = ({ children }: Props) => {
   const { push } = useRouter();
 
-  const cookie = parseCookies();
-
-  const hasToken = !!cookie[ID_TOKEN_KEY];
-
   useEffect(() => {
-    if (hasToken) {
-      push(PAGE_URL.HOME);
-    }
-  }, [hasToken, push]);
+    const hasIdToken = async () => {
+      const idToken = await getIdToken();
 
-  // if (hasToken) {
-  //   return <Loading />;
-  // }
+      if (!!idToken) {
+        push(PAGE_URL.HOME);
+      }
+    };
+    hasIdToken();
+  }, [push]);
 
   return <>{children}</>;
 };

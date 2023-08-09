@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import AddIcon from '@/assets/icons/add.svg';
-import HeartIcon from '@/assets/icons/heart.svg';
+// import HeartIcon from '@/assets/icons/heart.svg';
 import HomeIcon from '@/assets/icons/home.svg';
 import HumanIcon from '@/assets/icons/human.svg';
 import { PAGE_URL } from '@/constants/route';
@@ -22,9 +22,9 @@ export const Footer: FC<Props> = ({}: Props) => {
       case 'home':
         push(PAGE_URL.HOME);
         return;
-      case 'favorite':
-        push(PAGE_URL.FAVORITE);
-        return;
+      // case 'favorite':
+      //   push(PAGE_URL.FAVORITE);
+      //   return;
       case 'user':
         push(PAGE_URL.USER);
         return;
@@ -54,7 +54,7 @@ export const Footer: FC<Props> = ({}: Props) => {
       >
         <AddIcon />
       </button>
-      <button
+      {/* <button
         onClick={() => handleNavigation('favorite')}
         className={clsx(
           style['icon'],
@@ -62,7 +62,7 @@ export const Footer: FC<Props> = ({}: Props) => {
         )}
       >
         <HeartIcon />
-      </button>
+      </button> */}
       <button
         onClick={() => handleNavigation('user')}
         className={clsx(
