@@ -1,1 +1,3 @@
-export const handlers = [];
+import { dishHandler } from './api/dish';
+
+export const handlers = [...dishHandler];
