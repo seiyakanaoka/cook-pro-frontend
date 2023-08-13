@@ -15,6 +15,15 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  if (process.env.NODE_ENV === 'development') {
+    // dynamic import でファイルを読み込んで MSW を有効にする
+    const MockServer = async () => {
+      const { worker } = await import('@/mock/browser');
+      worker.start();
+    };
+    MockServer();
+  }
+
   return (
     <SnackbarWrapper>
       <BaseErrorBoundary>
