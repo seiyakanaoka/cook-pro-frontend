@@ -1,16 +1,17 @@
 import { rest } from 'msw';
 
+import { API_URL } from '@/constants/api/api';
 import { DishesResponse } from '@/types/codegen/dish/DishesResponse';
 import { DishesSearchResponse } from '@/types/codegen/dish/DishesSearchResponse';
 import FoodImage from 'public/food-1.png';
 
-const apiURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const dishHandler = [
-  rest.get(`${apiURL}/dish`, (req, res, ctx) => {
+  rest.get(`${baseURL}${API_URL.DISH.DISHES}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(DISHES_RESPONSE));
   }),
-  rest.get(`${apiURL}/dish/search`, (req, res, ctx) => {
+  rest.get(`${baseURL}${API_URL.DISH.DISHES_SEARCH}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(DISHES_SEARCH_RESPONSE));
   }),
 ];
