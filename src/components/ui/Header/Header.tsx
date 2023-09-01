@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { ChangeEventHandler, FC } from 'react';
 
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
-import LogoutIcon from '@/assets/icons/logout.svg';
+// import LogoutIcon from '@/assets/icons/logout.svg';
 import { FormSuggest } from '@/components/ui/form/FormSuggest';
 import { PAGE_URL } from '@/constants/route';
-import { useCognito } from '@/hooks/aws/useCognito';
+// import { useCognito } from '@/hooks/aws/useCognito';
 import LogoImage from 'public/twitter_profile_image.png';
 
 import style from './index.module.scss';
@@ -24,7 +24,7 @@ export const Header: FC<Props> = ({
   onSearch,
   onClear,
 }: Props) => {
-  const { logout } = useCognito();
+  // const { logout } = useCognito();
 
   const { asPath, push } = useRouter();
 
@@ -36,10 +36,10 @@ export const Header: FC<Props> = ({
     push(PAGE_URL.HOME);
   };
 
-  const handleLogout = async () => {
-    await logout();
-    await push(PAGE_URL.BEFORE);
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   await push(PAGE_URL.BEFORE);
+  // };
 
   const isHome = asPath === PAGE_URL.HOME;
 
@@ -65,12 +65,12 @@ export const Header: FC<Props> = ({
             className={style['logo']}
           />
         </div>
-        <div
+        {/* <div
           className={clsx(style['icon'], style['-logout'])}
           onClick={handleLogout}
         >
           <LogoutIcon />
-        </div>
+        </div> */}
       </div>
       {isHome && (
         <FormSuggest

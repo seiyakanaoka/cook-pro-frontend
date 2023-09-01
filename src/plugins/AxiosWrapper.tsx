@@ -5,7 +5,7 @@ import { SWRConfig } from 'swr';
 
 import { Loading } from '@/components/ui/Loading';
 import { axiosClient } from '@/utils/axios';
-import { getIdToken } from '@/utils/cookie';
+// import { getIdToken } from '@/utils/cookie';
 
 type Props = {
   children: ReactNode;
@@ -26,9 +26,9 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
     axiosClient.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
         setIsLoading(true);
-        const idToken = await getIdToken();
-        if (!idToken) return config;
-        config.headers.Authorization = `Bearer ${idToken}`;
+        // const idToken = await getIdToken();
+        // if (!idToken) return config;
+        // config.headers.Authorization = `Bearer ${idToken}`;
         return config;
       }
     );
@@ -38,8 +38,6 @@ export const AxiosWrapper: FC<Props> = ({ children }: Props) => {
       return response;
     }, sendError);
   });
-
-  console.log('isLoading: ', isLoading);
 
   return (
     <SWRConfig
